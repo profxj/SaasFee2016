@@ -1,0 +1,545 @@
+\documentclass[12pt,letterpaper]{article}
+
+\font\bfit = cmbxti10 scaled \magstephalf
+
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{ulem}
+%\usepackage{psfig}
+\usepackage{fancyheadings}
+ 
+\pretolerance=10000
+\textwidth=6.7in
+\textheight=8.9in
+\topmargin=-0.6in
+\headheight=.15in
+\hoffset = -0.2in
+\headsep=.35in
+\oddsidemargin=0in
+\evensidemargin=0in
+\parindent=2em
+\parskip=0.2ex
+
+\input{defs}
+\input{latex}
+\pagestyle{fancyplain}
+
+\lhead[\fancyplain{}{Intro}]{\fancyplain{}{\thepage}}
+\rhead[\fancyplain{}{Intro-\thepage}]{\fancyplain{}{SaasFee16-DLAs}}
+\cfoot{}
+
+\newcommand{\mndi}{N_{\rm DI}}
+\newcommand{\ndi}{$N_{\rm DI}$}
+\newcommand{\helium}{${^4\rm He}$}
+\newcommand{\rmch}{\frac{\rm C}{\rm H}}
+\renewcommand{\labelitemii}{$\diamond$}
+\renewcommand{\labelitemiii}{$\blacktriangle$}
+\renewcommand{\labelitemiv}{$\circ$}
+\newcommand{\prfi}{\ltp \hat\eng \cdot \vec r \rtp_{fi}}
+
+%\newcommand{\dfhf}{^2\negm D_{\frac{5}{2}}}
+%\newcommand{\dtvr}{\dot{\vec r}}
+%\newcommand{\mtrx}{\bra{\phi_f} \rmikr \hat\eng \cdot \vec\nabla \ket{\phi_i}}
+%\newcommand{\prfi}{\ltp \hat\eng \cdot \vec r \rtp_{fi}}
+
+
+\special{papersize=8.5in,11in}
+
+\begin{document}
+
+\noindent {\bf{\large V. Damped \lya\ Systems [v2.0]}}
+
+\begin{Aenumerate}
+
+{\bf \item Overview}
+ \begin{itemize}
+ \item Extrema of HI absorption
+ \item Pioneered by Wolfe who was searching for HI in high-$z$ galaxies
+  \begin{itemize}
+  \item Began by searching for 21cm absorption
+  \item Gave up and pursued \lya\ instead
+  \end{itemize}
+ \item Obvious link between DLAs and galaxies (and vice versa)
+  \begin{itemize}
+  \item High HI surface density
+  \item Dominate the Universe's neutral gas
+  \end{itemize}
+ \item But empirical links to galaxies have been challenging..
+ \end{itemize}
+
+  \includegraphics[width=5.0in]{Paper_figs/boomsma08_fig1.pdf}
+
+{\bf \item Damped \lya\ (DLA) System Defined}
+	\begin{itemize}
+
+  	\item Simply: $\mnhi \ge 2 \sci{20} \cm{-2}$
+      \begin{itemize}
+      \item Motivated by HI surface density of local galaxies 
+      \item But otherwise an arbitrary choice
+      \item Varying \nhi\ (idealized DLA)
+
+  \includegraphics[width=5.0in]{Figures/dla_vary_NHI.pdf}
+
+%      \item Varying \nhi\ (real DLA)
+%
+%  \includegraphics[width=5.0in]{Figures/dla_vary_NHI.pdf}
+
+      \end{itemize}
+
+    \item Damping wings
+      \begin{itemize}
+      \item Doppler broadening is lost within the core (see HI\_Lyman\_Series Notebook)
+      \item Profile is a 2-parameter fit: $z, \mnhi$
+        \begin{itemize}
+        \item In principle, constrained by hundreds (and more) pixels
+        \item Dominant uncertainty is systematic: continuum
+        \end{itemize}
+      \item See {\bf Notebook} for an example DLA fit
+      \end{itemize}
+
+    \item Deviations from the Lorentzian
+      \begin{itemize}
+        \item The `wings' of the \lya\ cross-section are only approximated
+        by the Voigt profile (i.e. Lorentzian)
+        \item Lee et al.\ (2003) discusses the lowest order perturbations
+        from second-order, time-dependent perturbation theory
+        \item Only (potentially) measurable at very high \nhi
+      \end{itemize}
+
+  \includegraphics[width=5.0in]{Figures/dla_deviation.pdf}
+
+  \end{itemize}
+
+{\bf \item DLA Surveys}
+  \begin{itemize}
+  \item Launched in 1986 by Wolfe et al.\
+    \begin{itemize}
+    \item Low-dispersion ($R \approx 2000$), low S/N spectra
+    \item Sufficient for resolving DLA absorption
+    \end{itemize}
+  \item Standard approach
+    \begin{itemize}
+    \item Randomly survey IGM sightlines for damped \lya\ profiles
+    \item Only modest spectral resolution required (observed $W_\lambda > 10$\AA)
+    \end{itemize}
+  \item Sensitivity function
+    \begin{itemize}
+    \item Similar to surveys for Optically thick gas
+    \item Except one DLA does not preclude the detection of another
+    \item Modern surveys have leveraged the power of wide-field spectroscopic
+    surveys (SDSS, BOSS)
+      \begin{itemize}
+      \item These are limited in redshift coverage, however
+      \item Primarily $z=2 - 3.5$  (Prochaska et al.\ 2005, 2009; Noterdaeme et al.\ 2012)
+
+  \includegraphics[width=5.0in]{Paper_figs/phw05_fig1.pdf}
+
+  \includegraphics[width=5.0in]{Paper_figs/noterdaeme12_fig1.pdf}
+
+      \item Dedicated surveys to control for systematics (S\'anchnez-Ram\'irez et al.\ 2016)
+
+  \includegraphics[width=5.0in]{Paper_figs/ruben16_fig5.pdf}
+
+      \item Dedicated surveys to extend to the limits of UV/Optical spectra
+      \item Work at low-$z$ is doubly painful (Neeleman et al.\ 2016)
+        \begin{itemize}
+        \item Require UV space telescope
+        \item Incidence of DLAs is considerably smaller
+        \end{itemize}
+
+  \includegraphics[width=5.0in]{Paper_figs/neeleman16_fig1.pdf}
+
+      \end{itemize}
+
+  \item Analysis
+      \begin{itemize}
+      \item Fit DLA profiles (by-hand or by computer)
+      \item Measure \nhi, $z$
+      \item Analyze \fnhi\ (next section)
+      \end{itemize}
+
+  \item Biases
+    \begin{itemize}
+    \item Dust in HI gas may obscure background sources (miss DLAs; e.g.\ Valdilo \& Peroux 2005)
+      \begin{itemize}
+      \item Solar metallicity gas with Milky Way dust and $\mnhi = 10^{21} \cm{-2}$ gives $A_V \approx 1$
+      \end{itemize}
+
+  \includegraphics[width=3.0in]{Paper_figs/vladilo05_fig1.pdf}
+
+    \item Mass of DLA host galaxies may lens background quasars (bias toward DLAs;
+    M\'enard \& Peroux 2003)
+    \item DLA absorption reduces the spectral S/N, biasing search path
+    (Prochaska et al.\ 2005; Noterdaeme et al.\ 2008)
+    \end{itemize}
+
+    \end{itemize}
+
+
+  \end{itemize}
+
+{\bf \item \fnhi\ of the DLAs}
+  \begin{itemize}
+  \item Binned evaluation
+    \begin{itemize}
+    \item Familiar estimator
+    \begin{equation}
+    f(\mnhi,X) = \frac{\rm Number \; of \; systems \; in \; \Delta X, \Delta N
+    \, interval}{\Delta N \, \Delta X}
+    \end{equation}
+    \item Early days (1990s)
+      \begin{itemize}
+      \item 4-m class telescopes
+      \item Limited number of known bright quasars
+      \item One source at at time..
+      \item Sample of several tens of DLAs
+      \end{itemize}
+
+  \includegraphics[width=3.0in]{Paper_figs/sl96_fig5.pdf}
+
+      \begin{itemize}
+      \item Limited statistical significance
+      \item Data well represented by a single power-law that diverged!
+      \end{itemize}
+    \item SDSS
+      \begin{itemize}
+      \item With over 100 DLAs in the sample, a steep decline
+      in \fnhi\ at high \nhi\ became obvious
+      \item Break in \fnhi\ at $\approx 10^{21.7} \cm{-2}$
+
+  \includegraphics[width=3.0in,angle=90]{Paper_figs/phw05_fig6.pdf}
+
+      \end{itemize}
+    \end{itemize}
+
+  \item Models
+    \begin{itemize}
+    \item A population of randomly inclined exponential disks
+    yields a broken power-law (Fall \& Pei 1993; Wolfe et al.\ 1995)
+      \begin{itemize}
+      \item Assume a face-on column density distribution with radius $r$
+      \begin{equation}
+      N_\perp (r) = N_{\perp,0} \, \exp(-r/r_d)
+      \end{equation}
+        \begin{itemize}
+        \item $N_{\perp,0}$ is the central column density
+        \item $r_d$ is a scale-length
+        \end{itemize}
+      \item For random, face-on disks (no inclination) the probability
+      of intersection at $r$ is proportional to $r$ giving
+      \begin{equation}
+      f(N_\perp,X) = \frac{2 \pi c r_d^2 n_c}{H_0} \ltk \frac{\ln (N_{\perp,0}/N_\perp)}{N_\perp} \rtk
+      \end{equation}
+        \begin{itemize}
+        \item $n_c$ is the assumed comoving number density of DLAs
+        \end{itemize}
+      \item Lastly, allow for random inclination
+      \begin{equation}
+      f(N,X) = \intl_0^{min(N,N_{\perp,0})} dN_\perp \, \ltk \frac{N_\perp^2 f(N_\perp)}{N^3} \rtk
+      \end{equation}
+      \item Evaluating 
+      \begin{equation}
+      f(N,X) = 
+        \begin{cases}
+        \frac{1}{N} \ltk 1 - 2 \, \ln \ltp \frac{N}{N_{\perp,0}} \rtp \rtk & N \le N_{\perp, 0} \\
+        \frac{N_{\perp,0}^2}{N^3} & N \ge N_{\perp,0}
+        \end{cases}
+      \end{equation}
+        \begin{itemize}
+        \item The first term scales as $N^{-2}$ for $N \ll N_{\perp,0}$
+        \item i.e., we expect a broken power-law!
+        \end{itemize}
+
+      \end{itemize}
+    \item Empirically, one also considers a single power-law
+    and $\Gamma$ functions
+    \end{itemize}
+
+  \item Maximum Likelihood Analysis
+  \item Results
+    \begin{itemize}
+    \item Prochaska \& Wolfe 2009, Fig 1
+
+  \includegraphics[width=4.0in]{Paper_figs/pw09_fig1.pdf}
+
+      \begin{itemize}
+      \item Well described with a broken power-law 
+      \item With a steep decline (too steep)
+      \end{itemize}
+    \item Noterdaeme et al.\ 2012 (BOSS)
+
+  \includegraphics[width=4.0in]{Paper_figs/noterdaeme12_fig2.pdf}
+
+      \begin{itemize}
+      \item Approximately $\mnhi^{-3}$ decline at the highest column densities
+      \item Discovery of DLAs towards quasars with $\mnhi > 10^{22} \cm{-2}$
+      \end{itemize}
+
+
+    \end{itemize}
+
+  \item Redshift evolution
+    \begin{itemize}
+    \item Weak evolution in the shape, if any (see PW09 figure above)
+    \item This includes $z=0$, i.e.\ 21\,cm observations 
+    (e.g.\ Zwaan et al. 2005; but see Braun 2012)
+    \item Suggests a nearly non-evolving population of HI gas from $z=2$ to 0
+    \end{itemize}
+
+  \end{itemize}
+
+{\bf \item $\ell(X)$}
+  \begin{itemize}
+  \item Incidence of DLA absorption
+  \item Recall
+  \begin{equation}
+  \ell(X) = \frac{c}{H_0} n_c A_p
+  \end{equation}
+    \begin{itemize}
+    \item $n_c$ is the co-moving number density of the systems
+    \item $A_p$ is the physical cross-section (size)
+    \end{itemize}
+  \item Measurements of $\ell(X)$ constrain the evolution of 
+  HI gas within (and around) galaxies across cosmic time
+  \item Results (Prochaska \& Wolfe 2009, Fig 2)
+
+  \includegraphics[width=4.0in]{Paper_figs/pw09_fig2.pdf}
+
+    \begin{itemize}
+    \item Sharp evolution from $z=2-4$
+    \item Requires a $2\times$ decline in $n_c A_p$ in this
+    $\approx 2$\,Gyr window
+    \item Recall (discussed for LLS), $n_c$ is expected to
+    {\it increase} with decreasing $z$
+    \item Explanations?
+      \begin{itemize}
+      \item Photoionization of the gas? (decrease $n_c, A_p$)
+      \item Galaxy feedback? (decrease $n_c, A_p$)
+      \item Mergers (to decrease $n_c$)
+      \end{itemize}
+    \item Challenge for numerical simulations of galaxy formation
+    (e.g.\ Bird et al.\ 2014, Figure 7)
+
+\includegraphics[width=4.5in]{Paper_figs/bird14_fig7.pdf}
+
+    \item $z=2$ evaluation of $\ell(X)$ matches the incidence at $z=0$
+     \item Both the shape and normalization of \fnhi\ are nearly constant
+      \begin{itemize}
+      \item Is the HI gas in galaxies roughly invariant across
+      10\,Gyr?!  
+      \item Swimming Pool model of Galaxy formation (now Bathtub)
+
+\includegraphics[width=4.5in]{Figures/swimming_pool.pdf}
+
+      \end{itemize}
+    \end{itemize}
+
+  \end{itemize}
+
+{\bf \item DLAs as Neutral Gas}
+  \begin{itemize}
+  \item Theoretical
+    \begin{itemize}
+    \item Consider photoionization of DLA gas by EUVB or
+    local sources
+    \item $\tau_{\rm LL}$ for DLA is over 1,000!
+    \item Would require a tremendous radiation field to 
+    ionize the gas appreciably (or a surprisingly diffuse gas 
+    $n_{\rm H} \ll 1 \cm{-3}$)
+    \item Simple calculation
+      \begin{itemize}
+      \item Bathe a slab of constant density gas in a radiation
+      field 
+      \item Insist $\mnhi \ge 2\sci{20} \cm{-2}$
+      \item Calculate (Prochaska et al.\ 1996; Figure~15)
+
+\includegraphics[width=4.5in]{Paper_figs/prochaska96_fig15.pdf}
+
+      \end{itemize}
+    \end{itemize}
+
+  \item Empirical
+    \begin{itemize}
+    \item Examine multiple ionization states of metals associated
+    to the HI gas
+    \item Neutral gas should be dominated by low-ion states
+      \begin{itemize}
+      \item Those whose ionization potential lies just above 1\,Ryd
+      \item e.g., Si$^+$, C$^+$, O$^0$
+      \end{itemize}
+    \item Observations (Prochaska et al.\ 2015, Fig 9)
+
+\includegraphics[width=4.5in]{Figures/fig_ionization.pdf}
+      \begin{itemize}
+      \item By $\mnhi = 10^{20} \cm{-2}$, the gas is dominated by
+      low-ions
+      \item Empirical demonstration that the Hydrogen gas is
+      predominantly neutral
+      \end{itemize}
+
+  \item DLAs, therefore, dominate the neutral gas in our Universe
+
+    \end{itemize}
+
+  \end{itemize}
+
+{\bf \item Cosmological HI Mass Density}
+  \begin{itemize}
+  \item Define: $\rho_{\rm HI}$ to be the mass density of
+  HI atoms per comoving Mpc$^3$
+    \begin{itemize}
+    \item Historically, often written as $\Omega_{\rm HI} = \rho_{\rm HI}/\rho_c$
+    \item A bit more intuitive to consider $\rho_{\rm HI}$, e.g. to
+    compare against the mass in stars
+    \end{itemize}
+  \item Evaluate from \fnhi
+
+    \begin{equation}
+    \rho_{\rm HI} = \frac{m_p H_0}{c} \intl_{N_{\rm min}}^\infty
+    \mnhi \, f(\mnhi, X) \, dX \, d\mnhi
+    \end{equation}
+
+    \begin{itemize}
+    \item $N_{\rm min}$ is generally taken to be the DLA threshold 
+    $(2 \sci{20} \cm{-2})$ 
+    \item HI mass density from neutral gas
+    \item HI mass density from (putative) galaxies
+    \item Can also make a (30\%) correction for He
+    \end{itemize}
+
+  \item Differential contribution of $\rho_{\rm HI}$ per $\log \mnhi$
+
+\includegraphics[width=4.5in]{Figures/drho_dNHI.pdf}
+
+    \begin{itemize}
+    \item $\rho_{\rm HI}$ is dominated by DLA gas
+    \end{itemize}
+
+  \item Important: This calculation made {\it no} reference to the
+  origin, nature, size, etc.\ of the DLA systems
+    \begin{itemize}
+    \item $\rho_{\rm HI}$ is entirely independent of such considerations
+    \item Although these questions are of great interest to the community..
+    \end{itemize}
+
+  \item Evaluations (across redshift)
+    \begin{itemize}
+    \item PW09 again (Figure above)
+    \item Crighton et al.\ 2015 (extending to $z \approx 5$)
+
+\includegraphics[width=4.5in]{Paper_figs/crighton15_fig12.pdf}
+
+      \begin{itemize}
+      \item Extends measurements to $z \approx 5$
+      \item Modest increase (if any) in $\rho_{\rm HI}$
+      \end{itemize}
+
+    \item Neeleman et al.\ 2016, Figure~6
+
+\includegraphics[width=4.5in]{Paper_figs/neeleman16_fig6.pdf}
+      \begin{itemize}
+      \item Survey $z<1$ universe
+      \item Limited statistics, even with the entire {\it HST} archive
+      \item Ironically, it is easier to measure $\rho_{\rm HI}$ in the
+      $z>2$ universe than today
+      \item 21\,cm measurements will be required to achieve reasonable
+      precision
+      \end{itemize}
+
+    \end{itemize}
+
+  \end{itemize}
+
+  \clearpage
+{\bf \item Associating DLA Gas to Galaxies}
+  \begin{itemize}
+  \item Connecting this HI gas to galaxies
+  \item Implied/expected physical association
+    \begin{itemize}
+
+    \item Heavy Element Enrichment (Rafelski et al.\ 2015)
+
+\includegraphics[width=4.5in]{Figures/dla_metallicity.pdf}
+
+      \begin{itemize}
+      \item All DLAs exhibit heavy element enrichment
+      \item Implies previous/current star-formation activity
+      \item Wide dispersion in metallicity suggests wide
+      dispersion in mass/luminosity
+      \end{itemize}
+
+    \item Fundamental Plane of DLAs (Neeleman et al.\ 2013)
+
+\includegraphics[width=4.5in]{Figures/fund.pdf}
+
+      \begin{itemize}
+      \item Third parameter is velocity width (kinematics)
+      \item Follows from mass-metallicity relation of galaxies
+      \end{itemize}
+
+    \item Modern Universe
+      \begin{itemize}
+      \item Essentially all HI gas detected with 21\,cm with 
+      $\mnhi > 10^{20} \cm{-2}$ has been associated to a galaxy
+      \item Few exceptions (e.g.\ dark galaxies in Virgo)
+      \end{itemize}
+
+    \item Theoretical prediction (simulations)
+      \begin{itemize}
+      \item Only regions of the universe with sufficient density
+      are within dark matter halos
+        \begin{itemize}
+        \item These are, however, difficult calculations
+        \item And few have treated the radiative transfer properly
+        \end{itemize}
+      \item Fumagalli et al.\ 2011; Bird et al.\ 2013
+      \end{itemize}
+
+\includegraphics[width=4.5in]{Paper_figs/fumagalli11_fig3.pdf}
+
+\includegraphics[width=4.5in]{Paper_figs/bird13_fig1.pdf}
+
+    \end{itemize}
+  \item Observational efforts to identify counterparts (see Slides)
+  \end{itemize}
+
+{\bf \item GRB DLA}
+  \begin{itemize}
+  \item Long-duration GRBs
+    \begin{itemize}
+    \item Massive, exploding star
+    \item Trace central SF regions of distant galaxies
+    \item GRB afterglows are highly luminous, synchrotron sources
+    that emit at rest-frame UV wavelengths
+    \end{itemize}
+  \item Example spectrum (Prochaska et al.\ 2009; Fig )
+
+\includegraphics[width=4.5in]{Paper_figs/prochaska09_fig1.pdf}
+
+    \begin{itemize}
+    \item $\mnhi = 10^{22.7} \cm{-2}$
+    \item Large \nhi\ are characteristic of GRB afterglow spectra
+    \end{itemize}
+
+  \item \nhi\ distribution from GRB afterglows (Jakobsson et al.\ 2006, Figure 3)
+
+\includegraphics[width=4.5in]{Paper_figs/jakobsson06_fig3.pdf}
+
+  \item GRB Observations
+    \begin{itemize}
+    \item Highly complementary to surveys with QSOs
+    \item GRBs probe the central ISM of SF galaxies
+      \begin{itemize}
+      \item This gas has small cross-section
+      \item Rarely probed by random quasar sightlines
+      \end{itemize}
+    \item GRBs bright enough to probe regions with $A_V \gtrsim 1$
+    \end{itemize}
+
+  \end{itemize}
+
+\end{Aenumerate}
+
+\end{document}

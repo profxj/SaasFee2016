@@ -1,0 +1,415 @@
+\documentclass[12pt,letterpaper]{article}
+
+\font\bfit = cmbxti10 scaled \magstephalf
+
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{ulem}
+%\usepackage{psfig}
+\usepackage{fancyheadings}
+ 
+\pretolerance=10000
+\textwidth=6.7in
+\textheight=8.9in
+\topmargin=-0.6in
+\headheight=.15in
+\hoffset = -0.2in
+\headsep=.35in
+\oddsidemargin=0in
+\evensidemargin=0in
+\parindent=2em
+\parskip=0.2ex
+
+\input{defs}
+\input{latex}
+\pagestyle{fancyplain}
+
+\lhead[\fancyplain{}{Intro}]{\fancyplain{}{\thepage}}
+\rhead[\fancyplain{}{Intro-\thepage}]{\fancyplain{}{SaasFee16-Spectral Analysis}}
+\cfoot{}
+
+\newcommand{\mndi}{N_{\rm DI}}
+\newcommand{\ndi}{$N_{\rm DI}$}
+\newcommand{\helium}{${^4\rm He}$}
+\newcommand{\rmch}{\frac{\rm C}{\rm H}}
+\renewcommand{\labelitemii}{$\diamond$}
+\renewcommand{\labelitemiii}{$\blacktriangle$}
+\renewcommand{\labelitemiv}{$\circ$}
+
+%\newcommand{\dfhf}{^2\negm D_{\frac{5}{2}}}
+%\newcommand{\dtvr}{\dot{\vec r}}
+%\newcommand{\mtrx}{\bra{\phi_f} \rmikr \hat\eng \cdot \vec\nabla \ket{\phi_i}}
+%\newcommand{\prfi}{\ltp \hat\eng \cdot \vec r \rtp_{fi}}
+
+
+\special{papersize=8.5in,11in}
+
+\begin{document}
+
+\noindent {\bf{\large II. Spectral Analysis [A Few Basics] (v2.0)}}
+
+\begin{Aenumerate}
+
+{\bf \item Goals}
+ \begin{itemize}
+ \item Provide a few useful definitions on spectroscopy
+ \item Introduce a few critical aspects of the spectral analysis
+ for absorption
+ \end{itemize}
+
+{\bf \item Spectral Characteristics}
+ \begin{itemize}
+  \item Line Spread Function (LSF)
+  	\begin{itemize}
+  	\item Definition: Functional form a monochromatic source exhibits 
+  	on the detector of a spectrometer
+  	\item Diffraction of light (e.g.\ slit + dispersing element)
+  	transforms the input PSF (typically a Moffat) into a specific 
+  	profile in wavelength
+  	\item LSF depends on type of spectrometer (e.g. Robertson 2013):
+
+\begin{table}[ht]
+\begin{center}
+\caption{{\sc LSFs}}
+\label{tab:F}
+\vskip 0.05in
+\begin{tabular}{ccc}
+\hline
+Type of Spectrograph & LSF & R \\
+\hline
+Diffraction-limited slit & sinc$^2$     & $mN$ \\
+Single-mode fiber        & Gaussian     & FWHM \\
+Multi-mode fiber         & Half ellipse & ??\\ 
+Fabry-Perot etalon       & Lorentzian   & $mF$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+  	\item Comparing two standard LSFs:
+
+	\includegraphics[scale=0.60]{Figures/lsf.pdf}
+
+  	\item System imperfections + Central Limit Theorem pushes the LSF 
+  	towards a Gaussian
+  		\begin{itemize}
+  		\item For this school, we will assume a Gaussian LSF
+  		\item But caution that careful analysis must measure the LSF
+  		(e.g.\ atmospheric absorption lines)
+  		\end{itemize}
+
+  	\end{itemize}
+  \item Resolution: $R$ 
+  	\begin{itemize}
+  	\item Definition: Characterization of the width of the LSF
+  	\item Dependent on the LSF (see Table; Robertson 2013)
+  		\begin{itemize}
+  		\item For our discussion, use FWHM of the LSF
+  		\item In km/s (or \AA\ if you insist)
+  		\end{itemize}
+	\item Dependent on slit (or fiber) width
+	\item Dependent on dispersing element (grating)
+  	\item $R$ is {\it not} dependent on the characteristics of the detector
+
+	\begin{equation}
+	R = \frac{\lambda}{\Delta\lambda_{\rm FWHM}}
+	\end{equation}
+  	\item $R$ values 
+  		\begin{itemize}
+  		\item SDSS: $R \approx 2000$
+  		\item Echelle (HIRES, UVES): $R > 30000$
+  		\item Echellette (ESI, X-Shooter): $R \approx 8000$
+  		\end{itemize}
+	\item Can express in terms of velocity:  $c/R$
+		\begin{itemize}
+		\item e.g. an echelle spectrograph has a ``resolution'' of $\approx 10$km/s
+		\end{itemize}
+	\item Old-timers often refer to the FWHM in \AA, e.g. $2$\AA
+  	\end{itemize}
+  \item Dispersion: $\delta\lambda$
+  	\begin{itemize}
+  	\item Definition: Spectral width of one pixel (native or binned)
+  	in the recorded spectral image
+  	\item Highly dependent on characteristics of the detector
+  		\begin{itemize}
+  		\item Size of native pixels (e.g.\ $15 \mu$m)
+  		\item Binning on the detector
+  		\end{itemize}
+  	\item Many astronomers refer to dispersion as the Resolution!
+  	\end{itemize}
+
+  \item Sampling
+  	\begin{itemize}
+  	\item Number of pixels per resolution element
+  	\item i.e.\  $\Delta\lambda_{\rm FWHM} / \delta\lambda$
+  	\item Need 2 or greater for the Nyquist limit
+  	\end{itemize}
+
+  \item Signal-to-Noise (S/N)
+  	\begin{itemize}
+  	\item Ratio of the observed flux to its uncertainty
+  	\item May be specified per pixel or resolution element
+  	\end{itemize}
+  \item Examples of varying spectral characteristics (3 spectra of FJ0812+32)
+
+	\includegraphics[scale=0.80]{Figures/fj0812.pdf}
+
+ \end{itemize}
+
+{\bf \item Continuum Normalization}
+ \begin{itemize}
+ \item Studies of HI absorption require a background, light source
+ \item With emission at FUV wavelengths (and bluer!)
+
+	\includegraphics[scale=0.70]{Figures/qso_fuv.pdf}
+
+	\includegraphics[scale=0.70]{Figures/qso_absorbed.pdf}
+
+ 	\begin{itemize}
+ 	\item Quasar
+ 	\item GRB
+ 	\item SF galaxy
+ 	\end{itemize}
+ \item Quasar SEDs
+ 	\begin{itemize}
+ 	\item Significant source to source diversity
+ 		\begin{itemize}
+ 		\item e.g. BALs
+	 	\item Varying spectral slope (intrinsic, dust)
+ 		\end{itemize}
+ 	\item And no precise physical model
+ 		\begin{itemize}
+ 		\item Synchrotron emission
+ 		\item Optically thick emission lines (in a wind)
+ 		\item Hot accretion disk with UV emission
+ 		\end{itemize}
+
+	\includegraphics[scale=0.70]{Figures/qso_sed.pdf}
+
+ 	\item Emission is poorly constrained at $\lambda_{\rm rest} < 900$\AA
+ 	(e.g.\ Lusso et al.\ 2015)
+ 		\begin{itemize}
+ 		\item Limited physical intuition
+ 		\item IGM masks the SED
+ 		\end{itemize}
+ 	\end{itemize}
+
+ \item Quasar composite template
+ 	\begin{itemize}
+ 	\item Composite SED 
+ 		\begin{itemize}
+ 		\item HST: Telfer et al.\ 2001
+ 		\item SDSS: Van den Berk et al.\ 2001; Richards et al.\ 2006
+ 		\end{itemize}
+
+	\includegraphics[scale=0.70]{Figures/qso_template.pdf}
+
+ 	\item Remarkable uniformity with redshift (Becker+13; Figure 2)
+ 		\begin{itemize}
+ 		\item Small differences in emission lines
+ 		\item Otherwise nearly identical in the FUV
+ 		\end{itemize}
+
+	\includegraphics[width=6.0in]{Paper_figs/becker13_fig2.pdf}
+
+ 	\end{itemize}
+
+ \item Continuum fitting (Historical)
+ 	\begin{itemize}
+ 	\item Fit to unabsorbed regions (high-order Legendre polynomial)
+ 	\item By-eye estimate in the \lya\ Forest (spline)
+ 		\begin{itemize}
+ 		\item At $z>3$, IGM absorbs at nearly every pixel!
+ 		\item Guess-work at its finest
+ 		\end{itemize}
+ 	\item 5\% error redward of \lya; at least 10\% within the Forest
+ 		\begin{itemize}
+ 		\item Error on absorption-line analysis is less for $\tau_0 \sim 1$ lines
+ 		\item But dominant for $\tau_0 \ll 1$
+ 		\end{itemize}
+ 	\item See Notebook for a fitting example
+ 	\end{itemize}
+
+ \item Principal Component Analysis
+ 	\begin{itemize}
+ 	\item QSO emission varies in several, systematic manners
+ 	  \begin{itemize}
+ 	  \item Spectral tilt (blue/red)
+ 	  \item Emission line strength and width
+ 	  \end{itemize}
+ 	\item Describe with several eigenvectors (Principal Components)
+	\item Suzuki 2006
+		\begin{itemize}
+		\item Formalism
+ 	    \begin{equation}
+ 	    \ket{q_i} = \ket{\mu} + \smm_{j=1}^{m} c_{ij} \ket{\xi_j}
+ 	    \end{equation}
+ 	    	\begin{itemize}
+	 	    \item $\ket{q_i}$ is any quasar spectrum
+	 	    \item $\ket{\mu}$ is the mean spectrum
+	 	    \item $\ket{\xi_j}$ are the Principal Components
+	 	    \end{itemize}
+
+	\includegraphics[width=6.0in]{Paper_figs/suzuki06_fig2.pdf}
+
+	 	\item First 3 components span $>80\%$ of the variance
+	 	\item Derive $\ket{\mu}$ and $\ket{\xi_j}$ from 
+	 	$z < 1$ quasars where IGM absorption is minimal
+	 		\begin{itemize}
+		 	\item Apply to quasars at higher redshift
+		 	\item i.e.\ estimate the continuum in the \lya\ forest 
+	 		\end{itemize}
+		\end{itemize}
+
+	\item Modern analysis: Paris et al.\ 2011; Figure 3
+
+	\includegraphics[width=6.0in]{Paper_figs/paris11_fig3.pdf}
+
+	  \begin{itemize}
+	  \item Looks reasonable
+	  \item But the flux is likely never unabsorbed in the
+	  $z \sim 2.5$ \lya\ forest
+	  \end{itemize}
+
+	\item Mean Flux Regulation (Lee, Suzuki, \& Spergel 2011) 
+	  \begin{itemize}
+	  \item Cosmological analysis of the \lya\ Forest may often ignore the
+	  mean absorption
+	  \item Approach:  Perform PCA analysis and renormalize in the \lya\ Forest
+	  to yield the average flux
+
+	\includegraphics[width=6.0in]{Paper_figs/lee11_fig6.pdf}
+
+	  \end{itemize}
+
+ 	\end{itemize}
+ \end{itemize}
+
+{\bf \item Redshift}
+	\begin{itemize}
+	\item While we all understand the concept of redshift, its effects on 
+	absorption-line analysis are somewhat subtle
+	\item Redshift of the background source is easy enough
+
+	\begin{equation}
+	\lambda_{\rm obs}^{\rm source} = (1+z_{\rm source}) \, \lambda_{\rm rest}^{\rm source}
+	\end{equation}
+		\begin{itemize}
+		\item Generating the Ly$\alpha$ forest is a bit less obvious
+		\item See Figures/evolving\_forest.pdf 
+		\end{itemize}
+ 	\end{itemize}
+
+{\bf \item Equivalent Width Analysis}
+	\begin{itemize}
+	\item Boxcar integration
+		\begin{itemize}
+		\item Simple summation over the pixels covering the absorption line
+		\item Requires continuum normalized spectrum 
+		(express the normalized flux as $\bar f$)
+		\begin{equation}
+		W_\lambda = \smm_i (1- \bar f_i) \delta\lambda_i
+		\end{equation}
+		\item Uncertainty -- simple propagation of error (neglecting
+		continuum uncertainty)
+		\begin{equation}
+		\sigma^2(W_\lambda) = \smm_i \sigma^2(\bar f_i) (\delta\lambda_i)^2
+		\label{eqn:sigEW}
+		\end{equation}
+		\end{itemize}
+	\item Line-fitting
+		\begin{itemize}
+		\item Aside from damped \lya\ lines, the profile is well
+		approximated by a Gaussian  (upside-down)
+		\item Fit to $(1-\bar f)$:
+		\begin{equation}
+		g(\lambda) = A \exp[- (\lambda-\lambda_0)^2 / (2 \sigma_\lambda^2)]
+		\end{equation}
+		\item Equivalent-width is simply area under the curve
+		\begin{equation}
+		W_\lambda = A \sigma_\lambda \sqrt{2 \pi}
+		\end{equation}
+		\item Uncertainty should include co-variance between $A$ and $\sigma$
+		\begin{equation}
+		\sigma(W_\lambda) = W_\lambda \sqrt{\sigma^2(A)/A^2 +
+		\sigma^2(\sigma_\lambda)/\sigma_\lambda^2 + 2 \sigma(A)\sigma(\sigma_\lambda)/[A \sigma_\lambda]}
+		\end{equation}
+		\end{itemize}
+	\item See Notebook
+	\item Rest-frame
+		\begin{itemize}
+		\item Analysis is generally performed in the observed (measured) frame
+		\item Observed $W_\lambda$ depends on $\lambda$ and therefore redshift
+		\item Relating $W_\lambda$ to physical quantities ($N,b$) 
+		requires a shift to the rest-frame
+		\begin{equation}
+		W_\lambda^{\rm rest} = \frac{W_\lambda^{\rm obs}}{1+z}
+		\end{equation}
+		\end{itemize}
+	\item Limiting $W_\lambda$
+		\begin{itemize}
+		\item Ask: What is the limiting equivalent width one can measure from
+		data with given spectral characteristics?
+		\item Invert the situation
+		\item Return to our boxcar estimate of the uncertainty 
+		(Equation~\ref{eqn:sigEW})
+			\begin{itemize}
+			\item Assume constant dispersion $\delta\lambda$
+			\item Recognize that $\sigma(\bar f)$ is the inverse of
+			the S/N (per pixel) for normalized data
+			\item Let $M$ be the number of pixels covered by the line
+			\end{itemize}
+		\begin{equation}
+		\sigma(W_\lambda) = \frac{\sqrt{M} \delta\lambda}{S/N}
+		\end{equation}
+		\item Key: How many pixels do we integrate over?
+			\begin{itemize}
+			\item If the line is unresolved (or barely resolved), 
+			$M$ is simply the sampling
+			\item Otherwise, $M$ depends on the line-width, i.e. $b$-value
+			\end{itemize}
+		\item Of course, we generally are interested in a 3$\sigma$
+		or 5$\sigma$ limit for a proper detection
+		\begin{equation}
+		W_{\rm lim}  = 3 \, \sigma(W_\lambda)
+		\end{equation}
+		\item Example (Ly$\alpha$ in SDSS) -- See Notebook
+			\begin{itemize}
+			\item For $R=2,000$, S/N=10 per pixel, sampling=2 pixels
+			\item $W_{\rm lim}^{3\sigma} \approx 1$\AA
+			\item This falls on the saturated portion of the COG for \lya
+			\item Poor sensitivity to \nhi\ in such spectra (other than DLAs)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+{\bf \item Line Profile Analysis}
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item Derive physical parameters from spectral observation
+		\item i.e.\ $N$, $b$, $z$ 
+		\end{itemize}
+	\item Simple least-squares Voigt model  (see Notebook)
+	\item Sophisticated profile-fitting packages
+		\begin{itemize}
+		\item Full Lyman series modeling
+		\item $\chi^2$ minimization
+		\item VPFIT (R. Carswell):  {\tt http://www.ast.cam.ac.uk/$\sim$rfc/vpfit.html}
+			\begin{itemize}
+			\item Tried and true
+			\item FORTRAN based
+			\end{itemize}
+		\item ALIS (R. Cooke): {\tt https://github.com/rcooke-ast/ALIS}
+			\begin{itemize}
+			\item Python based
+			\item Will continue to develop
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\end{Aenumerate}
+
+\end{document}

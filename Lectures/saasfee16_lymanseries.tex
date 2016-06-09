@@ -1,0 +1,1282 @@
+\documentclass[12pt,letterpaper]{article}
+
+\font\bfit = cmbxti10 scaled \magstephalf
+
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{ulem}
+%\usepackage{psfig}
+\usepackage{fancyheadings}
+ 
+\pretolerance=10000
+\textwidth=6.7in
+\textheight=8.9in
+\topmargin=-0.6in
+\headheight=.15in
+\hoffset = -0.2in
+\headsep=.35in
+\oddsidemargin=0in
+\evensidemargin=0in
+\parindent=2em
+\parskip=0.2ex
+
+\input{defs}
+\input{latex}
+\pagestyle{fancyplain}
+
+\lhead[\fancyplain{}{Intro}]{\fancyplain{}{\thepage}}
+\rhead[\fancyplain{}{Intro-\thepage}]{\fancyplain{}{SaasFee16-HI Lyman Series}}
+\cfoot{}
+
+\newcommand{\mndi}{N_{\rm DI}}
+\newcommand{\ndi}{$N_{\rm DI}$}
+\newcommand{\helium}{${^4\rm He}$}
+\newcommand{\rmch}{\frac{\rm C}{\rm H}}
+\renewcommand{\labelitemii}{$\diamond$}
+\renewcommand{\labelitemiii}{$\blacktriangle$}
+\renewcommand{\labelitemiv}{$\circ$}
+
+%\newcommand{\dfhf}{^2\negm D_{\frac{5}{2}}}
+%\newcommand{\dtvr}{\dot{\vec r}}
+%\newcommand{\mtrx}{\bra{\phi_f} \rmikr \hat\eng \cdot \vec\nabla \ket{\phi_i}}
+%\newcommand{\prfi}{\ltp \hat\eng \cdot \vec r \rtp_{fi}}
+
+
+\special{papersize=8.5in,11in}
+
+\begin{document}
+
+\noindent {\bf{\large I. HI Lyman Series Absorption (v2.1)}}
+
+\begin{Aenumerate}
+
+{\bf \item Goals}
+ \begin{itemize}
+  \item Describe the physics of HI line absorption
+  \item Introduce the concepts of line profile
+  \item Illustrate the basics of absorption lines
+ \end{itemize}
+
+{\bf \item HI Energy Levels}
+
+ \begin{itemize}
+  \item Energies for a Hydrogenic ion ($n$ levels)
+
+  \begin{itemize} 
+    \item Solve from standard Hamiltonian ($H^{(0)}$)
+    for electrostatic potential
+
+\begin{equation}
+H^{(0)} = \frac{-\hbar \nabla^2}{2m} - \frac{Z e^2}{r}
+\end{equation}
+
+    \item Recover energies
+
+  \begin{equation}
+  E_n = -\ohf \mu c^2 \frac{(Z \alpha)^2}{n^2}
+  \end{equation}
+
+    \item QM states are described by $n$, $\ell$, $m$, $m_s$
+    or $\ket{n \ell m m_s}$
+	  \begin{itemize}
+	  \item These `classical' energies are degenerate in $\ell, m, m_s$
+	  \item Because our Hamiltonian is rotationally invariant
+	  \end{itemize}
+	 \end{itemize}
+  \item Definitions
+    \begin{itemize}
+    \item $\alpha$: Fine-structure constant
+	\begin{itemize}
+      \item $e^2/\hbar c$
+      \item $\approx 1/137$
+	\end{itemize}
+    \item $\mu$: Reduced mass
+    \begin{equation}
+    \mu = \frac{m_e (Z m_p)}{m_e + Z m_p}
+    \end{equation}
+	\begin{itemize}
+      \item $\mu \approx 0.999 m_e$ for H
+      \item Closer to $m_e$ for higher $Z$
+	\end{itemize}
+
+    \item Rest wavelength (from the ground state, $E_1$)
+    \begin{equation}
+    \lambda_{rest,n} = \frac{hc}{E_n - E_1}
+    \label{eqn:lrest}
+    \end{equation}
+
+    \item Evaluting for Hydrogen
+	\begin{itemize}
+	\item Ground State:  $E_1 = -13.6$~eV
+	\item 1st Excited State:  $E_2 = -3.4$~eV
+	\item More precisely, see Table~\ref{tab:energies}
+
+\begin{table}[ht]
+\begin{center}
+\caption{Lyman Series Lines \label{tab:energies}}
+\begin{tabular}{cccccc}
+\hline
+Transition & $n$ & $E_n - E_1$ & $\lambda_{rest}$ & $\lambda_{exp}$ \\
+& & (eV) & (\AA) & (\AA) \\
+\hline
+Ly$\alpha$&           2&       10.200000&       1215.6845& 1215.6701 \\
+Ly$\beta$&            3&       12.088889&       1025.7338& 1025.7223\\
+Ly$\gamma$&           4&       12.750000&       972.54759&  972.5368\\
+Ly$\delta$&           5&       13.056000&       949.75351&  949.7431\\
+Ly$\epsilon$&         6&       13.222223&       937.81375&  937.8035\\
+Ly6&                  7&       13.322449&       930.75844&  930.7483\\
+Ly7&                  8&       13.387500&       926.23580&  926.2257\\
+Ly8&                  9&       13.432099&       923.16041&  923.1504\\
+Ly9&                  10&       13.464000&       920.97310& 920.9631\\
+Ly10&                 11&       13.487604&       919.36139& 919.3514\\
+Ly11&                 12&       13.505556&       918.13933& 918.1294\\
+Ly12&                 13&       13.519527&       917.19053& 917.1806\\
+Ly13&                 14&       13.530613&       916.43908& 916.429\\
+Ly14&                 15&       13.539556&       915.83374& 915.824\\
+Ly15&                 16&       13.546875&       915.33891& 915.329\\
+Ly16&                 17&       13.552942&       914.92921& 914.919\\
+Ly17&                 18&       13.558025&       914.58616& 914.576\\
+Ly18&                 19&       13.562327&       914.29604& 914.286\\
+Ly19&                 20&       13.566000&       914.04849& 914.039\\
+Ly$\infty$&         $\infty$&   13.6&            912.6    & \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+	\item Difference between $\lambda_{rest}$ (Equation~\ref{eqn:lrest})
+	and $\lambda_{exp}$ is due \\ to perturbations to $H^{(0)}$
+	\end{itemize}
+  \end{itemize}
+
+	%\includegraphics[scale=0.60]{Figures/fig_lymanser.pdf}
+
+ \item Spin-Orbit Coupling
+
+	\begin{itemize}
+	\item Classical description (magnetic dipole interaction)
+
+		\begin{itemize}
+		\item e$^{-}$ rest frame $\to$ e$^{-}$ observes a magnetic field due
+		to the \\ current driven by the nucleus
+
+\begin{equation*}
+\vec B = - \frac{1}{c} \vec v \times \vec E = \frac{1}{m_e c r} \; \vec \ell \;
+\frac{d\phi}{dr}
+\end{equation*}
+
+		\item $\phi$ is the electrostatic potential
+		\item e$^{-}$ possesses a dipole $\mu_s$ due to its spin
+		\item Energy
+
+\begin{equation*}
+E = - \vec \mu_s \cdot \vec B  \quad\quad \text{with} \;\;\; 
+\vec \mu_s = -\frac{e g \vec s}{2 m_e c}
+\end{equation*}
+
+			\begin{itemize}
+			\item $g \approx 2$ for an electron
+			\item This energy is 2$\times$ the relativistic 
+			  (correct) value
+			\item This `classical' treatment fails to properly
+			account for the transformations between non-interial frames
+			\end{itemize}
+
+		\end{itemize}
+	\item Proper Hamiltonian for this perturbation
+
+\begin{equation}
+H_{SO} = \frac{1}{2 m_e^2 c^2} \; \vec s \cdot \vec \ell \; \frac{1}{r} \;
+\frac{d\phi}{dr}
+\end{equation}
+
+	\item Degenerate Perturbation theory
+
+		\begin{itemize}
+		\item Recall, our unperturbed states $\ket{n \ell m m_s}$ are highly degenerate
+		\item Brute force:  Find the linear combination of 
+		  $\ket{n \ell m m_s}$ which \\ diaganolize $H_{SO} \equiv V^{(1)}$
+		\item Energies are then trivial
+		\item Shortcut:  Identify an operator which commutes with 
+		$H^{(0)}$ and $H_{SO}$ and uniquely identifies the degenerate	
+		states  $\to \vec J \equiv \vec L + \vec S$
+		\end{itemize}
+
+\begin{equation*}
+\vec L \cdot \vec S = \ohf \ltp |\vec J|^2 - |\vec L|^2 - |\vec S|^2 \rtp
+\end{equation*}
+
+	\item Energies
+
+\begin{equation}
+E_{SO} = \, <H_{SO}> \, = \ohf C \ltk j(j+1) - \ell(\ell+1) - s(s+1) \rtk
+\end{equation}
+
+		\begin{itemize}
+		\item C is a constant 
+		\item For fixed $\vec L$ and $\vec S$ (i.e.\ splitting within a level), 
+		e.g.\ 2P
+
+\begin{equation*}
+\Delta E_{SO} = E_{J+1} - E_J = C (j+1)
+\end{equation*}
+
+		\end{itemize}
+
+	\item Example:  Hydrogenic ion
+
+		\begin{itemize}
+		\item $\phi = Z e^2/r \imp d \phi/dr = -Z e^2/r^2$
+
+\begin{equation*}
+H_{SO} = \frac{Z e^2}{2 m_e^2 c^2} \frac{1}{r^3} \vec L \cdot \vec S
+\end{equation*}
+
+		\item Perturbation theory
+
+\begin{align*}
+<H_{SO}> &= \bra{n j' m' \ell' s'} H_{SO} \ket{n j m \ell s} \\
+         &= \frac{Ze^2}{2 m^2 c^2} \big< \frac{1}{r^3} \big>_{n \ell \ell'}
+            \bra{n j' m' \ell' s'} \ohf (J^2 - L^2 - S^2) \ket{n j m \ell s} \\
+         &= \frac{Ze^2}{2 m^2 c^2} \frac{\hbar^2}{2} 
+	  \big< \frac{1}{r^3} \big>_{n \ell} \;
+	  \ltk j(j+1) - \ell(\ell+1) - s(s+1) \rtk
+	  \delta_{j'j} \delta_{m'm} \delta_{\ell' \ell} \delta_{s' s}
+\end{align*}
+
+		\item As expected, $<H_{SO}>$ is diagonal
+		\item For explicit calculation (with $a_0 = \hbar/m_e c \alpha$)
+
+\begin{equation}
+\Big< \frac{1}{r^3} \Big>_{n \ell} = \frac{Z^3}{a_0^3} 
+   \frac{1}{n^3 \ell (\ell + \ohf) (\ell + 1)} 
+\end{equation}
+
+\begin{equation}
+<H_{SO}> = -E_n \frac{Z^2 \alpha^2}{2n} \frac{[j(j+1) - \ell(\ell+1) - s(s+1)]}{
+	\ell(\ell+\ohf)(\ell+1)}
+\end{equation}
+			\begin{itemize}
+			\item Spin-orbit coupling is 4th order in $\alpha$ ($E_n \propto \alpha^2$)
+			\item Explicit dependence on $j,\ell$ and $s$
+			\end{itemize}
+
+		\item Hydrogen $n=2$ levels (Z=1; n=2; $\ell = 0,1; j= 1/2, 3/2$)
+
+\begin{equation*}
+<H_{SO}> = 
+  \begin{cases}
+	0 &  2 ^2{\rm S}_\ohf \quad\quad (\ell = 0; j=0) \\
+     \frac{mc^2 \alpha^4}{96} &  2 ^2{\rm P}_{3/2} \quad\quad (\ell=1; j=3/2) \\
+     \frac{-mc^2 \alpha^4}{48} &  2 ^2{\rm P}_{1/2} \quad\quad (\ell=1; j=1/2) \\
+  \end{cases}
+\end{equation*}
+
+		\item 2P$_{3/2}$ - 2P$_{1/2}$ splitting = $4.5 \sci{-5}$~eV 
+		  $\approx 1$~km/s
+
+		\end{itemize}
+
+	\item One can also invert the problem to examine $\alpha$ (with high Z ions)
+		\begin{itemize}
+		\item Measure $<H_{SO}>$ in the lab
+		\item Measure $<H_{SO}>$ at $z=2$
+		\item If there is a change, $\alpha$ is varying!
+		\end{itemize}
+
+	\end{itemize}
+
+  \item Relativistic Correction
+
+	\begin{itemize}
+	\item Non-relativistic:  K.E. = $p^2/2m$
+	\item Expanding to the next term in $v^2/c^2$ from the Lagrangian
+
+\begin{equation}
+\text{K.E.} = \frac{p^2}{2m} \ltp 1 - \frac{1}{4} \frac{v^2}{c^2} \rtp
+\end{equation}
+
+	\item Relativistic perturbation:  $H = H^{(0)} + H_{rel}$
+
+\begin{equation}
+H_{rel} = -\frac{1}{2mc^2} \ltp \frac{p^2}{2m} \rtp^2
+\end{equation}
+
+		\begin{itemize}
+		\item No spin dependence, spherically symmetric
+		\item $[H_{rel}, L^2] = [H_{rel}, L] = 0$
+		\item Standard $\ket{n \ell m m_s}$ diagonalize $H_{rel}$
+		\end{itemize}
+
+	\item Trick
+
+\begin{equation*}
+H_{rel} = -\frac{1}{2mc^2} \ltp H^{(0)} - V^{(0)} \rtp^2
+\end{equation*}
+
+	\begin{itemize}
+	\item with $V^{(0)} = -Z e^2/r$
+	\end{itemize}
+ 
+	\item Computing the energies
+
+\begin{align}
+<H_{rel}> &= -\frac{1}{2mc^2} \ltk (E_n^{(0)})^2 + 2 E_n^{(0)} Ze^2 
+   \Big<\frac{1}{r}\Big>_{n\ell} + Z^2 e^4 \Big<\frac{1}{r^2}\Big>_{n \ell} \rtk \\
+  &= \frac{-Z^4 \alpha^4 m c^2}{2 n^3} \ltp \frac{1}{\ell + \ohf} - \frac{3}{4n} \rtp \\
+  &= -E_n \frac{Z^2 \alpha^2}{n} \ltp \frac{3}{4n} - \frac{1}{\ell + \ohf} \rtp
+\end{align}
+
+
+	\item Combine with spin-orbit
+
+\begin{align}
+<H_{SO}> + <H_{rel}> \, &= \frac{-Z^4 \alpha^4 m c^2}{2 n^3}
+   \ltk \frac{1}{j+\ohf} - \frac{3}{4n} \rtk \\
+   &= E_n \frac{Z^2 \alpha^2}{n} \, \ltk \frac{1}{j+\ohf} - \frac{3}{4n} \rtk
+\end{align}
+
+		\begin{itemize}
+		\item No explicit $\ell$ dependence! Nor $s$ dependence
+		\item Higher $j \imp$ Higher energy (3rd Hund's rule)
+		\end{itemize}
+
+	\item Hydrogen: Energy shift from $E_n$ 
+
+\begin{equation*}
+\Delta E_{nj} = -7.25 \sci{-4} {\rm eV} \; \frac{1}{n^3} 
+   \ltk \frac{1}{j+\ohf} - \frac{3}{4n} \rtk
+\end{equation*}
+
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+State & $n$ & $j$ & $<H_{SO}> + <H_{rel}>$ \\
+\hline
+1\,$^2$S$_{\ohf}$ & 1 & $\ohf$ & $-1.8 \sci{-4}$~eV \\
+2\,$^2$S$_{\ohf}$, 2\,$^2$P$_\ohf$ & 2 & $\ohf$ & $-5.7 \sci{-5}$~eV \\
+2\,$^2$P$_\rhf$ & 2 & $\rhf$ & $-1.1 \sci{-5}$~eV \\
+\hline
+\end{tabular}
+\end{center}
+
+	\item Ly$\alpha$ (1S-2P) is a doublet with $\approx 1$km/s seperation
+		\begin{itemize}
+		\item Generally too small to resolve observationally
+		\item But can be important for radiative transfer 
+		\end{itemize}
+	\item Does this explain our difference between $\lambda_{theory}$
+		and $\lambda_{exp}$ from before?
+		\begin{itemize}
+		\item Wavelength shift 
+
+\begin{equation*}
+\frac{\delta \lambda}{\lambda} = -\frac{\delta (E_n-E_1)}{E_n-E_1}
+= - \frac{\delta E}{E}
+\end{equation*}
+
+		\item Calculating $\delta E$ from the above table and accounting
+		for the relative degeneracy of the 2\,$^2$P$_\ohf$, 2\,$^2$P$_\rhf$
+		states
+
+\begin{align*}
+\delta E &= \frac{1}{3} \ltk 2\delta E_{1S \to 2P_\rhf} + \delta E_{1S \to 2P_\ohf}
+   \rtk \\
+         &= 1.55 \sci{-4}~{\rm eV}
+\end{align*}
+
+		\item Therefore
+\begin{equation*}
+\Delta \lambda = -\frac{\delta E}{E} \times 1215.68 {\rm \AA} = -0.0138 {\rm \AA}
+\end{equation*}
+		\item Success!
+		\end{itemize}
+
+	\end{itemize}
+
+  \item Spontaneous emission coefficient
+    \begin{itemize}
+    \item Identical for each 2P transition
+    \item $A$ value
+      \begin{equation}
+      A_{\rm Ly\alpha} = A_{21} = 6.265 \sci{8} \; {\rm s^{-1}}
+      \end{equation}
+    \end{itemize}
+
+ \item See {\bf Notebook} for atomic data
+
+ \item Recap (key points for HI Lyman Series)
+   \begin{itemize}
+   \item First order corrections shift Lyman lines by $\approx 0.01$\AA
+   \item Ly$\alpha$ transition (and all other Lyman series 
+   transitions) are pairs of lines
+   
+   \end{itemize}
+
+ \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf \item Line Profile}
+
+ \begin{itemize}
+ \item Express the opacity
+   \begin{equation} 
+   \kappa_\nu = n_j \sigma_{jk}(\nu)
+   \end{equation} 
+	\begin{itemize}
+	\item $n_j$ = number density of species in state $j$
+	\item $\sigma_\nu$ = photon cross-section at frequency $\nu$ for a
+		transition to state $k$
+	\end{itemize}
+ \item Define the line profile: $\phi_\nu$
+   \begin{equation}
+   \sigma_\nu = \sigma_{jk} \phi_\nu
+   \end{equation}
+	\begin{itemize}
+	\item $\sigma_{jk}$ is the integrated cross-section over all frequencies
+
+	\begin{equation}
+	 \sigma_{jk} = \intl_0^\infty \sigma_\nu \, d\nu
+	\end{equation}
+
+	\item $\phi_\nu \, d\nu$ reflects the probability an atom will absorb
+         a photon in $\nu, \nu + d\nu$
+	\end{itemize}
+ \item Naive guess for $\phi_\nu$:  Delta function
+	\begin{itemize}
+	\item Assume all of the particles are at rest
+	\item Assume the transition can only occur at $\nu = \nu_{jk}$
+	\item This amounts to:
+	\begin{equation}
+	\phi_\nu = \delta \ltp \nu - \nu_{jk} \rtp
+	\end{equation}
+	\end{itemize}
+
+\item Natural Broadening (Quantum Mechanics)
+	\begin{itemize}
+	\item Consider the half-life $\tau_\ohf$ of an excited state
+	\begin{equation}
+	\tau_\ohf = \frac{1}{A_{jk}}
+	\end{equation}
+		\begin{itemize}
+		\item Uncertainty principle: $\Delta E \Delta t \sim \hbar$
+		\item This implies that the energy of our transition 
+		has a finite width
+		\begin{equation}
+		\Delta E \sim \frac{\hbar}{\Delta t} \sim \hbar A
+		\end{equation}
+		\end{itemize}
+	\item Introduce $W_{jk}(E)$: Characterizes the quantum mechanical
+	probability of a transition occuring between states $j$ and $k$ with
+	energy $E$
+		\begin{itemize}
+		\item $W(E_j)dE$ = Probability of the lower state being characterized
+		by the energy interval $(E_j, E_j+dE_j)$
+		\item $W(E_k)dE$ = Probability of the upper state being characterized
+		by the energy interval $(E_k, E_k+dE_k)$
+		\item We are interested in the probability that 
+		\begin{equation}
+		E \le E_k - E_j \le E+dE
+		\end{equation}
+		\item Convolve
+		\begin{equation}
+		W_{jk}(E)dE = \int\int W_j(E_j) W_k(E_k) dE_j dE_k
+		\end{equation}
+
+%		\includegraphics[scale=0.60]{Sketches/Wjk_energy.pdf}
+
+		\item Breit-Wigner profile [aka Lorentzian]
+		\begin{equation}
+		W_j(E_j) dE_j = \frac{\gamma_j dE_j/h}{(2\pi/h)^2 \ltk E_j - 
+		<E_j>\rtk^2 + (\gamma_j/2)^2}
+		\end{equation}
+
+		\item Gamma value
+		\begin{equation}
+		\gamma_j \equiv \smm_{i<j} A_{ij}
+		\end{equation}
+			\begin{itemize}
+			\item For the ground state, there are no levels below 
+			\item Therefore, $\gamma_j = 0$
+			\end{itemize}
+		\item Evaluating $W_{jk}(E)$
+		\begin{equation}
+		W_{jk}(E) dE = \frac{\ltk \gamma_j + \gamma_k \rtk dE/h}{
+		(2\pi/h)^2 \ltk E - E_{jk}\rtk^2 + ([\gamma_j + \gamma_k]/2)^2}
+		\end{equation}
+			\begin{itemize}
+			\item This calculation was restricted to the $j$ and $k$ states
+			\item Proper QM has all the levels coupled..
+			\item See {\bf notebook} for figure
+			\end{itemize}
+
+		\item We can identify the Natural line-profile (normalized to have 
+                    unit integral value) in frequency
+		\begin{equation}
+		\phi_N(\nu) = \frac{1}{\pi} 
+                  \ltk \frac{(\gamma_j + \gamma_k)/4\pi}{(\nu - \nu_{jk})^2
+		  + (\gamma_j + \gamma_k)^2 / (4\pi)^2} \rtk
+		\end{equation}
+
+		\begin{itemize}
+		\item It may be more intuitive physically to consider the line-profile
+		in terms of the relative velocity
+		\begin{equation}
+		\phi_N(v) = \phi_N(\nu) (d\nu/dv) \approx \phi_N(\nu) (\nu_{jk}/c)
+		\end{equation}
+		\item We may also relate $\phi_N$ with our cross-section
+		\begin{equation}
+		\sigma_\nu = \sigma_{jk} \phi_N(\nu)
+		\end{equation}
+		\end{itemize}
+		\item See {\bf Notebook} for the `damping' wings
+			\begin{itemize}
+			\item In these wings, $\phi_N(\nu)$ is $\approx 10$ orders of
+			magnitude down from line-center!
+			\item And, yet, these are very important for \lya
+			\end{itemize}
+		\item Define: Oscillator strength $f_{jk}$
+			\begin{itemize}
+			\item Value which summarizes the quantum mechanics in $\sigma_{jk}$
+			\item Experimentally or theoretically determined
+			\item Finally,
+		\begin{equation}
+		\sigma_\nu = \frac{\pi e^2}{m_e c} f_{jk} 
+		  \ltk \frac{(\gamma_j + \gamma_k)/4\pi^2}{(\nu - \nu_{jk})^2
+		  + (\gamma_j + \gamma_k)^2 / (4\pi)^2} \rtk
+		\end{equation}
+			\end{itemize}
+
+
+		\item What is the maximum of $\sigma_\nu$?
+		\begin{equation}
+		(\sigma_\nu^N)_{max} = \frac{\pi e^2}{m_e c} f_{jk} 
+                      \frac{4}{\gamma_j + \gamma_k}
+		\end{equation}
+%			\begin{itemize}
+%			\item Compare
+%			\begin{equation}
+%			\frac{s_\nu}{(s_\nu)_{max}} = 
+%			\frac{\ltp \frac{\gamma_j+\gamma_k}{4\pi} \rtp^2}{
+%			(\nu - \nu_{jk})^2 + 
+%			\ltp \frac{\gamma_j+\gamma_k}{4\pi} \rtp^2}
+%			\end{equation}
+%			\end{itemize}
+
+		\item Define: FWHM = Width where $\sigma_\nu/(\sigma_\nu)_{max} = 1/2$
+
+			\begin{equation}
+			\Delta\nu_{FWHM} = \pm \frac{\gamma_j + \gamma_k}{4\pi}
+			\end{equation}
+
+			\begin{itemize}
+			\item Compare with our estimate from the Heisenberg Uncertainty principle
+			\item Very close, of course, to what we would estimate from
+			the Heisenberg Uncertainty principle
+			\end{itemize}
+
+		\item Consider $\sigma_\nu$ far from line-center (for Ly$\alpha$)
+			\begin{equation}
+			\sigma_\nu \approx \frac{\pi e^2}{m_e c} f_{21} 
+			\frac{A_{21}/4\pi^2}{\delta\nu^2}
+			\end{equation}
+			\begin{itemize}
+			\item I've used $A_{21}$ for $\gamma_k$, and defined 
+			$\delta\nu \equiv \nu - \nu_{jk}$
+			\item Now manipulate $A_{21}$ to $f_{21}$ using Einstein Constants
+			\begin{equation}
+			A_{kj} = \frac{2 h \nu_{jk}^3}{c^2} B_{jk} \frac{g_j}{g_k}
+			\end{equation}
+			\begin{equation}
+			B_{jk} = \frac{4 \pi^2 e^2}{h \nu_{jk} m_e c} f_{jk}
+			\end{equation}
+			\item A grand substitution (with $g_j=2$ and $g_k=6$) gives
+			\begin{equation}
+			\sigma_\nu \approx \frac{8\pi}{3} \ltp \frac{e^2}{m_e c^2} \rtp^2
+				\ltp \frac{f_{jk}}{2} \rtp^2
+				\ltp \frac{\nu_{jk}}{\delta\nu} \rtp^2
+			\end{equation}
+			\item The astute reader will recognize the first two terms
+			as the Thompson scattering cross-section $\sigma_T$
+			\begin{equation}
+			\sigma_\nu \approx \sigma_T \ltp \frac{f_{jk}}{2} \rtp^2
+				\ltp \frac{\nu_{jk}}{\delta\nu} \rtp^2
+			\end{equation}
+			\end{itemize}
+
+		\item Finally, return to \lya
+			\begin{itemize}
+			\item $\gamma_1=0; \gamma_2=A_{21}= 6.2 \sci{8} \, 
+                            {\rm s^{-1}}$ 
+			\item $\lambda_{21} = 1215.67$\AA
+			\item FWHM
+			\begin{equation}
+			\frac{\Delta\lambda_{FWHM}}{\lambda} = 
+			\frac{\Delta\nu_{FWHM}}{\nu} = 
+			\frac{A_{21}}{2\pi \nu_{\rm Ly\alpha}} = 
+			0.5\sci{-7}
+			\end{equation}
+			\begin{equation}
+			\Delta\lambda_{FWHM} \approx 6\sci{-5} \, \rm\AA
+			\end{equation}
+			\item Effective velocity width 
+			\begin{equation}
+			(v_D)_{eff} = c \frac{\Delta\lambda_{FWHM}}{\lambda} = 
+			1.5 \sci{-2} \; \rm km/s
+			\end{equation}
+			\item This is nearly a delta function!
+			\item We surely expect gas motions to broaden our lines..
+			\end{itemize}
+
+
+		\end{itemize}
+	
+	\end{itemize}
+
+\item Doppler Broadening
+
+	\begin{itemize}
+	\item Each atom in a gas has its own motion $\imp$ Doppler effect
+	\begin{itemize}
+		\item Unique frequency of emission and absorption
+		\item This spreads the line out without changing the total amount of absorption (for a continuum source)
+	\end{itemize}
+	\item Doppler effect, to lowest order in $v/c$:
+	\begin{equation}
+	\Delta\nu = \nu - \nu_{jk} = \nu_{jk} \frac{v}{c}
+	\end{equation}
+	\item Assume first that the gas motions are characterized
+	soley by $T$ (no turbulence)
+		\begin{itemize}
+		\item Adopting a Maxwellian distribution for particles of mass $m_A$
+		\item This gives
+	\begin{equation}
+	f(v) dv \, \propto \, \exp \ltp \frac{-m_A v^2}{2kT} \rtp dv
+	\end{equation}
+		\end{itemize}
+	\item Profile function (thermal broadening)
+	\begin{align}
+	\phi_D(\nu) &= \frac{1}{\Delta \nu_D \sqrt{\pi}} 
+	\exp \ltk - \frac{(\nu - \nu_{jk})^2}{\Delta \nu_D^2} \rtk \\
+	\Delta \nu_D &\equiv \frac{\nu_{jk}}{c} \sqrt{\frac{2kT}{mA}}
+	\end{align}
+	\item Line-center ($\nu = \nu_{jk}$) cross-section for each atom
+	(neglecting stimulated emission)
+	\begin{align}
+	(\sigma_\nu^D)_{\rm max} &= B_{jk} \frac{h \nu_{jk}}{4\pi} \phi(\nu_{jk})  \\
+	    &= \frac{\pi e^2}{mc} f_{jk} \frac{1}{\Delta \nu_D \sqrt{\pi}}
+	\label{eqn:linecenter}
+	\end{align}
+		\begin{itemize}
+		\item $f_{jk}$ is the oscillator strength (see above)
+		\item $(\sigma_\nu^D)_{\rm max}$ is several orders of magnitude
+		lower than $(\sigma_\nu^N)_{\rm max}$
+		\end{itemize}
+	\item Turbulent velocities 
+		\begin{itemize}
+		\item Consider a gas that does exhibit turbulent motions
+		\item Macroscopic velocity fields, $\xi$
+		\item Our profile is the same with the following substitution
+	\begin{equation}
+	\Delta\nu_D = \frac{\nu_{jk}}{c} \ltp \frac{2kT}{m_A} + 
+	\xi^2 \rtp^\ohf
+	\end{equation}
+	\item Velocity expression for the line-profile
+	\begin{equation}
+	\Delta\nu_D \to b \equiv \sqrt{\frac{2kT}{m_A} + \xi^2}
+	\end{equation}
+		\begin{itemize}
+		\item Velocity dispersion: $\sigma$
+		\item Doppler parameter: $b = \sigma \sqrt{2}$
+		\item Line profile
+	\begin{equation}
+	\phi_D(v) = \frac{1}{b\sqrt{\pi}} \, \exp \ltk -\frac{v^2}{b^2} \rtk
+	\label{eqn:phi_Dv}
+	\end{equation}
+		\item See {\bf Notebook}
+		\end{itemize}
+	\end{itemize}
+  \end{itemize}
+
+
+ \item Voigt profile
+
+	\begin{itemize}
+	\item Generally, a gas has contributions from Natural and Doppler broadening
+		\begin{itemize}
+		\item Doppler broadening dominates the center profile of the line
+		\item Visualize as a Gaussian distribution of Lorentzians
+		\item The Lorentzian (Natural broadening) dominates the wings
+		\end{itemize}
+		\begin{equation}
+		\phi(\nu) \propto \frac{1}{(\nu-\nu_0)^2 + \gamma^2} \; {\rm vs.}
+		\; \exp \ltp -\nu^2/\nu_D^2 \rtp
+		\end{equation}
+		\item See Notebook
+	\item The true profile is a convolution of the two profiles
+	\begin{equation}
+	\phi_V(\nu) = \frac{\gamma}{4\pi} \intl_{-\infty}^\infty
+	\frac{ \ltp \frac{m}{2\pi kT} \rtp^\ohf \, \exp \ltp - \frac{mv^2}{2kT} \rtp}
+	{\ltp \nu-\nu_{jk}-\nu_{jk}v/c \rtp^2 + \ltp \gamma/4\pi \rtp^2} \, dv
+	\end{equation}
+	\item Introduce the Voigt function
+	\begin{equation}
+	H(a,u) = \frac{a}{\pi} \intl_{-\infty}^\infty 
+		\frac{\rme^{-y^2} \, dy}{a^2 + (u-y)^2}
+	\end{equation}
+	\item Identify
+	\begin{equation}
+	a \equiv \frac{\gamma}{4\pi \Delta\nu_D}
+	\end{equation}
+	\begin{equation}
+	u \equiv \frac{\nu-\nu_{jk}}{\Delta\nu_D}
+	\end{equation}
+	\item Voigt profile
+	\begin{equation}
+	\phi_V(\nu) = \frac{H(a,u)}{\Delta\nu_D \sqrt{\pi}}
+	\end{equation}
+	\item There is no analytic solution for the Voigt function
+		\begin{itemize}
+		\item For speed, one often relies on look-up tables
+		\item In Python, the real part of
+		scipy.special.wofz is both accurate and fast (see
+		Voigt documentation in {\tt linetools})
+		\end{itemize}
+
+
+	\item See {\bf Notebook} for Figure
+	%\includegraphics[scale=0.50]{Figures/line_voigt.pdf}
+	\end{itemize}
+ 
+
+\item Corrections to the Voigt Profile (Lee 2003)
+	\begin{itemize}
+	\item Scattering is a second-order QM process: annihilation of 
+	one photon, creation of scattered photon
+	  \begin{itemize}
+	  \item Proper treatment requires second-order time dependent perturbation
+	  theory
+	  \item Kramers-Heisenberg formula
+	  \item Requires one to sum over all bound-states and integrate over
+	  all continuum-state contributions
+	  \end{itemize}
+	\item The Breit-Wigner function is an excellent approximation
+	near resonance
+	  \begin{itemize}
+	  \item Assumes the cross-section is dominated by the single 
+	  pair of states (e.g.\ ground to excited)
+	  \item Leads to the Voigt profile
+	  \end{itemize}
+	\item Consider extreme offsets from line center ($\nu = \nu_{jk}$)
+	  \begin{itemize}
+	  \item $\nu \ll \nu_{jk}$: Rayleigh scattering dominates and
+	  $\phi \propto \nu^4$
+	  \item $\nu \gg \nu_{jk}$: Thomson scattering limit with $\phi$
+	  independent of frequency
+	  \item These limits suggest an asymmetry to the line-profile
+	  \end{itemize}
+	\item Taylor expand the cross-section in $\delta\nu/\nu_{jk}$
+	with $\delta\nu = \nu-\nu_{jk}$
+		\begin{itemize}
+		\item Express in terms of the cross-section $\sigma_\nu$ (for Ly$\alpha$)
+		\begin{equation}
+		\sigma_\nu = \sigma_{\rm T} \ltp \frac{f_{jk}}{2} \rtp^2 
+		\ltp \frac{\nu_{jk}}{\delta\nu} \rtp^2
+		\ltk 1 - 1.792 \frac{\delta\nu}{\nu_{jk}} \rtk
+		\end{equation}
+		\item The asymmetry about line-center is evident (albeit small)
+		\item Shifts the measured line-center when the gas column 
+		density is very high ($\mnhi > 10^{21.7} \cm{-2}$)
+		\end{itemize}
+	\item See {\bf Notebook} for figure
+	\end{itemize}
+
+\item Recap (key quantities for HI Lyman Series)
+	\begin{itemize}
+	\item Oscillator strength $f_{jk}$
+	\item $\gamma$ values
+	\item Doppler parameter ($b$)
+	\item Voigt profile
+	\end{itemize}
+
+	%\includegraphics[scale=0.50]{Figures/line_delta.pdf}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf \item Optical Depth ($\tau_\nu$) and Column Density ($N$)}
+	\begin{itemize}
+	  \item Optical depth:  \quad $\tau_\nu$
+	\begin{equation}
+	d\tau_\nu = -\kappa_\nu ds
+	\end{equation}
+		\begin{itemize}
+		\item Our opacity, $\kappa_\nu = $ \# of mean free paths traveled 
+		by a photon along sightline $ds$
+		\item Conventionally, $\tau_\nu = 0$ at the observer
+		\item If $\kappa_\nu > 0$, $\tau_\nu$ increases toward the source
+		\end{itemize}
+	\item Recall for a line, $\kappa_\nu = n_j \sigma_\nu$	
+	\item Integrate along the line-of-sight
+	\begin{equation}
+	\tau_\nu = \sigma_\nu \int n_j ds
+	\end{equation}
+		\begin{itemize}
+		\item Always appreciate that $\tau_\nu$ is frequency dependent
+		\end{itemize}
+	\item Define the second term as the column density $N_j$
+	\begin{equation}
+	N_j \equiv \int n_j ds
+	\end{equation}
+		\begin{itemize}
+		\item Particles per cm$^2$
+		\item Akin to a surface density:  $n_j \to \rho$, $N_j \to \Sigma$
+		\item Column of O$_2$ through 1m of air:
+			\begin{itemize}
+		   	\item $\rho_{\rm O_2} = 1.492$ g/L
+		   	\item $n_{\rm O_2} = 2.8 \sci{19} \cm{-3}$
+		   	\item $N_{\rm O_2} = n_{\rm O_2} \times 100\,{\rm cm} = 3\sci{21} \cm{-2}$
+			\end{itemize}
+		\end{itemize}
+	\item Optical depth at line-center $\tau_0$ for cloud with $N_j$
+		\begin{itemize}
+		\item At line-center ($\nu = \nu_{jk})$, 
+		our line-profile is dominated by Doppler motions
+		\begin{equation}
+		\phi_V(\nu_{jk}) \approx \phi_D (\nu_{jk})
+		\end{equation}
+		\item Evaluate
+		\begin{equation}
+		\tau_0 = N_j \, \frac{\pi e^2}{m_e c} \, f_{jk} \, \phi_D(\nu_{jk})
+		\end{equation}
+			\begin{itemize}
+			\item Convenient to express in velocity space
+			\begin{equation}
+			\phi_D(\nu) \approx \phi_D(v) c/\nu_{jk} = \phi_D(v) \lambda_{jk}
+			\end{equation}
+			\item And from Equation~\ref{eqn:phi_Dv}, we recover
+		\begin{equation}
+		\tau_0 =  \frac{\sqrt{\pi} e^2}{m_e c} \, \frac{N_j \lambda_{jk} f_{jk}}{b}
+		\end{equation}
+			\end{itemize}
+		\item For Ly$\alpha$, with $b$ expressed in km/s:
+		\begin{equation}
+		\tau_0^{\rm Ly\alpha} =  7.6 \sci{-13} \, 
+			\frac{N \, [\rm cm^{-2}]}{b \, [\rm km/s]}
+		\label{eqn:tau0}
+		\end{equation}
+		\item See {\bf Notebook}
+		\end{itemize}
+	\item Consider $\tau_0$ for 1\,Mpc (physical) of gas in a {\bf neutral} $z=3$ IGM
+		\begin{itemize}
+		\item Cosmology
+			\begin{itemize}
+			\item Mean mass density: $\bar \rho = (1+z)^3 \rho_c \Omega_b$
+			\item Mean number density: $\bar n_{\rm H}  = \bar\rho / (m_p \mu)$
+			with $\mu \approx 1.3$ for Helium
+			\item Hubble broadening of the line: $b \approx H(z=3) \times 1\,{\rm Mpc}$
+			\end{itemize}
+		\item Column density for 1\,Mpc
+			\begin{itemize}
+			\item $\bar N_{\rm H} \approx 3.8\sci{19} \cm{-2}$
+			\item Take $b \approx 300$\,km/s
+			\item $\bar \tau_0(1\,{\rm Mpc}; z=3) \approx 10^5$
+			\end{itemize}
+		\item If the IGM were neutral, it would be opaque to Ly$\alpha$ (Gunn-Peterson)
+			\begin{itemize}
+			\item Taking a neutral fraction $x_{\rm HI} \approx 10^{-5}$,
+			\item $\bar \tau_0(1\,{\rm Mpc}; z=3; x_{\rm HI}\approx 10^{-5}) 
+			\approx 0.9$
+			\end{itemize}
+		\item Also see the {\bf Notebook} for this calculation
+		\end{itemize}
+
+	\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf \item Radiative Transfer in a Diffuse Neutral Medium}
+ \begin{itemize}
+%  \item Electric dipole transitions
+%	\begin{itemize}
+%	\item UV and optical lines
+%	\item Generally, $h\nu \gg kT$
+%	\end{itemize}
+  \item Change of $I_\nu$ resulting from interaction with matter
+  \item Equation of transfer (simple form)
+	\begin{equation}
+	\frac{dI_\nu}{ds} = - \kappa_\nu I_\nu + j_\nu
+	\label{eqn:RT}
+	\end{equation}
+  \item Volume emissivity (emission coefficient): \quad $j_\nu$
+	\begin{itemize}
+	\item Define $j_\nu dV d\nu d\omega dt$ as the energy emitted
+	by the volume element $ds d\sigma$ in the intervals $d\nu d\omega dt$
+	\item Example: Spontaneous emission of H$\alpha$ photons due to
+	recombination
+	\end{itemize}
+  \item Opacity (absorption coefficient): \quad $\kappa_\nu$
+	\begin{itemize}
+	\item Define $\kappa_\nu I_\nu dV d\nu d\omega dt$ as the energy
+	absorbed from a beam of specific intensity $I_\nu$
+	\item This is the same opacity we have considered above
+	\end{itemize}
+  \item Express Equation~\ref{eqn:RT} in terms of optical depth
+	\begin{equation}
+	\frac{dI_\nu}{d\tau_\nu} = -S_\nu + I_\nu
+	\end{equation}
+	\begin{itemize}
+	\item $S_\nu$ is the source function, $j_\nu/\kappa_\nu$
+	\end{itemize}
+  \item Consider a source at distance $d$ with intensity $I_\nu^*$ that
+	intersects a cloud \\ with optical depth $\tau_{\nu,c}$
+	\begin{itemize}
+	\item Integrate
+	\begin{equation}
+	I_\nu = I_\nu^* \rme^{-\tau_{\nu,c}} + 
+		\intl_0^{\tau_{\nu,c}} \frac{j_\nu}{\kappa_\nu} \rme^{-\tau_\nu}
+		\; d\tau_\nu
+	\end{equation}
+	\item The exponential term in the integral is unimportant (ignore it)
+	\item Without derivation, I note that 
+	\begin{equation}
+	S_\nu \approx \epsilon B_\nu(T) + (1-\epsilon) \int d\nu \, \phi_\nu J_\nu
+	\end{equation}
+		\begin{itemize}
+		\item The first term is due to thermal emission.  It is insignificant
+		when $kT \ll h\nu$
+		\item The second term is due to scattering with a 
+		local mean intensity $J_\nu$ which is also generally
+		negligible
+		\end{itemize}
+	\end{itemize}
+%  \item Consider scattering further
+%	\begin{enumerate}
+%	\item Scattering of the isotropic source
+%		\begin{align}
+%		J_\nu^* &= \frac{1}{4\pi} \int I_\nu^* \, d\Omega \\
+%			&= \frac{\Omega^*}{4\pi} I_\nu^* \\
+%			&\approx \ltp \frac{R_s}{d} \rtp^2 I_\nu^* \\
+%			&\approx 0 \; [\rm for \; cosmological \; distances]
+%		\end{align}
+%	\item Scattering of ambient radiation (photons from all sources)
+%		\begin{itemize}
+%		\item Energy density of the ISM ($T_{eq} \approx 3$K)
+%		\begin{equation}
+%		u = a T_{eq}^4
+%		\end{equation}
+%		\item Ambient intensity 
+%		\begin{equation}
+%		J_\nu \sim \frac{uc}{4\pi \nu}
+%		\end{equation}
+%		\item Source intensity (stellar)
+%		\begin{equation}
+%		I_\nu^* = \frac{a T_*^4 c}{4\pi \nu}
+%		\end{equation}
+%		\item Combining
+%		\begin{align}
+%		J_\nu &= \ltp \frac{T_{eq}}{T} \rtp^4 I_\nu^* \\
+%		      &\sim 10^{-13} I_\nu^*
+%		\end{align}
+%		\end{itemize}
+%	\end{enumerate}
+%  \item We conclude that scattering is irrelevant too
+  \item Therefore, the radiative transfer for absorption of a 
+  distant source simplifies to
+	\begin{equation}
+	I_\nu = I_\nu^* \rme^{-\tau_\nu}
+	\end{equation}
+  \item We can now consider the formation of absorption lines as a \\
+ 	simple integration of the optical depth
+ \end{itemize}
+
+ %%%%%%%%%%%%%%%%%%%%%%%
+ {\bf \item Idealized Absorption Lines}
+ 	\begin{itemize}
+ 	\item Ly$\alpha$
+ 	\item Single cloud 
+ 		\begin{itemize}
+ 		\item Characterized by $N, b$
+ 		\end{itemize}
+ 	\item Ignore redshift, instrumental effects, etc.
+ 	\item Observed flux
+ 	\begin{equation}
+ 	f_{\rm obs} = f_{\rm source} \; \exp(-\tau_\nu)
+ 	\end{equation}
+ 	\item Assume a constant, flat source spectrum $f_{\rm source} = 1$
+ 	\item See {\bf Notebook} for examples
+ 	\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf \item Equivalent Width}
+ \begin{itemize}
+  \item Definition: $W_\lambda$ is a gross measure of the 
+	flux absorbed (scattered) by the gas cloud
+	\begin{itemize}
+	\item It is the convolution of the optical depth with the line profile
+	\item This is primarily an observational quantity
+		\begin{itemize}
+		\item Conveniently, it is {\it independent} of the instrument profile
+		\end{itemize}
+	\item For a normalized-flux absorption line, it is 
+            simply the area above the curve
+		\begin{itemize}
+		\item Oddly, $W_\lambda$ has units of \AA
+		\end{itemize}
+	\end{itemize}
+
+  \item Example
+	\begin{itemize}
+	\item Visualize $W_\lambda$ as the width of a box-car profile
+	that matches the observed, absorbed flux in the normalized spectrum
+	\end{itemize}
+
+	\includegraphics[scale=0.80]{Figures/example_ew.pdf}
+
+  \item Explicitly
+	\begin{equation}
+	W_\lambda = \intl_0^\infty \ltk 1 - \frac{I_\nu}{I_\nu^*} \rtk \, d\lambda
+	\end{equation}
+	\begin{itemize}
+	\item $I_\nu$ is the observed intensity and $I_\nu^*$ is the intensity of
+	the source
+	\item Substituting our simple radiative transfer equation 
+	\begin{equation}
+	W_\lambda = \intl_0^\infty \ltk 1 - \exp(-\tau_\lambda) \rtk \, d\lambda
+	\end{equation}
+		\begin{itemize}
+		\item Defined as positive for absorption
+		\item \lya\ emission should be expressed as negative! 
+		\end{itemize}
+	\item Contrast this equation with analysis of stellar atmospheres (they have
+	a very different radiative transfer equation)
+	\end{itemize}
+
+  \item See {\bf Notebook} for more
+ \end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf \item Curve of Growth (Single Line, e.g. Ly$\alpha$)}
+ \begin{itemize}
+ \item Definition
+	\begin{itemize}
+	\item The curve-of-growth (COG) relates the optical depth of a line \\
+	with the equivalent width of that absorption feature
+	\item It also describes the transition from a Doppler-dominated line \\
+	to a naturally-broadened line
+	\end{itemize}
+
+ \item Consider three `limits'
+
+ \begin{enumerate}
+  \item Weak line limit ($\tau_0 \ll 1$)
+	\begin{itemize}
+	\item Natural broadening is negligible
+	\item Doppler broadening dominates
+	\begin{equation}
+	\tau_\nu = \frac{\pi e^2}{m_e c} \lambda f_{jk} N_j \phi_D(\nu) 
+	\end{equation}
+	\item With $\tau_0$ small, our equation for the equivalent width becomes
+	\begin{align}
+	W_\lambda &= \frac{\lambda^2}{c} \int \ltk 1 - \exp(-\tau_\nu) \rtk d\nu \\
+		& \approx \frac{\lambda^2}{c} \intl_0^\infty \tau_\nu \, d\nu \\
+		& = \frac{\lambda^2}{c} \frac{\pi e^2}{m_e c} f_{jk} N_j 
+	\end{align}
+	\item This is the `linear' portion of the curve-of-growth
+	\begin{equation}
+	W_\lambda \propto N_j
+	\end{equation}
+		\begin{itemize}
+		\item Note that there is no dependence on the Doppler parameter
+		\end{itemize}
+	\item Evaluate for Ly$\alpha$
+	\begin{equation}
+	W_\lambda \approx (0.1 \, {\rm \AA}) \, \frac{N_{\rm HI}}{1.83 \sci{13} \cm{-2}} 
+	\end{equation}
+		\begin{itemize}
+		\item From our estimate of $\tau_0$ (Equation~\ref{eqn:tau0}), 
+		we require $N_{\rm HI} \ll 10^{14} \cm{-2}$ for $\tau \ll 1$
+		\item In this limit, $W_\lambda \ll 1$\AA
+		\end{itemize}
+	\end{itemize}
+
+	\includegraphics[scale=0.40]{Figures/ew_weak_fill.pdf}
+
+  \item Strong line limit ($\tau_0 \gtrsim 1$)
+	\begin{itemize}
+	\item Again, ignoring natural broadening
+	\begin{equation}
+	\tau_x = \tau_0 \rme^{-x^2}
+	\end{equation}
+		\begin{itemize}
+		\item $x \equiv \Delta \nu / \Delta \nu_D$
+		\end{itemize}
+	\item Consider the value of $x$ that gives $\tau_x = 1$
+		\begin{itemize}
+		\item $x_1 = \sqrt{\ln \tau_0}$
+		\item For $|x| < x_1$, the flux is highly absorbed $(I_\nu/I_\nu^* \ll 1$)
+		\item Therefore, 
+		\begin{equation}
+		W_\lambda \approx 2 x_1 \approx 2 \sqrt{\ln \tau_0}
+		\end{equation}
+		\end{itemize}
+	\item To change $W_\lambda$ in this saturated
+	limit, we need to increase $\tau_0$ immensely
+		\begin{itemize}
+		\item Likewise $N$
+		\item $W_\lambda \propto (\ln N)^\ohf$
+		\end{itemize}
+
+	\item Example of a saturated line
+
+	\includegraphics[scale=0.40]{Figures/ew_sat_fill.pdf}
+
+	\item Analytically
+	\begin{equation}
+	W_\lambda = \frac{\lambda^2}{c} \Delta\nu_D \intl_{-\infty}^\infty
+		dx \, \ltk 1 - \rme^{-\tau_0 \rme^{-x^2} } \rtk
+	\end{equation}
+		\begin{itemize}
+		\item Evaluate numerically
+		\item Express as 
+		\begin{equation}
+		\frac{W_\lambda}{\lambda} = \frac{2 b}{c} F(\tau_0)
+		\end{equation}
+			\begin{itemize}
+			\item See Table~\ref{tab:F}
+			\end{itemize}
+
+\begin{table}[ht]
+\begin{center}
+\caption{{\sc Some $F(\tau_0)$ values }}
+\label{tab:F}
+\vskip 0.05in
+\begin{tabular}{cccccc}
+\hline
+$\tau_0$    & 0.000 & 0.100 &  0.300 & 0.500 & 0.800  \\
+$F(\tau_0)$ & 0.000 & 0.086 &  0.240 & 0.374 & 0.545  \\
+\hline
+$\tau_0$    & 1.000 & 1.400 &  2.000 & 3.000 & 6.000  \\
+$F(\tau_0)$ & 0.643 & 0.804 &  0.986 & 1.188 & 1.483  \\
+\hline
+$\tau_0$    & 10.00 & 20.00 &  30.00 & 60.00 & 100    \\
+$F(\tau_0)$ & 1.66  & 1.86  &  1.97  & 2.14  & 2.26   \\
+\hline
+$\tau_0$    & 1000  & 10000 \\
+$F(\tau_0)$ & 2.73  & 3.12  \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+		\item In the limit that $\tau_0 \gg 1$, 
+		\begin{equation}
+		F(\tau_0) = \ltk \ln \tau_0 \rtk^{\ohf}
+		\end{equation}
+		\item In this Strong line limit, $W_\lambda$ is insensitive to 
+                 $\tau_0$ and most sensitive to the internal structure of the cloud
+		\begin{equation}
+		W_\lambda \propto b
+		\end{equation}
+		\item Figure (red: b=10km/s, green: b=20km/s)
+
+	\includegraphics[scale=0.40]{Figures/fig_strongcog.pdf}
+
+		\begin{itemize}
+		\item Note the small change in $W_\lambda$ with increasing $\tau_0$
+		\item And the linear sensitivity to $b$
+		\end{itemize}
+
+
+	\end{itemize}
+	\item See also the {\bf Notebook}
+  \end{itemize}
+
+  \item Damping limit ($\tau_0 \gg 1$)
+	\begin{itemize}
+	\item Natural broadening becomes important
+
+	\includegraphics[scale=0.40]{Figures/ew_satdamp.pdf}
+
+	\item Optical depth (Lorentzian profile)
+	\begin{equation}
+	\tau_x \approx \frac{\tau_0 A}{\sqrt{\pi}} \frac{1}{x^2}
+	\end{equation}
+	\begin{equation}
+	A = \frac{\gamma_j + \gamma_k}{4\pi}
+	\end{equation}
+	
+	\item Setting $\tau_x = 1$,
+	\begin{equation}
+	x_1 = \ltk \tau_0 A \rtk^\ohf
+	\end{equation}
+
+	\item Therefore, 
+	\begin{equation}
+	W_\lambda \approx 2x_1 \propto N^\ohf
+	\end{equation}
+
+	\item Formally
+	\begin{equation}
+	\frac{W_\lambda}{\lambda} \approx \frac{2}{c} \ltk \lambda^2 N_j 
+		\frac{\pi e^2}{m_e c} f_{jk} A \rtk^\ohf
+	\end{equation}
+		\begin{itemize}
+		\item No $b$-value dependence
+		\end{itemize}
+
+	\end{itemize}
+
+   \end{enumerate}
+
+ \item Example COG: \lya\ lines with a wide range of column density ($\tau_0$)
+	\begin{itemize}
+	\item Weak limit: $W_\lambda < 0.1$\AA
+	\item Damping limit: $W_\lambda > 10$\AA
+	\item Saturated limit: everything in between
+		\begin{itemize}
+		\item 2 orders of magnitude in $W_\lambda$
+		\item 6 orders of magnitude in $N$
+		\end{itemize}
+	\end{itemize}
+
+	\includegraphics[scale=0.60]{Figures/fig_cog.pdf}
+
+ \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf \item Curve of Growth (Lyman Series)}
+	\begin{itemize}
+	\item We have described the COG as a theoretical relationship 
+	between $W_\lambda$ and $\tau_0$
+	\item Recall, 
+	\begin{equation*}
+	\tau_0 = \frac{\sqrt{\pi} e^2}{m_e c} \frac{\lambda_{jk} f_{jk} N_j}{b}
+	\end{equation*}
+	\item Consider the Lyman series for a single Hydrogen cloud
+		\begin{itemize}
+		\item $N_j$ and $b$ are the same for each transition
+		\item But $f_{jk}, \lambda_{jk}$ decrease down the series
+		\item Therefore, the Lyman series absorption generates a COG
+		\end{itemize}
+	\item Note: This holds for any set of resonant 
+	transitions from a given ion (e.g. FeII)
+	\item Key application:  Invert the concept to use the COG to estimate $N,b$
+		\begin{itemize}
+		\item Only requires $W_\lambda$ measurements (i.e. unresolved data is fine)
+		\item Most successful if the absorption can be well-modeled as a single cloud
+		(but see also Jenkins 1986)
+		\end{itemize}
+	\item Analysis
+		\begin{itemize}
+		\item Typically performed in terms of reduced equivalent width $W_\lambda/\lambda$
+		\end{itemize}
+	\includegraphics[scale=0.50]{Figures/fig_excog.pdf}
+	\item See {\bf Notebook} too
+	\end{itemize}
+
+\end{Aenumerate}
+
+\end{document}

@@ -1,0 +1,1106 @@
+\documentclass[12pt,letterpaper]{article}
+
+\font\bfit = cmbxti10 scaled \magstephalf
+
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{ulem}
+%\usepackage{psfig}
+\usepackage{fancyheadings}
+ 
+\pretolerance=10000
+\textwidth=6.7in
+\textheight=8.9in
+\topmargin=-0.6in
+\headheight=.15in
+\hoffset = -0.2in
+\headsep=.35in
+\oddsidemargin=0in
+\evensidemargin=0in
+\parindent=2em
+\parskip=0.2ex
+
+\input{defs}
+\input{latex}
+\pagestyle{fancyplain}
+
+\lhead[\fancyplain{}{Intro}]{\fancyplain{}{\thepage}}
+\rhead[\fancyplain{}{Intro-\thepage}]{\fancyplain{}{SaasFee16-\fnhi}}
+\cfoot{}
+
+\newcommand{\mndi}{N_{\rm DI}}
+\newcommand{\ndi}{$N_{\rm DI}$}
+\newcommand{\helium}{${^4\rm He}$}
+\newcommand{\rmch}{\frac{\rm C}{\rm H}}
+\renewcommand{\labelitemii}{$\diamond$}
+\renewcommand{\labelitemiii}{$\blacktriangle$}
+\renewcommand{\labelitemiv}{$\circ$}
+
+%\newcommand{\dfhf}{^2\negm D_{\frac{5}{2}}}
+%\newcommand{\dtvr}{\dot{\vec r}}
+%\newcommand{\mtrx}{\bra{\phi_f} \rmikr \hat\eng \cdot \vec\nabla \ket{\phi_i}}
+%\newcommand{\prfi}{\ltp \hat\eng \cdot \vec r \rtp_{fi}}
+
+
+\special{papersize=8.5in,11in}
+
+\begin{document}
+
+\noindent {\bf{\large III. Characterization of the \lya\ Forest [\fnhi, v2.1]}}
+
+\begin{Aenumerate}
+
+{\bf \item Goals}
+ \begin{itemize}
+ \item Provide an empirical formalism and description of the \lya\ Forest
+ \item Discuss modern observational constraints
+ \item Discuss implications and applications (primarily at $z \sim 2-3$)
+ \item Fundamentally, any precise measurement from the IGM offers a 
+ valuable constraint on our cosmology
+ 	\begin{itemize}
+ 	\item We have a well-developed theory of structure formation (e.g.\ N-body
+ 	simulations)
+ 	\item On quasi-linear scales, the baryons track the dark matter
+ 	\item Only `free' parameter is the radiation field which may also be constrained
+ 	\end{itemize}
+ \item This Lecture primarily considers optically thin gas ($\mnhi<10^{17} \cm{-2}$)
+ 	\begin{itemize}
+ 	\item The proper IGM, quasi-linear gas between galaxies, likely
+ 	corresponds to even lower \nhi\ ($<10^{14} \cm{-2}$)
+ 	\item We will adopt a stricter definition in future Lectures
+ 	\end{itemize}
+ \end{itemize}
+
+{\bf \item Visual Impressions (slides)}
+
+ \begin{itemize}
+  \item Also explore Q1422 ({\bf Notebook})
+ \end{itemize}
+
+{\bf \item \nhi\ frequency distribution \fnhi: Concept}
+
+ \begin{itemize}
+  \item Model the \lya\ Forest as a series of absorption lines ($z,N,b$)
+  	\begin{itemize}
+  	\item Voigt-profile fitting of the \lya\ forest
+  		\begin{itemize}
+  		\item Include higher order Lyman series lines to improve measurements
+  		\item $\tau_0 \propto \lambda f N$
+	  	\end{itemize}
+  	\item e.g. Kirkman \& Tytler 1997
+
+	\includegraphics[width=6.0in]{Paper_figs/kirkman97_fig1.pdf}
+
+  	\item e.g. Kim et al.\ 2001 (Figure 1)
+
+	\includegraphics[width=6.0in]{Paper_figs/kim01_fig1.pdf}
+
+  	\item Very expensive (if human)
+
+  	\end{itemize}
+  \item Generate a distribution of $N,b$ values as a function of $z$
+  \item Pros
+  	\begin{itemize}
+  	\item Captures the stochastic nature of the \lya\ Forest
+  	\item Captures the absorption-line appearance of the \lya\ Forest
+  	\item Enables the calculation of other valuable measures of the \lya\ Forest
+  	\item Primarily an empirical description (also a con)
+  	\end{itemize}
+  \item Cons
+  	\begin{itemize}
+  	\item Not a physical model
+  	\item Difficult to derive from IGM models/simulations
+  	\item Very expensive to measure observationally (laborious)
+  	\item Human interaction implies non-reproducible results
+  	\item Non-HI gas (i.e. metals) abounds in the \lya\ Forest
+  	\end{itemize}
+ \end{itemize}
+
+{\bf \item \fnhi\ Definition}
+ \begin{itemize}
+ \item $f(\mnhi, b, z) \, d\mnhi \, db \, dz = $ number of lines in the intervals
+ $\mnhi, \mnhi+d\mnhi$; $b, b+db$; $z, z+dz$
+ 	\begin{itemize}
+ 	\item Akin to a luminosity function $\phi(L) dL$
+ 		\begin{itemize}
+ 		\item Number of galaxies per volume in a luminosity interval $L, L+dL$
+ 		\end{itemize}
+ 	\item But defined on a sightline instead of within a volume
+	\item Cartoon
+	\end{itemize}
+\item Standard assumptions:
+	\begin{itemize}
+	\item The Doppler parameter ($b$-value) distribution has 
+	minimal \nhi\ (or $z$) dependence
+ 		\begin{equation}
+ 		f(\mnhi,b) = \mfnhi \, g(b)
+ 		\end{equation}
+	\item One frequently assumes the shape of \fnhi\ is also 
+	nearly constant with $z$
+	\end{itemize}
+
+ \end{itemize}
+
+{\bf \item Survey Path $\Delta z$}
+ \begin{itemize}
+ \item Absorption-line surveys are usually carried out across multiple sightlines
+ 	\begin{itemize}
+	 \item Required to build statistics
+	 \item Each sightline, however, will have its own S/N (and possibly other
+	 spectral characteristics)
+	 \item And its own systematic uncertainties (e.g.\ continuum); usually
+	 ignored
+	 \end{itemize}
+ \item {\bf Slides}
+ \item Single sightline
+	 \begin{itemize}
+	 \item Count lines across a wavelength interval
+	 \item This defines a (usually small) redshift interval, $\delta z$
+	 \item Sensitivity to lines may vary within $\delta z$ [ignored in 
+	 these Lectures]
+	 \end{itemize}
+ \item Survey multiple sightlines
+	 \begin{itemize}
+	 \item Survey path
+	 \begin{equation}
+	 \Delta z = \smm_i (\delta z)_i
+	 \end{equation}
+	 \item Again, $\Delta z$ may have an explicit dependence on the line 
+	 parameters ($N, b$)
+	 \end{itemize}
+ \item Aside:  I will define the $\Delta X$ survey path in a later Lecture.
+ 	\begin{itemize}
+	\item It is conceptually the same
+	\item But has physical meaning ($dz$ is observational)
+	in a F-W cosmology
+ 	\end{itemize}
+ \end{itemize}
+
+{\bf \item Binned Evaluations of \fnhi}
+ \begin{itemize}
+ \item Estimate \fnhi\ within a finite $\Delta \mnhi$ interval
+ 	\begin{itemize}
+ 	\item Intervals must be large enough to have statistical significance
+ 	\end{itemize}
+ \item Repeat along multiple sightlines to survey a redshift path $\Delta z$
+ 	\begin{itemize}
+ 	\item  Estimating $\Delta z$ (example):
+ 		\begin{itemize}
+ 		\item Count lines in $\mathcal{N}$ quasar spectra from $z=2.25$ to $2.75$
+ 		\item Each quasar contributes $\delta z = 0.5$
+ 		\item $\Delta z = \mathcal{N} \, \delta z$
+ 		\end{itemize}
+ 	\end{itemize}
+ \item Simple estimator
+ \begin{equation}
+ f(\mnhi,z) = \frac{\rm \# \; lines \; in \; [\Delta \mnhi,\Delta z]}{
+ \Delta\mnhi \, \Delta z}
+ \end{equation}
+ 	\begin{itemize}
+ 	\item Assume Poission statistics to estimate uncertainty
+ 	\item Subtlety: 
+ 		\begin{itemize}
+ 		\item Evolution in $f(\mnhi,z)$ with \nhi\ or $z$ 
+ 		skews the detection within a bin (lower \nhi, higher $z$)
+ 		\item Simple $\chi^2$ analysis using the center of the
+ 		bins will be (marginally) wrong
+ 		\end{itemize}
+	\includegraphics[width=2.7in]{Paper_figs/tytler87_fig2.pdf}
+	\includegraphics[width=2.7in]{Paper_figs/petitjean93_fig1.pdf}
+
+ 	\item Early results
+ 		\begin{itemize}
+ 		\item Tytler 1987 (left); Petitjean et al.\ 1993 (right)
+ 		\item Well-described with a power-law
+ 		\item But not perfectly..
+ 			\begin{itemize}
+ 			\item Tytler proposed a single-population of gas `clouds'
+ 			\item Petitjean et al.\ argued for distinct populations
+ 			\item The modern view is even more complex
+ 			\end{itemize}
+ 		\end{itemize}
+ 	\item Keck arrives
+ 		\begin{itemize}
+ 		\item Hu et al.\ 1996
+ 		\item Kirkman \& Tytler 1997
+ 		\end{itemize}
+
+	\includegraphics[width=5.0in]{Paper_figs/kirkman97_fig3.pdf}
+
+ 		\item Turn-over at low \nhi
+ 		\begin{itemize}
+ 		\item Lack of sensitivity (i.e.\ completeness?)
+ 			\begin{itemize}
+ 			\item $\tau_0 \approx 0.025$ for $\mnhi = 10^{12} \cm{-2}$!
+ 			\end{itemize}
+ 		\item Poor estimation of the continuum?
+ 			\begin{itemize}
+ 			\item 5\%\ error in the continuum overwhelms such a signal
+ 			\end{itemize}
+ 		\item Breakdown of \fnhi\ methodology (e.g.\ line-blending)? 
+ 		\item Physical?
+ 			\begin{itemize}
+ 			\item Non-linear ionization of low density gas
+ 			\end{itemize}
+ 		\end{itemize}
+
+ 	\item Modern Estimates
+ 		\begin{itemize}
+ 		\item Data is now exquisite (statistically)
+ 			\begin{itemize}
+ 			\item Rudie et al.\ 2013
+	 		\item Kim et al.\ 2013
+ 			\end{itemize}
+ 		\item (Comparison from Prochaska+14, Fig 5)
+ 			\begin{itemize}
+ 			\item Differences in results stress systematic error
+ 			\item Keep in mind these are on a log-log plot
+ 			\item Can we resolve these?
+ 			\end{itemize}
+ 		\end{itemize}
+
+	\includegraphics[width=5.0in]{Paper_figs/prochaska14_fig5.pdf}
+
+ 	\end{itemize}
+ \end{itemize}
+
+{\bf \item Models for \fnhi}
+	\begin{itemize}
+	\item Motivations
+		\begin{itemize}
+		\item Reduce the binned evaluations to a few, well-constrained parameters
+		\item Better enable the examination of redshift evolution
+		\item Required to evaluate \fnhi\ for other measures (stay tuned)
+		\end{itemize}
+	\item Challenges / limitations
+		\begin{itemize}
+		\item No physical model for \fnhi
+		\item Results are sensitive to \nhi\ limits
+		\end{itemize}
+	\item Functional forms
+		\begin{itemize}
+		\item Single power-law (Tytler 87)
+		\begin{equation}
+		\mfnhi = B N^\beta
+		\end{equation}
+			\begin{itemize}
+			\item $\beta = -1.51 \pm 0.02$
+			\item Remarkably (over optimistic) small error
+			\end{itemize}
+		\item Broken power-laws (Prochaska et al.\ 2010)
+		\item Broken, disjoint power law (Rudie et al.\ 2013)
+		\item Sum of several functional forms (Inoue et al.\ 2014)
+		\item Spline evaluation (Prochaska et al.\ 2014)
+		\item Increasing complexity 
+			\begin{itemize}
+			\item Reflects increasing quality (statistical power) of the observations
+			\item And the increasing range of \nhi\ considered
+			\end{itemize}
+		\end{itemize}
+	\item $\chi^2$ Analysis
+		\begin{itemize}
+		\item Assume Gaussian statistics in the binned evaluations
+			\begin{itemize}
+			\item i.e. $\sigma(\mfnhi)^2 = $ number of lines in the bin
+			\end{itemize}
+		\item Minimize $\chi^2$
+		\item Complications
+			\begin{itemize}
+			\item Results are sensitive to the choice of bins
+			\item What centroid should be adopted for the bin center?
+			\end{itemize}
+		\end{itemize}
+	\item Likelihood Analysis
+		\begin{itemize}
+		\item See Cooksey et al. (2010) (and previously Storrie-Lombardi et al.\ 1996)
+		\item Consider a survey with path $\Delta z$ [Slides]
+			\begin{itemize}
+			\item Focus solely on $f(\mnhi,z)$ at a given $z'$ 
+			(i.e.\ focused on the shape and normalization at $z=z'$)
+			\item Divide the distribution space into $M$ cells with 
+			volume: $\delta v = \Delta z \, \Delta \mnhi$
+			\end{itemize}
+		\item Expected number $\mu_i$ in $i$th cell:
+			\begin{itemize}
+			\item It follows from our definition of \fnhi
+			\begin{equation}
+			\mu_i = f(\mnhi)_i \, \Delta z \, \Delta\mnhii
+			\end{equation}
+			\item Probability of detecting $m$ absorbers within 
+		cell $i$ is given by Poisson statistics
+		\begin{equation}
+		P(m; \mu_i) = {\rm e}^{-\mu_i} \frac{\mu_i^m}{m!}
+		\end{equation}
+			\end{itemize}
+		\item Likelihood function
+			\begin{itemize}
+			\item Simple product over all cells
+			\end{itemize}
+		\begin{equation}
+		\mathcal{L} = \prodl_i^M P(m; \mu_i)
+		\end{equation}
+
+		\item Swindle?!
+			\begin{itemize}
+			\item Reduce the volume of the cell so that each contains
+			at most one absorber
+			\item Let $\Delta\mnhii \to 0$
+			\item $P(m;\mu_i)$ reduces to ${\rm e}^{-\mu_i}$ for an
+			empty cell and ${\rm e}^{-\mu_i} \mu_i$ for a cell with 1 system
+			\end{itemize}
+		\item Likelihood
+			\begin{itemize}
+			\item Sum over all $M$ cells  
+			\item Let there be $p$ lines detected giving $g=M-p$ empty cells
+			\end{itemize}
+		\begin{align}
+		\mathcal{L} &= \prodl_{i=1}^g {\rm e}^{-\mu_i} \;
+		\prodl_{j=1}^p {\rm e}^{-\mu_j} \, \mu_j \\
+		  &= \prodl_{i=1}^M {\rm e}^{-\mu_i} \; \prodl_{j=1}^p \mu_j
+		\end{align}
+		%\begin{equation}
+		%\ln \mathcal{L} = -\intl_{N_{\rm min}}^{N_{\rm max}} \mfnhi \, \Delta z \, d\mnhi - \smm_i^m \ln[f(\mnhii) \, \Delta z]
+		%\end{equation}
+		\item log-Likelihood
+
+		\begin{align}
+		\ln \mathcal{L} &= \smm_i^M -\mu_i \, + \, \smm_i^p \ln \mu_i \\
+		   &= \smm_i^M -f(\mnhi)_i \Delta z \, \Delta\mnhi +
+		   \smm_j^p \ln f(\mnhi)_j \Delta z + p \ln [\Delta\mnhi]
+		\end{align}
+
+			\begin{itemize}
+			\item In our limit with $\Delta\mnhii \to 0$
+			\item We ignore the last term (constant) and take the integral form
+			of the first term
+			\begin{equation}
+		\ln \mathcal{L} = - \intl_{N_{min}}^{N_{max}} f(\mnhi) \Delta z \, d\mnhi 
+		   \, + \, \smm_{j=1}^p \ln f(\mnhi)_j \Delta z
+			\end{equation}
+			\item If $\Delta z$ is independent of \nhi\ it may be ignored 
+			\item See Cooksey et al.\ 2010 for a treatment where
+			$\Delta z$ is dependent on \nhi
+			\end{itemize}
+		\end{itemize}
+		\item Maximize $\mathcal{L}$ for the parameterization of \fnhi
+			\begin{itemize}
+			\item Results provide the ``best'' values for the parameters
+			\item But not necessarily a good model!  (need another statistical
+			test; see Lyman Limit Lecture)
+			\end{itemize}
+		\item Current results 
+			\begin{itemize}
+			\item Rudie et al.\ 2013: $\mnhi = 10^{13.5} - 10^{17} \cm{-2}$, 
+			$z \approx 2.5$
+			\begin{equation}
+			\mfnhi \propto \mnhi^{-1.65 \pm 0.02}
+			\end{equation}
+
+	\includegraphics[width=5.0in]{Paper_figs/rudie13_fig3.pdf}
+
+			\item Kim et al.\ 2013: $\mnhi = 10^{12.75} - 10^{18} \cm{-2}$,
+			$z \approx 2.8$
+			\begin{equation}
+			\mfnhi \propto \mnhi^{-1.52 \pm 0.02}
+			\end{equation}
+			\item Competing results which follows from their different 
+			measures of the binned evaluations
+			\item Progress requires resolving systematic errors, including
+			human biases (ugh)
+			\end{itemize}
+
+	%\includegraphics[width=4.0in]{Paper_figs/kim13_fig10.pdf}
+
+	\end{itemize}
+
+{\bf \item $b$-value Distribution}
+	\begin{itemize}
+	\item Line-profile fitting also yields a distribution of $b$-values
+		\begin{itemize}
+		\item These may be described by a separate distribution function
+		\end{itemize}
+	\item Observations (Kirkman \& Tytler 1997, Figure 4)
+		\begin{itemize}
+		\item No strong dependence on \nhi
+		\item Possible increase in the minimum $b$-value with increasing \nhi
+		\end{itemize}
+
+	\includegraphics[width=4.0in]{Paper_figs/kirkman97_fig5.pdf}
+
+	\includegraphics[width=5.0in]{Paper_figs/kirkman97_fig4.pdf}
+
+	\item Distribution function
+		\begin{itemize}
+		\item Motivated from theory (Hui \& Rutledge 1999)
+			\begin{itemize}
+			\item i.e.\ optical depth fluctuations
+			\item Without derivation:
+			\end{itemize}
+		\begin{equation}
+		g(b) = \frac{4 b_\sigma^4}{b^5} \, \exp \ltp - \frac{b_\sigma^4}{b^4} \rtp
+		\end{equation}
+		\item Single parameter model ($b_\sigma$)
+		\item Good description of the observations with $b_\sigma = 26.3$ km/s
+		\item Hui \& Rutledge 1999, Figure 1
+
+	\includegraphics[width=4.0in]{Paper_figs/hui99_fig1.pdf}
+
+		\end{itemize}
+
+	\item Average value
+	\begin{equation}
+	<b> = \frac{\int b g(b) \, db}{\int g(b) \, db} = b_\sigma \Gamma(3/4)
+	\approx 32 \, {\rm km/s}
+	\end{equation}
+
+	\item Lower limit: $b_{\rm min} \approx 18$ km/s
+		\begin{itemize}
+		\item What sets the lower bound to the $b$-value?
+		\item Recall:  $b = \sqrt{\frac{2kT}{m_A} + \xi^2}$
+		\item One is tempted to associate $b_{\rm min}$ to the IGM temperature
+		\item For purely thermal broadening of Hydrogen, 
+		\begin{equation}
+		T = 10^4 \, {\rm K} \; \ltp \frac{b}{13 \, \rm km/s} \rtp^2
+		\end{equation}
+		\item We return to the IGM temperature in a future Lecture
+		\end{itemize}
+
+	\item Upper bound: $b_{\rm max} \approx 100$ km/s
+		\begin{itemize}
+		\item Collisional ionization?  (see Broad \lya\ lines [BLAs] at low-$z$)
+		\item Sensitivity? ($\tau_0 \propto N\lambda f / b$)
+		\item Line-blending prohibits the measurement of larger values?
+		\end{itemize}
+
+	\end{itemize}
+
+{\bf \item Line Density (Incidence of Absorption Lines)}
+	\begin{itemize}
+	\item (confusing) Notation: $dN/dz, n(z), N(z), \ell(z)$
+	\item Definition:  $\ell(z) dz = $ number of lines detected
+	on average in the interval $z, z+dz$ over an interval of 
+	column density $\mnhi = [N_{\rm min}, N_{\rm max}]$
+	\item Calculation
+	\begin{equation}
+	\ell(z) dz = \intl_{N_{\rm min}}^{N_{\rm max}} f(\mnhi,z) \, d\mnhi \, dz
+	\end{equation}
+		\begin{itemize}
+		\item This is the zeroth moment of our frequency distribution
+		\item Akin to the number density of galaxies derived from a 
+		luminosity function
+		\end{itemize}
+	\item Estimate at $z \approx 2.8$ (example)
+		\begin{itemize}
+		\item Adopt Kim et al.\ 2013, power-law model 
+		(converted to redshift space; $dX/dz = 3.5$)
+		\begin{equation}
+		f(\mnhi, z \approx 2.8) = 10^{9.1} \mnhi^{-1.52}
+		\end{equation}
+		\item Integrate 
+		\begin{equation}
+		\ell(z \approx 2.8) = \frac{10^{9.1}}{0.52} \mnhi^{-0.52} 
+		|_{N_{\rm min}}^{N_{\rm max}}
+		\end{equation}
+			\begin{itemize}
+			\item This is dominated by the lowest \nhi\ systems ({\bf Notebook})
+			\item Consider a 5\AA\ patch of spectrum at 4600\AA\
+			and $N_{\rm min} = 10^{12.75} \cm{-2}$
+				\begin{itemize}
+				\item $\delta z = (1+z) (\delta\lambda/\lambda) = 0.004$
+				\item $\ell(z) \, \delta z = 2.4$  
+				\item (This seems a bit low)
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	\item Observations at $z \sim 2-3$
+		\begin{itemize}
+		\item Kim et al.\ 2013, Figure 9
+
+	\includegraphics[width=4.0in]{Paper_figs/kim13_fig9.pdf}
+
+		\item Strong evolution, as evident in individual spectra
+		\item Probable \nhi\ dependence to $\ell(z)$
+		\end{itemize}
+
+	\item Modeling the Redshift evolution
+		\begin{itemize}
+		\item What physical model might we expect?
+		\item Expansion [Following Meiksin 2009]
+			\begin{itemize}
+			\item Cartoon
+			\item Imagine a population of absorbers with physical (proper)
+			number density $n_p(z)$ and proper cross-section $A_p(z)$
+			\item Expect $dN/dr_p = n_p(z) A_p(z)$ absorbers per proper
+			path length $r_p$
+			\item Cosmology
+			\begin{equation}
+			\frac{dr_p}{dz} = \frac{c}{H(z) (1+z)}
+			\label{eqn:drdz}
+			\end{equation}
+			\begin{equation}
+			\frac{dN}{dz} = n_p(z) A_p(z) \frac{c}{H(z) (1+z)}
+			\end{equation}
+			\item Hubble Parameter
+			\begin{equation}
+			H(z) = H_0 \sqrt{\Omega_m (1+z)^3 + \Omega_\Lambda}
+			\end{equation}
+				\begin{itemize}
+				\item At $z>2$, the universe is matter dominated and 
+				$\Omega_\Lambda$ may be ignored
+				\item $H(z) \approx H_0 \Omega_m^{1/2} (1+z)^{3/2}$
+				\end{itemize}
+			\item Ansatz a constant comoving
+			population, $n_p(z) = n_c(z) (1+z)^{3}$, with a constant
+			physical size
+			\item Altogether,
+			\begin{equation}
+			\ell(z) = \frac{dN}{dz} \propto n_c(z) A_p(z) (1+z)^{\ohf}
+			\end{equation}
+			\item On its own, this implies a weak dependence with redshift
+			(weaker than observed)
+			\end{itemize}
+		\item Mean density
+		\begin{equation}
+		\bar\rho \propto (1+z)^3
+		\end{equation}
+			\begin{itemize}
+			\item Increasing neutral fraction with $z$ 
+				\begin{itemize}
+				\item Provided the emissivity from ionizing sources does
+				not rise more steeply than $(1+z)^3$
+				\item Radiation field should also scale as $(1+z)^\gamma$
+				\end{itemize}
+			\item Sensitive to lower densities, i.e. a greater portion 
+			of the volume
+			\item Together, these imply a steeper evolution in $\ell(z)$
+			\end{itemize}
+		\item Together, we have a physical motivation for a $(1+z)^\gamma$
+		evolution in $\ell(z)$
+
+		\item Current results at $z \sim 2-3$  (Kim et al.\ 2013, Figure 9; above)
+			\begin{itemize}
+			\item Not based on Maximum Likelihood
+			\item For $\mnhi < 10^{14} \cm{-2}$
+			\begin{equation}
+			\ell(z) = 100 (1+z)^{1.12 \pm 0.24}
+			\end{equation}
+			\item For $\mnhi = [10^{14}, 10^{17}] \cm{-2}$
+			\begin{equation}
+			\ell(z) = 0.4 \, (1+z)^{4.14 \pm 0.6}
+			\end{equation}
+			\end{itemize}
+
+	\includegraphics[width=4.0in]{Paper_figs/kim13_fig5.pdf}
+
+		\item Current results including measurements at $z<1$ (Kim et al.\ 2003, Figure 5)
+			\begin{itemize}
+			\item Power-law extrapolation of $\ell(z)$ to $z=0$ fails
+			\item Observed incidence of absorption is much *higher*
+				\begin{itemize}
+				\item Caution: sample size is modest
+				\item Caution: Comparison at fixed \nhi\ implies varying gas density (see Schaye01 formalism to come)
+				\end{itemize}
+			\item Nevertheless, we infer a greatly reduced EUVB
+				\begin{itemize}
+				\item Consistent with declining quasar population
+				\item Although not exactly (see Kollmeier et al.\ 2014)
+				\end{itemize}
+			\end{itemize}
+
+
+		\end{itemize}
+	\end{itemize}
+
+{\bf \item Mock Spectra of the \lya\ Forest}
+	\begin{itemize}
+	\item Random realization of the IGM
+		\begin{itemize}
+		\item \fnhi\ provides a natural description of the IGM stochasticity
+		\item Useful for generating mock realizations of the \lya\ Forest
+		\item Cheaper (at least historically), then draws from an IGM simulation
+			\begin{itemize}
+			\item Simulations struggle to reproduce the incidence of
+			gas with high \nhi
+			\item Difficult to map simulations across cosmic time
+			\end{itemize}
+		\end{itemize}
+	\item Recipe
+		\begin{itemize}
+		\item Define a redshift interval $\delta z$ for the mock Forest
+		\item Define \nhi\ bounds for \fnhi\ (usually the full dynamic range)
+		\item Calculate the average number of lines 
+		($N_{lines} = \ell(z) \delta z$)
+		\item Random draw (Poisson) from $N_{lines}$
+		\item Draw \nhi\ values from \fnhi
+		\item Draw $b$ from $g(b)$
+		\item Draw $z$ from $\ell(z)$
+		\item Calculate $\tau_\lambda$, including all 
+		Lyman series lines (as applicable)
+			\begin{itemize}
+			\item On a wavelength grid fine enough to 
+			capture the line profile
+			\item i.e.\ a perfect spectrometer
+			\end{itemize}
+		\item Calculate $F_\lambda = \exp[-\tau_\lambda]$
+		\item Add in spectral characteristics
+			\begin{itemize}
+			\item Convolve with instrument LSF
+			\item Rebin to final wavelength array
+			\item Add in Noise
+			\end{itemize}
+		\item Add in source SED
+		\end{itemize}
+	\item See {\bf Notebook}
+	\item Entertaining exercise
+		\begin{itemize}
+		\item Generate 100 mock spectra from an input \fnhi
+		\item Fit the data
+		\item Do you recover \fnhi!?
+		\end{itemize}
+	\end{itemize}
+
+%%%%%%%%%%%%%
+{\bf \item Effective \lya\ Opacity: $\tau_{\rm eff}^{\rm Ly\alpha}$}
+	\begin{itemize}
+	\item Observed IGM is highly stochastic
+		\begin{itemize}
+		\item Modeled as random absorption lines
+		\item Undulating, random density field
+		\item How do we compare this to cosmological models?
+		\end{itemize}
+	\item Definitions
+		\begin{itemize}
+		\item Let \fnorm\ be the average, normalized flux in
+		the \lya\ forest %(redward of \lyb)
+		\item Effective \lya\ opacity
+		\begin{equation}
+		\tau_{\rm eff, \alpha} = - \ln \mfnorm
+		\end{equation}
+
+		\item Also define $D_A$ (\lya\ decrement; an equivalent measure)
+		\begin{equation}
+		D_A = 1 \, - \mfnorm
+		\end{equation}
+		\end{itemize}
+	\item Assessing $\tau_{\rm eff, \alpha}$ 
+		\begin{itemize}
+		\item Empirical:  Average over many (100+) spectra
+			\begin{itemize}
+			\item See slides
+			\end{itemize}
+		\item Theoretical:
+			\begin{itemize}
+			\item Average opacity is a balance between 
+			$\Omega_b, \bar\rho$, and the radiation field
+			\item Measuring/knowing three of these permits an estimate of the 
+			remaining one
+			\end{itemize}
+		\end{itemize}
+	\item Calculate from \fnhi\ \; [Moller \& Jakobsen 1990; Press et al.\ 1993]
+		\begin{itemize}
+		\item Calculate the average opacity from an \nhi\ distribution
+		\item Requires the $b$-value distribution too
+			\begin{itemize}
+			\item Especially for saturated lines
+			\item $W_\lambda \propto b$
+			\end{itemize}
+		\item Consider the number of lines $\mathcal{N}$ per unit rest wavelength 
+		with
+		\begin{equation}
+		d\lambda_{\rm rest} = \lambda_{\rm rest} dz / (1+z)
+		\end{equation}
+			\begin{itemize}
+			\item We know how to calculate the number of lines per $dz$
+			\item Integrate our HI frequency distribution
+		  	\begin{equation}
+		  	\frac{dN}{dz} = \int f(\mnhi,b,z) dN db  
+	  		\end{equation}
+			\item Now transfer to per rest wavelength interval
+	  		\begin{equation}
+		  	\mathcal{N} = \frac{1+z}{\lambda_{\rm rest}} \int f(\mnhi,b,z) dN db
+	  		\end{equation}
+			\end{itemize}
+		\item Mean equivalent width of our lines
+		  	\begin{equation}
+		  	\bar{W_\lambda} = \frac{1+z}{\mathcal{N} \lambda_{\rm rest}} 
+		  	\int f(\mnhi,b,z) W_\lambda(N,b) dN db 
+	  		\end{equation}
+		\item If the lines are randomly distributed (i.e.\ no clustering),
+		then the mean transmission ($1-D_A$) is
+		\begin{equation}
+		1-D_A = \exp (-\mathcal{N} \bar W_\lambda)
+		\end{equation}
+			\begin{itemize}
+			\item This equation appears intuitive
+			\item Yet a proper derivation is remarkably complex! (see above references)
+			\end{itemize}
+		\item An expression for the effective opacity simply follows as
+		\begin{equation}
+		\tau_{\rm eff, \alpha} = \int f(\mnhi,b,z) 
+		W^{\rm Ly\alpha}_\lambda(N,b) \, dN db 
+		\label{eqn:teff}
+		\end{equation}
+		\end{itemize}
+	\item Evaluating $\tau_{\rm eff,\alpha}$
+		\begin{itemize}
+		\item Equation~\ref{eqn:teff} is relatively straightforward, but
+		not analytic
+		\item A typical cheat is to assume the average $b$-value instead
+		of our distribution
+		\item This gives a one-to-one correspondence between \nhi\ and $W_\lambda$
+		\item See Notebook
+		\end{itemize}
+	\item Using \fnhi\ from Prochaska+14
+		\begin{itemize}
+		\item $\tau_{\rm eff, \alpha} = 0.24$ at $z=2.5$
+		\item Differential contribution with $\log \mnhi$
+
+	\includegraphics[width=4.5in]{Figures/dteff.pdf}
+
+			\begin{itemize}
+			\item Dominated by lines with $\tau_0 \approx 1$
+			\item Small contribution from damped \lya\ lines too
+			\item Choice of $N_{\rm min}$ also impacts the result
+			\end{itemize}
+
+		\end{itemize}
+
+	\item Observational results
+		\begin{itemize}
+		\item Kirkman et al. 2005
+			\begin{itemize}
+			\item 24 quasar spectra from Lick Observatory
+			\item Army of undergrad students to fit continua 
+			(dominant uncertainty)
+			\item Masked metal absorption and lines with $\mnhi > 10^{17} \cm{-2}$
+
+	\includegraphics[width=4.5in]{Paper_figs/kirkman05_fig4.pdf}
+
+			\item Modeled $D_A$ as $(1+z)^\gamma$ for $z=2-3$
+			\begin{equation}
+			D_A = 0.0062 \, (1+z)^{2.75}
+			\end{equation}
+			\item $\tau_{\rm eff, \alpha}(z=2.5) = 0.22$ 
+			\end{itemize}
+		\item Faucher-Gigu\`ere et al.\ 2008
+			\begin{itemize}
+			\item Analyzed nearly 100 echelle spectra at $z>2$
+			\item Corrected statistically for metal absorption
+			\item Assessed continuum bias on mock spectra
+			\item Identified a disturbing `wiggle' in the measurement
+
+	\includegraphics[width=4.5in]{Paper_figs/fg08_fig3.pdf}
+
+			\item Best-fit power law
+
+			\begin{equation}
+			\tau_{\rm eff, \alpha} = 0.0018 \, (1+z)^{3.92}
+			\end{equation}
+
+			\end{itemize}
+
+		\item Becker et al.\ 2013
+			\begin{itemize}
+			\item Recognized that the quasar SED is remarkably similar with redshift 
+
+	\includegraphics[width=4.5in]{Paper_figs/becker13_fig2.pdf}
+
+				\begin{itemize}
+				\item Implies that a relative measurement may be very precise
+				\item Leveraged the statistical power of SDSS
+				\item BOSS is not well fluxed...
+				\end{itemize}
+			\item Measure the ratio of the fluxes (divide the stacked spectra)
+			\item See Slides
+
+	\includegraphics[width=4.5in]{Paper_figs/becker13_fig4.pdf}
+
+				\begin{itemize}
+				\item Tied absolute value to previous work (F-G et al.\ 2008)
+				\item Statistical corrections for $\mnhi > 10^{17} \cm{-2}$ absorbers and metals
+				\item Main result (not strictly a power-law)
+				\begin{equation}
+				\tau_{\rm eff, \alpha}(z) = 0.751 \ltp \frac{1+z}{1+3.5} 
+				\rtp^{2.9}  - 0.132
+				\end{equation}
+				\end{itemize}
+
+			\end{itemize}
+		\item These measurements provide a blunt yet powerful test
+		for any cosmological model of the IGM
+			\begin{itemize}
+			\item Density field
+			\item Radiation field
+			\item See next sub-section
+			\end{itemize}
+		\end{itemize}
+
+	\end{itemize}
+
+{\bf \item Fluctuating Gunn-Peterson Approximation (FGPA)}
+	\begin{itemize}
+	\item An alternate description of the \lya\ Forest
+	\item Gunn-Peterson 
+		\begin{itemize}
+		\item Optical depth from \lya\ at line center (Lecture 1)
+		\begin{equation}
+		\tau_0 = \frac{\pi e^2}{m_e c} \frac{N_{\rm HI} 
+		f_{\rm Ly\alpha}}{\Delta \nu_D}
+		\end{equation}
+		\item \nhi\ column density
+		\begin{equation}
+		\mnhi = n_{\rm HI} \Delta r
+		\end{equation}
+		\item Cosmology (see Equation~\ref{eqn:drdz} for $dr/dz$)
+		\begin{equation}
+		\Delta r = \frac{c \Delta z}{H(z) (1+z)}
+		\end{equation}
+		\item Recognize absorption occurs over a small redshift interval
+		\begin{equation}
+		\Delta z/(1+z) = \Delta\nu_{\rm Ly\alpha} / \nu_{\rm Ly\alpha}
+		\end{equation}
+		\item Ionization balance for $n_{\rm HI}$ with ionization rate $\Gamma$
+		and recombination rate $\alpha(T)$
+		\begin{equation}
+		n_{\rm HI} \Gamma = \alpha(T) n_{\rm HII} n_e
+		\label{eqn:ion_balance}
+		\end{equation}
+		\item Altogether now..
+		\begin{equation}
+		\tau = \frac{\pi e^2 f_{\rm Ly\alpha}}{m_e \nu_{\rm Ly\alpha}}
+		\frac{1}{H(z)} \frac{\alpha(T) n_{\rm HeII} n_e}{\Gamma}
+		\end{equation}
+		\end{itemize}
+	\item Introduce the over-density $\delta$
+	\begin{equation}
+	\rho = \bar\rho (1+\delta)
+	\label{eqn:overdensity}
+	\end{equation}
+		\begin{itemize}
+		\item Express our number densities in terms of the over-density
+		\item And ionization and mass fractions ($X$ is the Hydrogen mass fraction and $x$ is the Hydrogen ionization fraction)
+		\begin{equation}
+		n_{\rm HII} = \frac{\rho_{\rm crit} \Omega_b}{m_p} \, X x \; (1+\delta) (1+z)^3
+		\end{equation}
+		\item A similar (uglier) expression for $n_e$ includes Helium ($Y$, $y_{II}, y_{III}$)
+		\begin{equation}
+		n_e = \frac{\rho_{\rm crit} \Omega_b}{m_p} [Xx + 0.25Y(y_{II} + 2y_{III})] \; (1+\delta) (1+z)^3
+		\end{equation}
+		\end{itemize}
+	\item Approximate $\alpha(T)$ as a power-law (e.g. Osterbrock)
+	\begin{equation}
+	\alpha(T) \approx \alpha_0 T^{-0.7}
+	\end{equation}
+	\item Lastly, assume the IGM gas follows a power-law temperature-density
+	relation (e.g. Hui \& Gnedin 1997)
+	\begin{equation}
+	T = T_0 (1+\delta)^\beta
+	\label{eqn:rhoT}
+	\end{equation}
+	\item Our Gunn-Peterson expression becomes
+	\begin{equation}
+	\tau = A(z) \, (1+\delta)^{2 - 0.7 \beta}
+	\end{equation}
+		\begin{itemize}
+		\item This opacity ``fluctuates'' with the local over-density
+		\item aka the fluctuating Gunn-Peterson approximation
+		\item Here
+		\begin{equation}
+		A(z) \propto (1+z)^6 / [H(z) \Gamma]
+		\end{equation}
+		\item Or, in its glory
+		\begin{equation}
+		A(z) \equiv \frac{\pi e^2 f_{\rm Ly\alpha}}{m_e \nu_{\rm Ly\alpha}}
+		\ltp \frac{\rho_{\rm crit} \Omega_b}{m_p} \rtp^2 
+		\frac{1}{H(z)} Xx [Xx + 0.25Y(y_{II} + 2y_{III})] \frac{\alpha_0 T_0^{-0.7}}{\Gamma}
+		(1+z)^6
+		\end{equation}
+		\end{itemize}
+	\item Given a probability density function for the gas density,
+	$\Delta \equiv 1 + \delta$, we may calculate the mean flux (and opacity)
+	\begin{equation}
+	<F>(z) = \intl_0^\infty P(\Delta; z) \exp(-\tau) d\Delta
+	\end{equation}
+		\begin{itemize}
+		\item See Miralda-Escud\'e et al.\ 2000 for models of $P(\Delta)$
+		based on numerical simulations
+		\end{itemize}
+	\item Adopting a cosmology, one may solve for $\Gamma$
+		\begin{itemize}
+		\item e.g. Faucher-Gigu\`ere et al.\ 2008, ApJ, 682, L9
+		\item The resultant estimate is remarkably flat with redshift
+
+	\includegraphics[width=4.5in]{Paper_figs/fg08c_fig1.pdf}
+
+		\item Extending to $z>4$, where quasar emissivity drops sharply,
+		one may conclude that galaxies have to dominate
+		\item But beware of the mini-quasar! (e.g. Giallongo et al.\ 2015; Haardt \& Madau 2015)
+		\item And uncertain assumptions inherent to the fluctuating GP approximation
+		\end{itemize}
+
+	\end{itemize}
+
+{\bf \item Effective Lyman Series Opacity}
+	\begin{itemize}
+	\item Hydrogen Lyman Series
+		\begin{itemize}
+		\item Imposes additional opacity at shorter wavelengths
+		\item Sequentially smaller, $\tau_0 \propto \lambda f N$
+		\end{itemize}
+	\item At short wavelengths, a complex blending of Lyman lines
+	from various redshifts occurs
+		\begin{itemize}
+		\item Example:  $\lambda_{\rm obs} = 4600$\AA\ for a source
+		at $z_{\rm em} = 4$
+		\item Ly$\alpha$ opacity from $z_{\rm Ly\alpha} = 2.78$
+		\item Ly$\beta$ opacity from $z_{\rm Ly\beta} = 3.48$
+		\item Ly$\gamma$ opacity from $z_{\rm Ly\gamma} = 3.73$
+		\item Ly$\delta$ opacity from $z_{\rm Ly\delta} = 3.84$
+		\item etc.
+		\end{itemize}
+	\item Approach at each $\lambda$
+		\begin{itemize}
+		\item Calculate $\tau_{\rm eff}$ from every contributing
+		Lyman series line
+		\item Sum
+		\item Recognize that $\tau{\rm eff}$ for a given line {\it decreases}
+		with decreasing redshift (shorter wavelength)
+		\end{itemize}
+	\item Result
+		\begin{itemize}
+		\item See {\bf Notebook}
+		\item Theoretical `sawtooth' curve:
+
+	\includegraphics[width=5.0in]{Figures/sawtooth.pdf}
+
+		\item Observational ($z \approx 4$ stacked quasar)
+
+	\includegraphics[width=5.0in]{Figures/obs_sawtooth.pdf}
+			\begin{itemize}
+			\item The agreement between data and model is stunning
+			\item Recall: the Telfer+02 quasar SED is from $z=1$
+			\item And \fnhi\ was derived from line counting (and LLS
+			surveys, next lecture)
+			\end{itemize}
+
+		\end{itemize}
+	\item Implications
+		\begin{itemize}
+		\item IGM attenuation of distant sources
+			\begin{itemize}
+			\item e.g.\ galaxies (now called Lyman break galaxies)
+			\item For a $z=4$ galaxy, the $g$-band flux is reduced
+			by $\Delta m_g \approx 1$\,mag
+			\item This insight (Madau, Steidel, Koo) led to the discovery
+			of the first high-$z$ star-forming galaxies 
+			\item As we will see in the next Lecture, the IGM has an even
+			greater effect beyond the Lyman limit
+			\end{itemize}
+		\item Further IGM attenuation of distant sources
+			\begin{itemize}
+			\item This attenuation will also affect our \lya\ emitters (LAEs)
+			\item At $z=5$, $\tau_{\rm eff, \alpha} \approx 1.5$ 
+			\item Leads to asymmetry in \lya\ emission by the IGM alone
+			\end{itemize}
+		\end{itemize}
+
+	\end{itemize}
+
+{\bf \item IGM as Collapsed Jeans-Length Clouds (Schaye 2001)}
+	\begin{itemize}
+	\item Consider a cloud in the IGM that undergoes collapse
+	\item Characteristic time-scales:
+		\begin{itemize}
+		\item Dynamical time-scale
+		\begin{equation}
+		t_{\rm dyn} \equiv \frac{1}{\sqrt{G \rho}}
+		\end{equation}
+		\item Sound-crossing time
+		\begin{equation}
+		t_{\rm sc} \equiv \frac{L}{c_s}
+		\end{equation}
+		\end{itemize}
+	\item Jeans-scale
+		\begin{itemize}
+		\item Equating the time-scales,
+		\begin{equation}
+		L_J \equiv \frac{c_s}{\sqrt{G\rho}} \sim 
+		0.52 \, {\rm kpc} \, n_{H}^{-1/2} T_4^{1/2} \ltp \frac{f_g}{0.16} \rtp^{1/2}
+		\end{equation}
+		\item with $f_g \approx \Omega_g/\Omega_b$
+		\item Define a Jeans Hydrogen column density
+		\begin{equation}
+		N_{H,J} \equiv n_H L_J \sim 1.6 \sci{21} \cm{-2} \,
+		n_{H}^{-1/2} T_4^{1/2} \ltp \frac{f_g}{0.16} \rtp^{1/2}
+		\end{equation}
+			\begin{itemize}
+			\item Weak dependence on $n_H$ and $T$
+			\item Suggests each `cloud' has similar $N_H$ 
+			\end{itemize}
+		\end{itemize}
+	\item Derive a relation for \nhi, our observable
+		\begin{itemize}
+		\item Assume ionization balance (Equation~\ref{eqn:ion_balance}) to 
+		estimate a Jeans HI column density
+		\item Also invoke our definition of overdensity (Equation~\ref{eqn:overdensity}) and $\rho-T$ relation (Equation~\ref{eqn:rhoT})
+		\begin{equation}
+		N_{HI} \sim 2.7\sci{13} \cm{-2} (1+\delta)^{-1.5 - 0.7\beta}
+		\ltp \frac{1+z}{4} \rtp^{9/2} \times (\rm other \, simple \, factors)
+		\end{equation}
+		\end{itemize}
+
+
+	\item Implications/insights
+		\begin{itemize}
+		\item Low-density \lya\ forest arises in gas with low over-density 
+		\item The steep redshift dependence implies the characteristic
+		over-density of a system with fixed \nhi\ increases with decreasing $z$
+			\begin{itemize}
+			\item Given a fixed sensitivity to \nhi\ (typical)
+			\item Higher-$z$ universe probes lower density gas and vice-versa
+			\end{itemize}
+		\item For fiducial values of the radiation field, one estimates
+		that the density in the IGM is at least 
+		$\Omega_{\rm IGM} \gtrsim 0.7 \Omega_b$
+		\item Differential contribution to $\Omega_g$
+
+	\includegraphics[width=5.0in]{Paper_figs/schaye01_fig2.pdf}
+
+		\end{itemize}
+
+	\end{itemize}
+
+{\bf \item Complete Models of \fnhi [after DLA Lecture]}
+	\begin{itemize}
+	\item Observational constraints
+		\begin{itemize}
+		\item \fnhi\ at low \nhi\ from line fitting of the Forest
+		\item Incidence constraints for optically thick gas (next Lecture)
+		\item Estimate of the mean free path (next Lecture)
+		\item \fnhi\ at high \nhi\ from DLA Surveys (later Lecture)
+		\end{itemize}
+	\item Constraints at $z \approx 2.5$
+	\item Prochaska et al.\ 2014
+		\begin{itemize}
+		\item Adopted a cubic Hermite spline model (monotonically decreasing)
+			\begin{itemize}
+			\item Not physical, purely mathematical (but captures the data)
+			\item And smoother than broken power-laws
+			\end{itemize}
+		\item MCMC techniques to constrain the parameters
+		\item Results (focusing on $z \approx 2.5$)
+
+	\includegraphics[width=5.0in]{Paper_figs/prochaska14_fig7.pdf}
+
+		\end{itemize}
+	\item Inoue et al.\ 2014
+		\begin{itemize}
+		\item Formalism
+		\end{itemize}
+	\end{itemize}
+
+\end{Aenumerate}
+
+\end{document}

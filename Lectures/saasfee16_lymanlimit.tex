@@ -1,0 +1,1003 @@
+\documentclass[12pt,letterpaper]{article}
+
+\font\bfit = cmbxti10 scaled \magstephalf
+
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{ulem}
+%\usepackage{psfig}
+\usepackage{fancyheadings}
+ 
+\pretolerance=10000
+\textwidth=6.7in
+\textheight=8.9in
+\topmargin=-0.6in
+\headheight=.15in
+\hoffset = -0.2in
+\headsep=.35in
+\oddsidemargin=0in
+\evensidemargin=0in
+\parindent=2em
+\parskip=0.2ex
+
+\input{defs}
+\input{latex}
+\pagestyle{fancyplain}
+
+\lhead[\fancyplain{}{Intro}]{\fancyplain{}{\thepage}}
+\rhead[\fancyplain{}{Intro-\thepage}]{\fancyplain{}{SaasFee16-Lyman Limit}}
+\cfoot{}
+
+\newcommand{\mndi}{N_{\rm DI}}
+\newcommand{\ndi}{$N_{\rm DI}$}
+\newcommand{\helium}{${^4\rm He}$}
+\newcommand{\rmch}{\frac{\rm C}{\rm H}}
+\renewcommand{\labelitemii}{$\diamond$}
+\renewcommand{\labelitemiii}{$\blacktriangle$}
+\renewcommand{\labelitemiv}{$\circ$}
+\newcommand{\prfi}{\ltp \hat\eng \cdot \vec r \rtp_{fi}}
+
+%\newcommand{\dfhf}{^2\negm D_{\frac{5}{2}}}
+%\newcommand{\dtvr}{\dot{\vec r}}
+%\newcommand{\mtrx}{\bra{\phi_f} \rmikr \hat\eng \cdot \vec\nabla \ket{\phi_i}}
+%\newcommand{\prfi}{\ltp \hat\eng \cdot \vec r \rtp_{fi}}
+
+
+\special{papersize=8.5in,11in}
+
+\begin{document}
+
+\noindent {\bf{\large IV. Optically Thick HI Absorption (Lyman Limit) [2.0]}}
+
+\begin{Aenumerate}
+
+{\bf \item Motivations}
+ \begin{itemize}
+ \item Hydrogen exhibits a continuum opacity beyond the Lyman limit
+ 	\begin{itemize}
+ 	\item $h \nu > 13.6$\,eV
+ 	\item $\lambda < 911.7$\AA
+ 	\end{itemize}
+ \item Further attenuation of the radiation field
+ 	\begin{itemize}
+ 	\item Ambient: EUVB
+ 	\item Directed: Galaxies
+ 	\end{itemize}
+ \item Theoretically, expect that optically thick gas to originate in the 
+ interface between galaxies and the proper IGM
+ 	\begin{itemize}
+ 	\item Examine accretion onto galaxies (aka cold flows)
+ 	\item Examine flow of cool gas away from galaxies (aka feedback)
+ 	\end{itemize}
+ \end{itemize}
+
+{\bf \item Physics of Continuum Opacity}
+	\begin{itemize}
+
+  	\item Bound-free absorption
+  	\item Process 
+	\begin{itemize}
+	\item Photon with energy $\hbar \omega$ strikes an atom with binding
+	energy $I_H$
+	\item Ejected electron has energy $\hbar\omega - I_H > 0$
+	\item i.e.\ Absorption can occur for a continuous range of frequencies
+	\end{itemize}
+  \item Goal
+	\begin{itemize}
+	\item Combine an expression for the probability of absorption
+	$({\rm w_{fi}})$ with \\ the density of final states
+	\item Calculate the probability/time for a transition to a 
+	`cell' of phase space
+	\item We will express this probability in terms of a cross-section
+	\end{itemize}
+  \item Final state
+	\begin{itemize}
+	\item Define for the emitted electron
+	\begin{equation}
+	\hbar \vec k_f = \vec p_f
+	\end{equation}
+	\item Assume a wave function normalized to a very large volume $L^3$
+	\begin{equation}
+	\ket{\vec k_f} \equiv \frac{1}{L^{3/2}} \ket{f}
+	\end{equation}
+
+  	\item Energy
+	\begin{equation}
+	E_f = \frac{p_f^2}{2m} = \frac{\hbar^2 k_f^2}{2m}
+	\end{equation}
+	\end{itemize}
+
+ \item Density of final states
+	\begin{itemize}
+	\item Usual phase space argument (periodic boundary conditions)
+	\begin{equation*}
+	k_x = \frac{2\pi n_x}{L} \quad\quad \text{with} \; n_x \; 
+	   \text{any integer}
+	\end{equation*}
+	\item For final momentum $\hbar k_f$ propagating in direction $d\Omega$, \\
+	the density of final states is
+	\begin{equation}
+	n^2 dn d\Omega \quad\quad \text{with} \; n^2 = n_x^2 + n_y^2 + n_z^2 =
+	  k_f^2 \ltp \frac{L}{2\pi} \rtp^2
+	\end{equation}
+	\item Finally
+	\begin{equation}
+	\begin{split}
+	n^2 dn d\Omega &= g(E) dE d\Omega \\
+	               &= \ltp \frac{L}{2\pi} \rtp^3 \frac{m_e}{\hbar^2} k_f 
+		         \, dE \, d\Omega\\
+	\end{split}
+	\end{equation}
+		\begin{itemize}
+		\item $g(E)$ expresses the density of final states, in energy
+		\end{itemize}
+	\end{itemize}
+
+\item Differential Cross-section
+
+	\begin{itemize}
+	\item Definition
+	\begin{equation}
+	\sigma = \frac{ \text{(Energy/unit time) absorbed by atom} (i \to f)}{
+	  \text{Energy flux of the radiation field}}
+	\end{equation}
+
+	\item Transition probability per unit time (without derivation)
+	\begin{equation}
+	{\rm w}_{fi} = 
+	\frac{4 \pi^2 e^2}{m^2 c} 
+	  \frac{I(\omega_{fi})}{\omega_{fi}^2} 
+	  \Big| \bra{\phi_f} \rmikr \hat\eng \cdot \vec\nabla \ket{\phi_i} \Big|^2
+	\end{equation}
+
+	\item Photoelectric effect
+	\begin{equation}
+	d\sigma_p = \frac{{\rm w}_{fi} \, g(E) 
+	                  d\Omega \cdot \hbar\omega}{I(\omega)}
+	\end{equation}
+
+	\item Plug and chug...
+	\begin{equation}
+	\frac{d\sigma_p}{d\Omega} = \frac{\alpha}{2\pi} 
+	     \frac{k_f}{m\hbar\omega} 
+	\big | \bra{f} \rme^{i \vec k \cdot \vec r} \, \hat\eng \cdot \vec p \,
+	  \ket{\phi_i} \big|^2
+	\end{equation}
+	\end{itemize}
+
+ \item Dipole Approximation
+ 	\begin{itemize}
+	\item Valid for energies near the ionization potential 
+	($\hbar \omega \approx I_H$)
+	\item Instead of $\ket{f} = \rme^{i \vec k_f \cdot \vec r}$, let
+	$\rme^{i \vec k \cdot r} = 1$ assuming
+	\begin{equation*}
+	k a_0 \ll 1 \quad\quad \text{(automatically satisfied near threshold)}
+	\end{equation*}
+	\item Differential cross-section
+	\begin{equation}
+	\frac{d\sigma^D_p}{d\Omega} = \frac{\alpha}{2\pi} 
+	   \frac{m\omega k_f}{\hbar}  \prfi
+	\end{equation}
+	\item For photoionization out of the ground state (1s)
+	\begin{align}
+	&\ket{i} = \ket{n=1; \ell=0; m=0; m_s=\pm} \\
+	&\ket{f} = \text{"appropriate final state"}
+	\end{align}
+	\end{itemize}
+
+ \item Total cross-section
+ \begin{equation}
+ \sigma^D_{photo} = \frac{2^9 \pi^2}{3} \alpha a_0^2 
+    \ltp \frac{I_H}{\hbar\omega} \rtp^4 f(\eta)
+ \end{equation}
+ 	\begin{itemize}
+	\item where
+	\begin{align}
+	f(\eta) &\equiv \frac{\exp \ltk-4\eta \cot^{-1}\eta \rtk}
+             {1 - \exp \ltk -2\pi\eta \rtk} \\
+	\eta &\equiv \ltp \frac{I_H}{E_f} \rtp^\ohf = 
+	   \ltp \frac{I_H}{\hbar\omega-I_H} \rtp^\ohf
+	\end{align}
+	\item For general atomic K-shell (n=1) absorption, replace
+	\begin{align*}
+	I_H &\to Z^2 I_H \\
+	a_0 &\to a_0 Z \\
+	\eta &\to \ltk Z^2 I_H / (\hbar\omega - Z^2 I_H) \rtk^\ohf \\
+	\alpha &\to 2 \alpha  \quad\quad \{ \text{2 K-shell electrons} \}
+	\end{align*}
+	\item Near threshold, $\hbar\omega \approx I_H \imp \eta \gg 1$
+	\begin{align}
+	f(\eta) &\approx \rme^{-4 + 4/3\eta^2} \approx \rme^{-4} 
+	   \ltp 1 + \frac{4}{3\eta^2} \rtp \\
+	   &\approx \rme^{-4} \ltp 1 + \frac{1}{\eta^2} \rtp^{4/3} =
+	   \rme^{-4} \ltp \frac{\hbar\omega}{I_H} \rtp^{4/3}
+	\end{align}
+	\end{itemize}
+
+ \item Altogether
+ \begin{equation}
+ \sigma \propto \begin{cases} 0 & \hbar\omega < I_H \\
+                             \nu^{-8/3} & \hbar\omega \approx I_H \\
+			     \nu^{-3}   & \hbar\omega \gtrsim I_H \\
+			     \nu^{-7/2} & \hbar\omega \gg I_H
+		\end{cases}
+ \end{equation}
+ 	\begin{itemize}
+ 	\item Aside: one can use the Milne relation to relate the photoionization
+	 cross-section to the recombination rate
+ 	\end{itemize}
+
+ \item Cross-section at 1\,Ryd
+ 	\begin{itemize}
+ 	\item $\sigma_{\rm photo}(1\,{\rm Ryd}) = 6.339 \sci{-18} \cm{2}$
+ 	\item What HI column density is required to give $\tau = 1$?
+ 	\end{itemize}
+ \item Continuum opacity
+ 	\begin{itemize}
+ 	\item $\tau_{\rm LL}(\nu) = \sigma_{\rm phot}(\nu) \, \mnhi$
+ 	\item Therefore at $h\nu = 1\, {\rm Ryd}$
+ 	\begin{equation}
+ 	N_{\rm HI}^{\tau = 1} = \frac{1}{\sigma_{\rm phot}(1\,{\rm Ryd})} = 10^{17.198} \cm{-2}
+ 	\end{equation}
+ 	\end{itemize}
+
+  \end{itemize}
+
+ \clearpage
+
+{\bf \item Lyman Limit System (LLS)}
+  \begin{itemize}
+  \item HI absorption system that is optically thick at the Lyman limit
+  	\begin{itemize}
+  	\item LLS with $\tau \ge 1$ [most sensible]
+  	\item Implies HI system with $\mnhi \ge 10^{17.198} \cm{-2}$ or 
+  	$\log\mnhi \ge 17.2$
+  	\item At this column density, the first $\approx 10$ lines of the
+  	Lyman series are saturated
+  		\begin{itemize}
+  		\item The integrated opacity of the highest order Lyman series lines
+  		matches $\sigma_{\rm photo}(h\nu = 1 \, \rm Ryd)$
+  		\item i.e.\ the effective optical depth is continuous through the Limit
+  		\end{itemize}
+  	\item Example (J0529--3526; XQ-100 Survey) [{\bf Notebook}]
+
+	\includegraphics[width=4.0in,angle=-90]{Figures/j0529_lls.pdf}
+
+  	\end{itemize}
+  \item Partial LLS
+  	\begin{itemize}
+  	\item LLS with $\tau \lesssim 1$
+  	\item Written as pLLS
+  	\end{itemize}
+  \item For $\tau_{\rm LL} = 0.2 - 2$, one may recover a highly
+  precise measurement of the total \nhi
+  	\begin{itemize}
+  	\item For $\tau > 2$ the flux is zero for all $\tau$
+  	\item For $\tau < 0.2$ the effect is very hard to detect amidst
+  	the flucutating IGM and QSO SED
+  	\end{itemize}
+  \item Generally think of an LLS as a system with a lower limit to \nhi
+  \end{itemize}
+
+{\bf \item LLS Surveys}
+  \begin{itemize}
+  \item General Approach
+  	\begin{itemize}
+  	\item Obtain quasar spectra blueward of the Lyman Limit
+  		\begin{itemize}
+  		\item Aside: Most quasars are transmissive at $h\nu > 1$\,Ryd
+
+	\includegraphics[width=5.0in]{Figures/wfc3_qso.pdf}
+
+  		\item Type~I Quasars are sufficiently bright to photoionize
+  		the sightline through their host galaxy
+  		\item And well beyond ($\sim 1$\,Mpc)!
+
+  		\end{itemize}
+  	\item Search for and measure a continuum break associated to
+  	Lyman continuum opacity
+  	\item Discovery of one LLS generally precludes the discovery
+  	of any others 
+  		\begin{itemize}
+  		\item Too little remaining quasar flux
+  		\item Unique amongst absorption systems
+  		\end{itemize}
+  	\end{itemize}
+
+  \item Analysis: Survival statistics (Tytler 1982)
+	\begin{itemize}
+	\item Let $t$ be the redshift separation of the LLS
+	from the QSO redshift, i.e. $t = z_{\rm em} - z_{\rm LLS}$
+	[Cartoon]
+		\begin{itemize}
+		\item For a spectrum with finite spectral coverage 
+		$\lambda_{\rm min}$, the LLS search must truncate 
+		at $z_{\rm min} = \lambda_{\rm min}/\lambda_{\rm LL} - 1$ 
+		\item Let the maximum value of $t$ be $T = z_{\rm em} - z_{\rm min}$
+		\end{itemize}
+	\item Define three functions to describe the distribution of LLS
+		\begin{itemize}
+		\item Observed density function: Probability that an LLS is observed
+		in a line of sight at $t=x$
+		\begin{equation}
+		f(t) = \frac{\rm Prob(t < x < t+\Delta t)}{\Delta t} \;\; 
+		\Delta t \to 0
+		\end{equation}
+		\item Survival function: Probability that *no* LLS occurs in the
+		interval $(0,t)$
+		\begin{equation}
+		S(t) = 1 - \intl_0^t f(t') dt'
+		\end{equation}
+		\item Population density function: Probability that an LLS is
+		observed in the interval $(t,t+\Delta t)$ conditional on the
+		absence of LLS in the interval $(0,t)$
+		\begin{equation}
+		\lambda(t) = \frac{\rm Prob(t < x < t+\Delta t|x>t)}{\Delta t} \;\; 
+		\Delta t \to 0
+		\end{equation}
+		\end{itemize}
+	\item Survival analysis
+		\begin{itemize}
+		\item If $\lambda(t) = \ell$ is a constant,  
+		then $S(t) = \exp(-\ell t)$  (Poisson distribution)
+			\begin{itemize}
+			\item This should hold over a relatively small redshift range
+			analyzed in a sample of QSOs
+			\item This is the same analysis as the failure mode of systems
+			(or people!)
+			\end{itemize}
+		\item And one derives
+		\begin{equation}
+		f(t) = \ell \exp(\ell \, t)
+		\end{equation}
+		\item One may apply (simple) statistical methods from biomathematics
+		to derive the maximum likelihood for $\ell$
+		\end{itemize}
+
+\includegraphics[width=6.0in]{Paper_figs/tytler82_fig4.pdf}
+
+  	\end{itemize}
+  \item Sensitivity function $g(z)$
+  	\begin{itemize}
+  	\item Define: $g(z) \, dz$ is the number of sightlines that one may
+  	analyze for absorption in the interval $z, z+dz$
+  	\item $g(z)$ expresses the sensitivity function of any absorption line survey
+  	\item For LLS, the search runs from $z_{\rm em}$ to the 
+  	maximum of $(z_{\rm min}, z_{\rm LLS})$ referred to as $z_{\rm start}$
+  	\item It is common practice to set $z_{\rm end}$ as several thousand
+  	km/s blueward of $z_{\rm em}$ 
+  		\begin{itemize}
+  		\item Allows for quasar redshift error 
+  		\item Minimizes bias related to the `proximity' of the quasar
+  		\end{itemize}
+  	\item Example (Prochaska+10, Figure 4)
+
+\includegraphics[width=4.0in]{Paper_figs/pow10_fig4.pdf}
+
+  	\end{itemize}
+
+
+  \end{itemize}	  	
+
+
+\item {\bf Incidence of LLS: $\ell_{\rm LLS}(z)$}
+ \begin{itemize}
+ \item Binned evaluation
+  	\begin{itemize}
+  	\item Estimate $\ell_{\rm LLS}(z)$ in a redshift interval
+  	$[z_1,z_2]$
+  	\item Simple estimator
+  	\begin{equation}
+  	\ell_{\rm LLS}(z) = \frac{\rm Number \; of \; systems \; detected \; 
+  	in \; [z_1,z_2] \;
+  	(\mathcal{N})}{\intl_{z_1}^{z_2} g(z) \, dz}
+  	\end{equation}
+  	\item Variance estimated from Poisson statistics: $\sigma^2 (\mathcal{N})$ 
+  	\item Example (Prochaska+10, Figure 10)
+
+\includegraphics[width=5.0in]{Paper_figs/pow10_fig10.pdf}
+
+  	\end{itemize}
+
+  \item Model fitting (Maximum Likelihood)
+  	\begin{itemize}
+  	\item For the same arguments made on the \lya\ Forest, 
+  	we may expect the redshift evolution to scale as $(1+z)^\gamma$
+  	\item We may also adopt a similar Maximum likelihood analysis, 
+  	albeit with no \nhi\ dependence
+  	\item log-Likelihood probability (see Lecture~III notes for starting point)
+	\begin{align}
+	\ln \mathcal{L}_j &= \smm_{i=1}^M -\mu_i \, + \, \smm_{k=1}^p \ln \mu_k \\
+	&= \smm_i^M -\ell(z_i) \delta z  + \smm_{k}^p \ln \ell(z_k) 
+	\label{eqn:max_LLS}
+	\end{align}
+  		\begin{itemize}
+  		\item This expression is for the $j$th quasar
+  		\item Our expected number of LLS: $\mu_i = \ell(z_i) \delta z$
+  		\item We also recognize that for an LLS survey, $p = 0$ or 1
+  		\end{itemize}
+  	\item Letting $\delta z \to 0$
+  	\begin{equation}
+  	\ln \mathcal{L}_j = \intl_{z_{\rm start}}^{z_{\rm end}} \ell(z) dz
+  	+ \smm_{k}^p \ln \ell(z_k)
+  	\end{equation}
+  	\item The full likelihood is the sum over all quasars
+  	\item Max-likelihood techniques yield the ``best'' parameters for
+  		a given model
+  		\begin{itemize}
+  		\item But this best model might be an unacceptable description
+  		of the data
+  		\item This is frequently assessed with a one-side 
+  		Kolmogorov-Smirnov (KS) test
+  		\item For LLS, one may compare the observed
+  		cumulative distribution with redshift against the model
+  		\end{itemize}
+  	\end{itemize}
+
+  \item Results
+  	\begin{itemize}
+  	\item Ribaudo et al.\ 2011;  LLS with $\tau_{\rm LL} \ge 2$
+
+\includegraphics[width=5.0in]{Paper_figs/ribaudo11_fig6.pdf}
+
+  	\item Power-law function:
+
+  	\begin{equation}
+  	\ell(z) = \ell_* \ltk \frac{1+z}{1+z_*} \rtk^\gamma
+  	\label{eqn:lz}
+  	\end{equation}
+  		\begin{itemize}
+  		\item $z_* = 3.23$
+  		\item $\ell_* = 1.62$
+  		\item $\gamma = 1.83 \pm 0.21$
+  		\end{itemize}
+  	\end{itemize}
+
+ \item Consider the mean free path at $z=3.5$ to intersect one LLS (on average)
+  	\begin{itemize}
+  	\item Approximately, $\Delta z = 1 / \ell(z=3.5)$
+  	\item Approximately, the physical distance is
+  	\begin{equation}
+  	\Delta r = \frac{c \Delta z}{H(z) (1+z)}
+  	\end{equation}
+  	\item See Notebook for calculation
+  	\item We derive $\Delta r_p \approx 100$\,Mpc
+  	  	\begin{itemize}
+  	  	\item This exceeds the mean separation between faint
+  		quasars by a factor of $3-10$ (e.g. Faucher-Gigu\`ere et al. 2009)
+  		\item Therefore, we expect each volume in the universe sees
+  		the radiation from multiple sources
+  		\end{itemize}
+  	\item Ribaudo et al.\ 2011;  Figure~8  (red curve)
+
+\includegraphics[width=4.0in]{Paper_figs/ribaudo11_fig8.pdf}
+
+  	\end{itemize}
+
+  \end{itemize}
+
+{\bf \item Survey Subtleties}
+	\begin{itemize}
+
+\item LLS attenuate the color of the background source (bias)
+  	\begin{itemize}
+  	\item e.g., attenuate the $u$-band flux of a $z=3$ quasar
+  	\item May therefore affect the discovery of the sources
+  		\begin{itemize}
+  		\item Especially if selected by optical (rest-frame UV) color
+  		\item e.g. SDSS/BOSS selection of quasars
+  		\end{itemize}
+  	\item Example: SDSS quasars at $z=3$
+  		\begin{itemize}
+  		\item Quasar color (cyan curve) lie closes to the stellar locus
+  		(blue contours) at $z \approx 2.7$
+
+\includegraphics[width=4.0in]{Paper_figs/richards06_fig7.pdf}
+
+  		\item {\it Unless} an LLS attenuates the $u$-band
+  		\item Preferentially discover $z \approx 3$ quasars with LLS!
+
+  		\item Recognized as rise in $\ell(z)$ with decreasing $z$ (spectra)
+
+\includegraphics[width=4.0in]{Paper_figs/pow10_fig10.pdf}
+
+  		\item Apparent in the photometry (colors) too
+  		  	\begin{itemize}
+  		  	\item $u-g$ color histogram of SDSS colors
+  		  	\item (black) $z_{\rm em} \approx 3.525$, (red) $z_{\rm em} \approx 3.61$
+  		  	\item Expect redder color at higher $z$ (SED+IGM evolution)
+  		  	\item Observe the opposite due to this bias
+  		  	\end{itemize}
+
+\includegraphics[width=4.0in]{Paper_figs/pwo09_fig4.pdf}
+
+  		\end{itemize}
+  	\end{itemize}
+
+  \item Survey subtleties: Overlapping LLS
+  	\begin{itemize}
+  	\item Continuum opacity expresses the total \nhi
+  	\item Two systems with similar redshift may appear as one with 
+  	the summed \nhi
+  	\item Inherent to the measurement of $\ell(z)$, therefore, is a
+  	velocity (or redshift) limit to the separation of individual systems
+  	\item Advocate measuring $\ell(z)$ on scales larger than 1000\,km/s
+  	\end{itemize}
+  \item See pyigm {\bf Notebook} [LLSSurvey\_example]
+  for access to LLS Survey data
+  	\begin{itemize}
+  	\item You are welcome to request that more (your) published
+  	data be ingested 
+  	\end{itemize}
+ \end{itemize}
+
+{\bf \item Absorption path $X(z)$}
+  \begin{itemize}
+  \item Introduced by Bahcall \& Peebles (1969) as a means to test 
+  cosmological models with absorption-line systems
+  \item Basic Concept:
+  	\begin{itemize}
+  	\item Define $X(z)$ such that the incidence of absorbers per $dX$
+  	is {\it constant} provided the product of the following 2 quantities is
+  	constant
+  		\begin{enumerate}
+  		\item The comoving number density of absorbers $n_c(z)$
+  		\item The physical cross-section $A_p(z)$
+  		\end{enumerate}
+  	\item Under the assumption of a non-evolving population, one can
+  	solve for the cosmological parameters that yield constant $n_c \, A$
+  	\end{itemize}
+  \item Derivation
+  	\begin{itemize}
+  	\item We nearly derived $dX$ in our discussion of redshift evolution
+  	of the line density in the \lya\ Forest
+  	\item Incidence of absorption per proper distance [Cartoon]
+  	\begin{equation}
+  	\frac{dN}{dr_p} = n_p(z) A_p(z)
+  	\end{equation}
+  	\item Express in terms of $dz$
+  	\begin{equation}
+  	\frac{dN}{dz} = n_p(z) A_p(z) \frac{c}{H(z) (1+z)}
+  	\end{equation}
+  	\item Introduce $dX$ such that 
+  	\begin{equation}
+  	\frac{dN}{dX} = C \, n_c(z) A_p(z)
+  	\end{equation}
+  	\item Recall $n_c(z) = n_p(z) / (1+z)^3$
+  	\item To define $dX$ as a dimensionless quantity,
+  	\begin{equation}
+  	dX = \frac{H_0}{H(z)} (1+z)^2 dz
+  	\end{equation}
+  	\item This yields
+  	\begin{equation}
+  	\frac{dN}{dX} = \ell(X) = \frac{c}{H_0} n_c(z) A_p(z)
+  	\end{equation}
+  	\end{itemize}
+  \item Probe of Cosmology
+  	\begin{itemize}
+  	\item $dX/dz$ varies by more than a factor of 2 from $z=1-4$ (see Notebook)
+
+\includegraphics[width=4.0in]{Figures/dXdz.pdf}
+
+  	\item And {\it decreases} with decreasing redshift
+  	\item When we expect the {\it growth} of structure
+  	\end{itemize}
+  \end{itemize}
+
+{\bf \item $\ell(X)$ for LLS}
+  \begin{itemize}
+  \item Repeat likelihood analysis replacing $dz$ with $dX$
+  	\begin{itemize}
+  	\item All other aspects of the analysis are identical
+  	\end{itemize}
+  \item Results
+  	\begin{itemize}
+  	\item Fumagalli et al.\ 2013, Figure 8
+
+\includegraphics[width=4.0in]{Paper_figs/fumagalli13_fig8.pdf}
+
+  	\item Steep decline with redshift demands an evolving population
+  	\begin{itemize}
+  	\item Either the comoving number density of optically thick sources
+  	greatly declines ($n_c$)
+  	\item And/or the physical size ($A_p$)
+  	\end{itemize}
+
+  	\item Consider a toy dark matter halo model within our cosmology (Fumagalli et al.\ 2013)
+
+  	\begin{equation}
+  	\ell(X) = \frac{4c}{H_0} \intl_{\log M_{\rm low}}^{\log M_{\rm up}}
+  	R_{vir}^2 (M_{vir}, z) \, f_c(M_{\rm vir}, z) 
+  	\frac{d n_c}{d \log M_{vir}} \, d\log M_{vir}
+  	\end{equation}
+  		\begin{itemize}
+  		\item $M_{low}, M_{up}$ define the mass range of halos contributing to LLS
+  		\item Recognize $A_p = f_c \pi R_{vir}^2$
+  		\item The last term expresses the comoving number density
+  		\end{itemize}
+
+\includegraphics[width=4.0in]{Paper_figs/fumagalli13_fig12.pdf}
+
+  	\item A simple assumption of constant $f_c(z)$ gives the red
+  	dotted line in the Figure
+  		\begin{itemize}
+  		\item We have taken $\log M_{low} = 11$ and $\log M_{up} = 13$
+  		\item This is tuned to match at $z \sim 3$ 
+  		\item And clearly fails everywhere else
+  		\end{itemize}
+
+  	\item Blue and green lines are simple ``wind'' and gas accretion
+  	scenarios; these also fail at high-$z$
+  		\begin{itemize}
+	  	\item Infer that the IGM, and not dark matter halos, contribute
+  		greatly to optically thick gas at $z>3.5$
+	  	\item To be confirmed with cosmological simulations..
+  		\end{itemize}
+
+
+  	\end{itemize}
+  \end{itemize}
+
+%{\bf \item Extending \fnhi}
+%  \begin{itemize}
+%  \item LLS surveys provide an integral constraint on the
+%  \nhi\ frequency distribution at higher values
+%  \begin{equation}
+%  \ell(z)_{\tau \ge 2} = \intl_{10^{17.5} \cm{-2}}^\infty
+%  f(\mnhi,z) \, d\mnhi
+%  \end{equation}
+%  \item Consider an extrapolation of the power-law \fnhi\
+%  derived for lower \nhi\ gas at $z \approx 3$  (Kim et al.\ 2013)
+%  \begin{equation}
+%  f(\mnhi,z) = 10^{9.13} \mnhi^{-1.52}
+%  \end{equation}
+%  	\begin{itemize}
+%  	\item Integrating
+%  \begin{equation}
+%  \ell(z=2.8)_{\tau \ge 2} = 10^{9.41} 10^{17.5(-0.52)} = 2.06
+%  \end{equation}
+%  	\item From Equation~\ref{eqn:lz}, we derive $\ell(z=2.8) = 1.33$
+%  	\item We infer a steepening of \fnhi\ prior to (and possibly within)
+%  	the LLS regime
+%  	\end{itemize}
+%  \end{itemize}
+
+{\bf \item Mean Free Path \lmfp}
+  \begin{itemize}
+  \item Optically thick gas attenuates the intensity of ionizing
+  photons throughout the Universe
+  \item Definition: \lmfp($z_{\rm em}$) is the physical distance that
+  a packet of photons travel from a source at $z=z_{\rm em}$
+  before suffering an $\rm e^{-1}$ attenuation
+  	\begin{itemize}
+  	\item Directly coupled to the source redshift
+  	\item If we define an effective optical depth for Lyman
+  	continuum opacity \tll, then \lmfp\ is the distance until 
+  	$\mtll = 1$.
+  	\item Subtle concept: The photons we consider have higher
+  	and higher source-frame energy for larger and larger \lmfp\ 
+  	[Slides]
+  		\begin{itemize}
+  		\item By expansion, a packet of 1\,Ryd photons emitted
+  		at the source can travel only an infinitesimal distance before
+  		redshifting beyond 1\,Ryd
+  		\item i.e.\ this is a complex quantity! 
+  		\end{itemize}
+  	\end{itemize}
+  \item Fundamental input to calculations of the EUVB
+  	\begin{itemize}
+  	\item Relates the emissivity of sources to the mean intensity
+  	(e.g. Haardt \& Madau 1996; Faucher-Gigu\`ere et al.\ 2008)
+  	\begin{equation}
+  	J_\nu(z) \approx \frac{1}{4 \pi} \, \mlmfp \, \epsilon_\nu(z)
+  	\end{equation}
+  	\item Also relates to HI reionization at $z>5$
+  	\end{itemize}
+  \item Cannot (yet) be predicted from first principles
+    \begin{itemize}
+    \item Required to estimate from observation
+  \end{itemize}
+  \item Traditional approach: Calculate \tll\ from \fnhi
+  	\begin{itemize}
+  	\item \tll: Effective optical depth from Lyman continuum opacity
+  	that a photon of $\nu \ge \nu_{912}$ experiences
+  		\begin{itemize}
+  		\item In contrast to effective opacity from Lyman series
+  		(e.g.\ $\tau_{\rm eff,\alpha}$), 
+  		this is an integral (cumulative) quantity
+  		\item Depends on the IGM along the path traveled
+  		\item This photon experiences continuum opacity until it
+  		redshifts to $\nu_{912}$ at 
+  		\begin{equation}
+  		z_{912} \equiv (1+z_{em}) \frac{\nu_{912}}{\nu}  - 1
+  		\label{eqn:z912}
+  		\end{equation}
+  		\end{itemize}
+  	\item Derive from \fnhi
+  		\begin{itemize}
+  		\item Sum the attenuation from Lyman continuum opacity
+  		for lines with \nhi
+  		\begin{equation}
+  		1 - \exp [-\mnhi \sigma_{\rm photo}(\nu)]
+  		\end{equation}
+  		\item Weighted by \fnhi
+  		\item Allow for the frequency dependence of $\sigma_{\rm photo}$
+  		(using Equation~\ref{eqn:z912})
+  		\end{itemize}
+\begin{equation}
+\mtll(z_{912},z_{\rm em}) = \intl_{z_{912}}^{z_{\rm em}} \intl_0^\infty f(\mnhi,z')
+   \lbrace 1 - \exp \ltk - \mnhi \sigma_{\rm ph}(z') \rtk \rbrace d\mnhi dz' 
+\label{eqn:teff}
+\end{equation}
+  	\item Evaluate (see Notebook)
+
+\includegraphics[width=4.0in]{Figures/teff_LL.pdf}
+
+  	\item For the \fnhi\ model of Prochaska+14, over
+  	half of \tll\ is contributed by gas with $\mnhi < 10^{18} \cm{-2}$
+  	(see {\bf Notebook})
+  	\item Downsides of this approach 
+  		\begin{itemize}
+  		\item Indirect: Predicting integrated Lyman continuum from
+  		distributions of HI Lyman series opacity
+  		\item \fnhi\ at $\mnhi \approx 10^{17} \cm{-2}$ is highly uncertain
+  			\begin{itemize}
+  			\item Saturated portion of the COG
+  			\item Line-blending poses a significant problem
+  			\item Surveys of $\tau \approx 1$ LLS are difficult
+  			\end{itemize}
+  		\end{itemize}
+  	\end{itemize}
+  \item New Method
+  	\begin{itemize}
+  	\item Direct assessment of average Lyman continuum opacity
+  	  \begin{itemize}
+  	  \item Average the IGM absorption along many 
+  	  sightlines (\lya\ opacity Slides)
+  	  	\begin{itemize}
+	  	  \item The averaged spectrum (no weighting) provides 
+	  	  the optimal estimate
+	  	  \item Measure the distance traveled for an $\rm e^{-1}$ attenuation
+
+\includegraphics[width=5.0in]{Figures/mfp_spec.pdf}
+
+  	  	\end{itemize}
+  	  \end{itemize}
+  	\item Model the IGM attenuation as a simple opacity
+  		\begin{itemize}
+  		\item Introduce an effective opacity $\kappa_{\rm LL}$
+  		for Lyman continuum absorption
+  		\begin{equation}
+  		\kappa_{\rm LL}(z,\nu) = \tilde\kappa_{912}(z) \ltp \frac{\nu}{\nu_{912}} \rtp^{-2.75}
+  		\end{equation}
+  			\begin{itemize}
+  			\item The frequency term captures the energy dependence of the
+  			photoionization cross-section 
+  			\item The $\kappa_{912}$ is a normalization which could capture evolution with redshift 
+  			\end{itemize}
+  		\item Integrate with physical distance, again allowing for redshift
+  		of the photons
+  		\begin{align}
+  		\mtll &= \intl_0^r \kappa_{\rm LL}(r') \, dr'  \\
+  		&= \intl_{\rm z_{912}}^{z_{\rm em}} \kappa_{\rm LL}(z',\nu) \frac{dr}{dz} dz'
+  		\end{align}
+  			\begin{itemize}
+  			\item Determine the redshift that gives $\mtll = 1$
+  			\item The corresponding physical distance gives \lmfp\ 
+  			\end{itemize}
+  		\item As demonstrated earlier at $z>2$, 
+  		$dr/dz \propto (1+z)^\beta$ with $\beta \approx -2.5$
+  		\item We have constructed a model that reduces to a simple integral
+  		of $(1+z)$ powers and one additional parameter $\kappa_{912}$
+  		\item This provides great statistical power (one parameter fit to
+  		many pixels)
+  			\begin{itemize}
+  			\item Major uncertainty is our estimate for the quasar SED
+  			\item And, sample variance (bootstrap estimate)
+  			\item And, lesser, an estimate of the evolving Lyman series opacity
+  			\end{itemize}
+  		\end{itemize}
+  	\item Results
+  		\begin{itemize}
+  		\item Prochaska, Worseck, \& O'Meara 2009; ($z \approx 4$)
+
+\includegraphics[width=5.0in]{Paper_figs/pow09_fig2.pdf}
+
+  		\item O'Meara et al.\ 2013; ($z \approx 2.5$)
+
+\includegraphics[width=4.5in]{Paper_figs/omeara13_fig11.pdf}
+
+  		\item Fumagalli et al.\ 2013; ($z \approx 3$)
+  		\item Worseck et al.\ 2014; ($z = 4-5$)
+
+\includegraphics[width=4.5in]{Paper_figs/worseck14_fig6.pdf}
+  		\end{itemize}
+
+  	\item Redshift evolution
+
+  		\begin{itemize}
+  		\item Combining the measurements (Worseck et al.\ 2014; Fig 10)
+
+\includegraphics[width=5.0in]{Paper_figs/worseck14_fig10.pdf}
+
+		\item Simple model fit
+		\begin{equation}
+		\lambda_{\rm mfp}(z) = (37 \pm 2 \, h_{70}^{-1} {\rm Mpc})
+		\, \ltk \frac{1+z}{5} \rtk^{-5.4 \pm 0.4}
+		\end{equation}
+
+		\item As with the LLS, this is far steeper than cosmological
+		expansion alone would predict
+			\begin{itemize}
+			\item Continued ionization of the universe as sources rise
+			\item Accretion of optically thick gas onto galaxies?
+			\end{itemize}
+
+		\item Extrapolate to $z<2$
+			\begin{itemize}
+			\item \lmfp\ exceeds the Horizon at $z \approx 1.6$, the
+			``breakthrough'' redshift
+			\item Beyond this, every ionizing source can see every other
+			\item Photons are no longer (significantly) attenuated
+			\end{itemize}
+		\item Extrapolate to $z \approx 6$
+			\begin{itemize}
+			\item \lmfp\ is approximately 5\,Mpc
+			\item Not a `neutral' universe
+			\end{itemize}
+
+  		\end{itemize}
+
+  	\end{itemize}
+  \end{itemize}
+
+{\bf \item \lmfp\ Implications and Applications}
+  \begin{itemize}
+
+  \item Measured \lmfp\ is larger than predicted from older \fnhi\ models
+  	\begin{itemize}
+  	\item Less attenuation of ionizing sources
+  	\item Fewer ionizing sources required to generate the EUVB
+  	\end{itemize}
+
+  \item Integral constraint on \fnhi: Invert the problem
+  	\begin{itemize}
+  	\item As emphasized above, systems with $\mnhi \approx 10^{17} \cm{-2}$
+  	are otherwise difficult to measure
+  	\item \lmfp\ measurements indicate an inflection in \fnhi\ at these
+  	\nhi\ values
+
+\includegraphics[width=5.0in]{Paper_figs/prochaska14_fig7.pdf}
+
+  	\item Suggested by theory, at this transition from optically thin to thick
+  	(Zheng \& Miralda-Escud\'e 2002; Altay et al. 2011)
+  	\end{itemize}
+
+  \item Corrections to measurement of ionizing escape 
+  fraction from galaxies $f_{\rm esc}$
+  	\begin{itemize}
+  	\item Observe a $z=3$ galaxy just blue-ward of its Lyman limit
+  		\begin{itemize}
+  		\item Spectra or narrow-band filter
+  		\item Measure the flux at the Lyman limit: $<f_\nu>_{\rm LL,obs}$
+  		\end{itemize}
+  	\item Define escape fraction: flux of radiation that escapes
+  	versus that which a galaxy produces (hot stars)
+  	\begin{equation}
+  	f_{\rm esc} = \frac{<f_\nu>_{\rm LL,obs}}{
+  	<f_\nu>_{\rm LL,intrinsic}}
+  	\end{equation}
+  	\item But $<f_\nu>_{\rm LL,obs}$ is attenuated by the IGM
+  	\item Example: 100\AA\ filter just blueward of a $z=3.5$ galaxy's 
+  	Lyman limit
+  		\begin{itemize}
+  		\item Filter covers $z=3.4$ to 3.5 in the Lyman limit
+  		\item The averaged effective opacity is $<\mtll> = 0.25$
+  		\item 30\% correction
+  		\item This increases steeply with redshift
+  		\end{itemize}
+  	\end{itemize}
+
+  \end{itemize}
+
+{\bf \item Connecting LLS to Theory}
+  \begin{itemize}
+  \item Early cosmological simulations woefully underpredicted
+  the incidence of optically thick gas (e.g. Gardner et al.\ 2001)
+  	\begin{itemize}
+  	\item Difficult problem:  non-linear structure formation and
+  	radiative transfer of ionizing photons
+  	\item Resolution and physics limited
+  	\end{itemize}
+  \item Paradigm of accreting cold ($T \sim 10^4$) gas onto galaxies
+  	\begin{itemize}
+  	\item a.k.a. cold streams or cold flows (e.g.\ Keres et al.\ 2005, 
+  	Dekel \& Birnboim 2006)
+  	\item Such gas may be optically thick (difficult to resolve in 
+  	cosmological simulations, even `zoom-ins')
+  	\item Are a fraction of LLS associated with streams? 
+  	(Faucher-Gigu\`ere \& Keres 2011; Fumagalli et al.\ 2011;
+  	van der Voort et al.\ 2012, etc.)
+  	\end{itemize}
+
+  \item Example: 
+  	\begin{itemize}
+  	\item Fumagalli et al.\ 2011, Figure 3
+
+\includegraphics[width=5.0in]{Paper_figs/fumagalli11_fig3.pdf}
+
+		\begin{itemize}
+		\item Extended, optically thick gas throughout the halo
+		\item Metal-poor, but not primordial (enriched by infalling
+		dwarf galaxies)
+
+\includegraphics[width=5.0in]{Paper_figs/fumagalli11_fig12.pdf}
+
+		\item Fraction of the halo cross-section covered by 
+		optically thick gas is modest ($\approx 10-20\%$)
+		\end{itemize}
+
+    \item Difficult to reconcile the incidence of LLS with dark matter halos
+  	alone (see $\ell(X)$ measurements)
+		\begin{itemize}
+		\item Dominant contribution from gas in large scale structure (e.g.
+		filaments)?
+		\item Fundamental benchmark for future cosmological simulations with
+		full Radiative Transfer
+		\end{itemize}
+
+  	\end{itemize}
+
+  \end{itemize}
+
+{\bf \item Metal Enrichment of Optically Thick Gas (Observational)}
+	\begin{itemize}
+	\item LLS exhibit the extrema of metal-enrichment
+	\item Compare Hydrogen (\nhi) with column densities of heavy elements
+		\begin{itemize}
+		\item Oxygen, Silicon, Iron
+		\item Photoionization of the gas complicates the analysis
+		\end{itemize}
+
+\includegraphics[width=5.0in]{Paper_figs/prochaska06_fig2.pdf}
+
+	\item Super-solar metallicity (e.g.\ Prochaska et al.\ 2006)
+		\begin{itemize}
+		\item Metal column densities characteristics of the ISM of 
+		our Galaxy
+		\item With \nhi\ column densities an order of magnitude lower or more
+		\end{itemize}
+
+\includegraphics[width=5.0in]{Paper_figs/fumagalli11b_fig3.pdf}
+
+	\item Primordial metallicity?  (Fumagalli et al.\ 2011b)
+		\begin{itemize}
+		\item Optically thick gas
+		\item No heavy elements detected
+		\item Si/H $< 1/10,000$ solar
+		\end{itemize}
+
+\includegraphics[width=5.0in]{Paper_figs/fumagalli11b_fig1.pdf}
+
+	\item Key inferences
+		\begin{itemize}
+		\item Optically thick gas originates in a wide range of environment
+		\item Presumably, the metal-rich material probes gas close to 
+		(massive?) galaxies
+			\begin{itemize}
+			\item Search is underway...
+			\end{itemize}
+		\item Presumably, the metal-poor gas lies far (or farther)
+		from galaxies
+		\item Measured distribution constrains the enrichment and mixing
+		processes of gas in the proximity of high-$z$ galaxies
+		\end{itemize}
+
+	\end{itemize}
+
+\end{Aenumerate}
+
+\end{document}
