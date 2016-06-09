@@ -1,0 +1,45 @@
+Lecture 1:  Voigt profile
+Lecture 2:  EW, COG, NHI, tau
+Lecture 3:  Absorption-line spectra (QSOs, GRBs)
+Lecture 4:  DLAs
+Lecture 5:  LLS
+Lecture 6:  Lya Forest: z~3 (Flux PDF, T,BAO)
+Lecture 7:  Lya Forest: z~6 (Reionization)
+Lecture 8:  Future Prospects
+
+1. Physics of HI Absorption [1.5 lectures]
+ 1.1 Lyman series
+ 1.2 Continuum opacity
+ 1.3 Voigt profile
+ 1.4 Optical depth
+ 1.5 Column density
+ 1.6 21cm absorption
+
+2. HI Spectral Analysis [1.5 lecture]
+ 2.1 Basics of spectroscopy
+ 2.2 Continuum normalization
+ 2.3 Equivalent width
+ 2.4 Line analysis
+ 2.5 f(N_HI)
+ 2.6 Flux PDF
+
+3. Optically Thick Gas [2 lectures]
+ 3.1 Lyman limit system
+ 3.2 LLS Surveys
+ 3.3 Mean free path
+ 3.4 Damped Lya System
+ 3.5 DLA Surveys
+ 3.6 Cosmic HI
+
+4. Lya Forest [3 lectures] 
+ 4.1 Fluctuating GP
+ 4.2 tau_eff
+ 4.3 Power spectrum 
+ 4.4 Temperature of the IGM
+ 4.5 Equation of state
+ 4.6 BAO
+ 4.7 Signatures of HI reionization
+ 4.8 HeII reionization
+ 4.9 IGM tomography
+ 4.10 z<1 IGM
+
