@@ -1,0 +1,449 @@
+%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for your "contribution" to a contributed volume
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[graybox]{svmult}
+
+% choose options for [] as required from the list
+% in the Reference Guide
+
+\usepackage{mathptmx}       % selects Times Roman as basic font
+\usepackage{helvet}         % selects Helvetica as sans-serif font
+\usepackage{courier}        % selects Courier as typewriter font
+\usepackage{type1cm}        % activate if the above 3 fonts are
+                            % not available on your system
+%
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+
+% see the list of further useful packages
+% in the Reference Guide
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\HI}{H{\sc I}}
+\def\lya{Ly$\alpha$}
+\def\mlya{{\rm Ly}\alpha}
+
+\begin{document}
+
+\title*{\HI\ Absorption in the Intergalactic Medium}
+% Use \titlerunning{Short Title} for an abbreviated version of
+% your contribution title if the original one is too long
+\author{J. Xavier Prochaska}
+% Use \authorrunning{Short Title} for an abbreviated version of
+% your contribution title if the original one is too long
+\institute{J. Xavier Prochaska \at University of California, 
+1156 High St., Santa Cruz, CA 95064 USA \email{xavier@ucolick.org}}
+%
+% Use the package "url.sty" to avoid
+% problems with special characters
+% used in your e-mail or web address
+%
+\maketitle
+
+\abstract*{Each chapter should be preceded by an abstract (10--15 lines long) that summarizes the content. The abstract will appear \textit{online} at \url{www.SpringerLink.com} and be available with unrestricted access. This allows unregistered users to read the abstract as a teaser for the complete chapter. As a general rule the abstracts will not appear in the printed version of your book unless it is the style of your particular book or that of the series to which your book belongs.
+Please use the 'starred' version of the new Springer \texttt{abstract} command for typesetting the text of the online abstracts (cf. source file of this chapter template \texttt{abstract}) and include them with the source files of your manuscript. Use the plain \texttt{abstract} command if the abstract is also to appear in the printed version of the book.}
+
+\abstract{Each chapter should be preceded by an abstract (10--15 lines long) that summarizes the content. The abstract will appear \textit{online} at \url{www.SpringerLink.com} and be available with unrestricted access. This allows unregistered users to read the abstract as a teaser for the complete chapter. As a general rule the abstracts will not appear in the printed version of your book unless it is the style of your particular book or that of the series to which your book belongs.\newline\indent
+Please use the 'starred' version of the new Springer \texttt{abstract} command for typesetting the text of the online abstracts (cf. source file of this chapter template \texttt{abstract}) and include them with the source files of your manuscript. Use the plain \texttt{abstract} command if the abstract is also to appear in the printed version of the book.}
+
+\section{Historical Introduction}
+\label{sec:history}
+
+The discovery of the intergalactic medium (IGM)
+was, in essence, precipitated by the discovery of 
+quasars in 1963\footnote{There were (failed) attempts
+to search for extragalactic gas in 21\,cm absorption
+\cite{field59}} \cite{schmidt63}.
+It was through spectroscopy of these enigmatic, distant
+sources that one could resolve the absorption lines
+from gas -- especially \HI\ \lya\ -- 
+in the foreground universe.  
+Figure~\ref{fig:burb} shows an early example from
+\cite{bb+65} taken with the prime-focus spectrograph
+on the Shane 120-inch telescope at Lick Observatory.
+Even in these early data, one identifies apparently
+discrete absorption lines of Hydrogen and heavy
+elements establishing the presence of diffuse yet
+enriched gas along the sightline.
+
+
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/burbidge65}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Lick spectrum of 3C 191 obtained in February 1666
+with the prime-focus spectrograph on the Shane 120-inch
+telescope at Lick Observatory.  The comparison lamp spectrum
+shown is that of He+Ar.
+}
+\label{fig:burb}       % Give a unique label
+\end{figure}
+
+
+Spectra like these inspired the first models of
+the IGM as discrete absorption lines \cite{bahcall65}
+and by inference the first physical insight.
+The positive detection of flux at rest wavelengths
+shortward of the quasar \lya\ emission line
+($\lambda_{\rm rest} < 1215$\AA)
+demands a highly ionized IGM.
+\cite{gunn65} recognized that a universe with predominantly
+neutral hydrogen gas should be opaque to these far-UV
+photons and [inferred] -- correctly -- 
+that the gas must have a neutral fraction $x_{\rm HI}$ of less 
+than 1 part in $10^5$.
+As an introduction to the material presented in this Chapter,
+we may offer our own rough estimate.
+The optical depth of \HI\ \lya\ through
+a $\ell = 100$\,kpc portion of the $z=3$ universe
+at the mean hydrogen density $\bar n_{\rm H}$ 
+is simply
+
+\begin{equation}
+\tau(\nu) = \ell \, \bar n_{\rm H} \, x_{\rm HI} \, \sigma_{\mlya}(\nu)
+\end{equation}
+with $\sigma_{\mlya}$ the \lya\ cross-section.
+We estimate the latter assuming Doppler broadening dominates
+with a characteristic velocity given by Hubble expansion,
+$\Delta v \approx H(z) * \ell \approx 30$\,km/s 
+(see Equation~\ref{eqn:Dopp_linecenter}).
+Taking a baryonic mass density $\rho_b = 0.0486 \rho_c$
+at $z=0$ with $\rho_c$ the critical density and
+taking 75\%\ of the baryonic mass as Hydrogen,
+we find $\tau(\nu_{jk}) \approx 10^6 x_{\rm HI}$.
+Therefore, the positive detection of flux in the 
+\lya\ forest demands a highly ionized IGM.
+
+The remainder of the 1960's introduced a series of 
+fundamental papers on the astrophysics of absorption-line
+analysis, especially by Bachall and his collaborators.
+These included the discussion of fundamental diagnostics
+of the gas \cite{bahcall66}, 
+the application of absorption from the fine-structure 
+levels of heavy elements \cite{bahcall67}, and the
+assertion that the majority of heavy element absorption
+may be associated to the halos of galaxies
+\cite{bahcall69a,bahcall69b}.
+In a number of respects, the theory had outpaced the
+observations.
+This held throughout the 1970's, especially for IGM
+studies with \HI\ \lya\ although \cite{brown73}
+reported the first intergalactic detection of 
+\HI\ in 21\,cm absorption.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/young78}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{\HI\ \lya\ forest spectrum of the quasar PKS 2126--158
+obtained by \cite{young78}.  Data like these provided the first
+detailed view of the IGM.
+}
+\label{fig:young}       % Give a unique label
+\end{figure}
+
+
+In the early 1980's, advances in spectroscopic technology
+(especially the CCD detector) led to the first high-quality
+views of the \HI\ \lya\ forest 
+\cite[Figure~\ref{fig:young}]{young78,boks,sargent}.
+It was evident from spectra like these that the IGM was
+characterized by a stochastic forest of \HI\ absorption
+well-described by discrete lines.  [add another line]
+This decade also witnessed the first surveys on gas
+optically thick at the \HI\ Lyman limit (aka Lyman Limit Systems 
+or LLSs; \cite{tytler82})
+and on the \HI\ \lya\ absorbers with sufficient column
+density to generate damped \lya\ profiles
+(aka damped \lya\ systems or DLAs; \cite{wolfe86}).
+The field was suddenly awash with data and theory had
+now fallen behind.
+[Mention Bergeron]
+The observers took to developing models of 
+`spherical' \HI\ clouds and bull's-eye cartoons to 
+describe the gas around galaxies.  
+J. Ostriker was the most active theorist on the IGM,
+publishing a series of papers on applications of the
+IGM including its first phase diagram 
+\cite{ostriker83a,ostriker83b,bajtlik87,duncan89}.
+But one of his leading models of the day envisioned
+"Galaxy formation in an IGM dominated by explostion"
+\cite{ostriker80}.
+
+
+In several respects, the 1990's witnessed the
+true maturation of studies the IGM.  Observationally,
+the HIRES spectrometer \cite{vogt94} on the 10-m W.M.
+Keck telescope fully resolved the IGM at terrific
+S/N.  In several respects, these spectra represent
+the pinnacle (analogous to Planck on the CMB).
+The advance over even the 1980's was profound
+as Figure~\ref{fig:HIRES} illustrates.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/Q0636}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Comparison of the high quality Palomar spectrum
+of Q0636 against the Keck/HIRES data.
+}
+\label{fig:HIRES}       % Give a unique label
+\end{figure}
+
+
+a new paradigm for the IGM emerged
+from hydrodynamic cosmological simulations \cite{miralda96}
+and related analytic treatments \cite{huixx}.
+The \lya\ clouds were replaced by the Cosmic Web (Figure~\ref{fig:web}),
+the filamentary network of dark matter and baryons that 
+describes the large-scale structure of a CDM universe.
+The \HI\ \lya\ forest traces the undulations in this web
+and this so-called 
+With this paradigm established, the IGM o
+This so-called fluctuating Gunn-Peterson approximation
+offers a terrific description of the IGM with sound
+analytic underpinnings.
+
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/miralda96}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Cosmic web (from \cite{miralda96})
+}
+\label{fig:web}       % Give a unique label
+\end{figure}
+
+
+Figure~\ref{fig:web_vs_data} compares an early generation
+model of the IGM from a hydrodynamic simulation 
+against a portion of a Keck/HIRES spectrum.  The
+agreement is remarkable and even the expert reader
+is challenged to identify which panel is real and
+which is simulated.
+The cosmic web paradigm is a true triumph of CDM
+cosmology and its development ushered in the 
+opportunity to leverage IGM observations for fundamental
+cosmological [constraints].
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/web_vs_HIRES}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Cosmic web vs.\ HIRES spectrum
+}
+\label{fig:web_vs_HIRES}       % Give a unique label
+\end{figure}
+
+
+For the last decade, the observational advances
+have stemmed largely form the massive spectroscopic
+surveys of SDSS and BOSS.
+These have yielded terrific statistical descriptions
+of the IGM \cite{PDF} 
+across large areas of the sky for BAO \cite{IGM_BAO}.
+Large surveys of the IGM have also been comprised
+\cite{phw05,pow10,noterdaeme} and
+analysis probing the underlying dark matter density
+field probed by the IGM have emerged \cite{font}.
+In addition, the ongoing discovery of $z>6$ quasars 
+and GRBs coupled with high-performance echellette
+spectrometers have probed the IGM to the epoch
+of \HI\ reionization.  And, a series of increasingly
+sensitive UV spectrometers on the
+{\it Hubble Space Telescope}
+have anchored the results in the modern universe
+\cite{penton,tripp,xx}.
+
+This chapter is organized into the following sections:
+ (i) the physics of \HI\ \lya\ absorption;
+ (ii) key concepts of spectral-line analysis;
+ (iii) characterizing the \HI\ \lya\ forest as absorption lines;
+ (iv) optically thick \HI\ absorption;
+ (v) the damped \lya\ systems;
+ (vi) an overview of modern analysis and results.
+The focus throughout is observational and the approaches
+are largely traditional;  excellent reviews with a greater
+emphasis on theory are given by \cite{meiksin0X} and
+\cite{mcquinn1X}.  
+
+This Chapter is also supplemented by the lecture notes
+and slides presented in SaasFee, and a set of iPython
+Notebooks illustrating concepts and providing 
+example code for related calculations and modeling.
+These supplementary materials are publicaly available
+at https://github.com/profxj/SaasFee2016.
+Python code relevant to \HI\ \lya\ absorption and 
+IGM analysis are packaged as  {\tt linetools}
+and {\tt pyigm} on github.
+
+\section{Physics of Lyman Series Absorption}
+\label{sec:physics}
+
+The \HI\ \lya\ photon may be emitted following one
+of several processes:
+ (i) the resonant absorption of a \lya\ photon by atomic hydrogen;
+ (ii) as the final emission in the recombination cascade of \HI;
+ (iii) following the collisional excitation of atomic hydrogen.
+In this Chapter, we concern ourselves with the first process --
+\HI\ \lya\ resonant-line scattering -- although the other
+processes may play a critical role in \lya\ radiative transfer.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/web_vs_HIRES}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Cosmic web vs.\ HIRES spectrum
+}
+\label{fig:web_vs_HIRES}       % Give a unique label
+\end{figure}
+
+
+% Always give a unique label
+% and use \ref{<label>} for cross-references
+% and \cite{<label>} for bibliographic references
+% use \sectionmark{}
+% to alter or adjust the section heading in the running head
+Instead of simply listing headings of different levels we recommend to
+let every heading be followed by at least a short passage of text.
+Further on please use the \LaTeX\ automatism for all your
+cross-references and citations.
+
+Please note that the first line of text that follows a heading is not indented, whereas the first lines of all subsequent paragraphs are.
+
+Use the standard \verb|equation| environment to typeset your equations, e.g.
+%
+\begin{equation}
+a \times b = c\;,
+\end{equation}
+%
+however, for multiline equations we recommend to use the \verb|eqnarray| environment\footnote{In physics texts please activate the class option \texttt{vecphys} to depict your vectors in \textbf{\itshape boldface-italic} type - as is customary for a wide range of physical subjects}.
+\begin{eqnarray}
+a \times b = c \nonumber\\
+\vec{a} \cdot \vec{b}=\vec{c}
+\label{eq:01}
+\end{eqnarray}
+
+\subsection{Subsection Heading}
+\label{subsec:2}
+Instead of simply listing headings of different levels we recommend to
+let every heading be followed by at least a short passage of text.
+Further on please use the \LaTeX\ automatism for all your
+cross-references\index{cross-references} and citations\index{citations}
+as has already been described in Sect.~\ref{sec:2}.
+
+\begin{quotation}
+Please do not use quotation marks when quoting texts! Simply use the \verb|quotation| environment -- it will automatically render Springer's preferred layout.
+\end{quotation}
+
+
+\subsubsection{Subsubsection Heading}
+Instead of simply listing headings of different levels we recommend to
+let every heading be followed by at least a short passage of text.
+Further on please use the \LaTeX\ automatism for all your
+cross-references and citations as has already been described in
+Sect.~\ref{subsec:2}, see also Fig.~\ref{fig:1}\footnote{If you copy
+text passages, figures, or tables from other works, you must obtain
+\textit{permission} from the copyright holder (usually the original
+publisher). Please enclose the signed permission with the manuscript. The
+sources\index{permission to print} must be acknowledged either in the
+captions, as footnotes or in a separate section of the book.}
+
+Please note that the first line of text that follows a heading is not indented, whereas the first lines of all subsequent paragraphs are.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+%\includegraphics[scale=.65]{figure}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{If the width of the figure is less than 7.8 cm use the \texttt{sidecapion} command to flush the caption on the left side of the page. If the figure is positioned at the top of the page, align the sidecaption with the top of the figure -- to achieve this you simply need to use the optional argument \texttt{[t]} with the \texttt{sidecaption} command}
+\label{fig:1}       % Give a unique label
+\end{figure}
+
+
+%
+\begin{acknowledgement}
+Acknowledge the NSF
+\end{acknowledgement}
+%
+%\section*{Appendix}
+%\addcontentsline{toc}{section}{Appendix}
+%
+%
+%When placed at the end of a chapter or contribution (as opposed to at the end of the book), the numbering of tables, figures, and equations in the appendix section continues on from that in the main text. Hence please \textit{do not} use the \verb|appendix| command when writing an appendix at the end of your chapter or contribution. If there is only one the appendix is designated ``Appendix'', or ``Appendix 1'', or ``Appendix 2'', etc. if there is more than one.
+
+%\input{referenc}
+% \bibliographystyle{}
+% \bibliography{}
+\end{document}
