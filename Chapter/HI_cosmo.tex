@@ -27,6 +27,7 @@
 
 % see the list of further useful packages
 % in the Reference Guide
+\usepackage{amsmath}
 
 \makeindex             % used for the subject index
                        % please use the style svind.ist with
@@ -37,6 +38,20 @@
 \newcommand{\HI}{H{\sc I}}
 \def\lya{Ly$\alpha$}
 \def\mlya{{\rm Ly}\alpha}
+\def\ohf{\frac{1}{2}}
+\def\ket#1{{|#1\negmedspace>}}
+\def\bra#1{{<\negmedspace#1|}}
+\def\ltk{\left [ \,}
+\def\ltp{\left ( \,}
+\def\ltb{\left \{ \,}
+\def\rtk{\, \right  ] }
+\def\rtp{\, \right  ) }
+\def\rtb{\, \right \} }
+\def\imp{\, \Rightarrow \>}
+\def\sci#1{{\; \times \; 10^{#1}}}
+\def\rhf{\frac{3}{2}}
+\def\cmma{\;\;\; ,}
+\def\perd{\;\;\; .}
 
 \begin{document}
 
@@ -344,6 +359,324 @@ of several processes:
 In this Chapter, we concern ourselves with the first process --
 \HI\ \lya\ resonant-line scattering -- although the other
 processes may play a critical role in \lya\ radiative transfer.
+
+In this section we will
+  describe the physics of \HI\ line absorption,
+  introduce the concepts of a line-profile, and
+  and illustrate the basics of \lya\ absorption lines.
+This section is supplemented by the iPython Notebook
+"HI\_Lyman\_Series.ipynb" and the "sassfee16\_lymanseries"
+Lecture.
+
+\subsection{\HI\ Energy Levels}
+
+We begin with a derivation of the energy levels 
+for atomic hydrogen.  Energies in the classic
+Rutherford-Bohr model of a Hydrogenic ion with charge
+$Ze$ are solved from a standard Hamiltonian ($H^{(0)}$)
+with an electrostatic potential
+
+\begin{equation}
+H^{(0)} = \frac{-\hbar \nabla^2}{2m} - \frac{Z e^2}{r}
+\end{equation}
+For energy level $n$, one recovers
+
+\begin{equation}
+E_n = -\ohf \mu c^2 \frac{(Z \alpha)^2}{n^2}
+\label{eqn:En}
+\end{equation}
+and the quantum states described by $n$, $\ell$, $m$, $m_s$
+or $\ket{n \ell m m_s}$ 
+are degenerate in $\ell, m, m_s$
+because our Hamiltonian is rotationally invariant.
+In Equation~\ref{eqn:En}, we have
+the fine-structure constant 
+$\alpha \equiv e^2/\hbar c \approx 1/137$ and
+the reduced mass $\mu = \frac{m_e (Z m_p)}{m_e + Z m_p}$.
+For Hydrogen, $\mu \approx 0.999 m_e$. 
+
+From $E_n$, we may evaluate the wavelengths for the Lyman
+series, transitions from/to the ground state $E_1$, as
+
+\begin{equation}
+\lambda_{rest,n} = \frac{hc}{E_n - E_1}
+\label{eqn:lrest}
+\end{equation}
+Table~\ref{tbl:wrest} lists the calculated values 
+from Equations~\ref{eqn:En} and \ref{eqn:lrest}
+for $\approx 20$ Lyman series lines, compared against
+empirical measurements.  One identifies a systematic
+offset of $\delta\lambda \approx 0.015$\AA\ between
+the Rutherford-Bohr energies and experiment.
+These result from perturbations to the 
+standard Hamiltonian that we now consider.
+
+\begin{table}[ht]
+\begin{center}
+\caption{Lyman Series Lines \label{tab:energies}}
+\begin{tabular}{cccccc}
+\hline
+Transition & $n$ & $E_n - E_1$ & $\lambda_{rest}$ & $\lambda_{exp}$ \\
+& & (eV) & (\AA) & (\AA) \\
+\hline
+Ly$\alpha$&           2&       10.200000&       1215.6845& 1215.6701 \\
+Ly$\beta$&            3&       12.088889&       1025.7338& 1025.7223\\
+Ly$\gamma$&           4&       12.750000&       972.54759&  972.5368\\
+Ly$\delta$&           5&       13.056000&       949.75351&  949.7431\\
+Ly$\epsilon$&         6&       13.222223&       937.81375&  937.8035\\
+Ly6&                  7&       13.322449&       930.75844&  930.7483\\
+Ly7&                  8&       13.387500&       926.23580&  926.2257\\
+Ly8&                  9&       13.432099&       923.16041&  923.1504\\
+Ly9&                  10&       13.464000&       920.97310& 920.9631\\
+Ly10&                 11&       13.487604&       919.36139& 919.3514\\
+Ly11&                 12&       13.505556&       918.13933& 918.1294\\
+Ly12&                 13&       13.519527&       917.19053& 917.1806\\
+Ly13&                 14&       13.530613&       916.43908& 916.429\\
+Ly14&                 15&       13.539556&       915.83374& 915.824\\
+Ly15&                 16&       13.546875&       915.33891& 915.329\\
+Ly16&                 17&       13.552942&       914.92921& 914.919\\
+Ly17&                 18&       13.558025&       914.58616& 914.576\\
+Ly18&                 19&       13.562327&       914.29604& 914.286\\
+Ly19&                 20&       13.566000&       914.04849& 914.039\\
+Ly$\infty$&         $\infty$&   13.6&            912.6    & \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+There are two perturbations with energies that scale
+as $\alpha^4$, the next term $E_n$:
+(1) spin-orbit coupling and
+(2) the first expansion of the relativistic kinetic energy.
+Classically, the spin-orbit coupling is described as 
+a magnetic dipole interaction between the spin of the electron
+and the orbit of the nucleus, i.e.\ 
+the e$^{-}$ observes a magnetic field due
+to the current driven by the nucleus:
+
+\begin{equation}
+\vec B = - \frac{1}{c} \vec v \times \vec 
+E = \frac{1}{m_e c r} \; \vec \ell \;
+\frac{d\phi}{dr}
+\end{equation}
+with energy
+
+\begin{equation}
+E = - \vec \mu_s \cdot \vec B  \quad\quad \text{with} \;\;\; 
+\vec \mu_s = -\frac{e g \vec s}{2 m_e c}
+\end{equation}
+where $g \approx 2$ for an electron.
+The proper Hamiltonian for the perturbation is:
+
+\begin{equation}
+H_{SO} = \frac{1}{2 m_e^2 c^2} \; \vec S \cdot \vec L \; \frac{1}{r} \;
+\frac{d\phi}{dr}
+\end{equation}
+and the standard treatment is to 
+identify an operator which commutes with 
+$H^{(0)}$ and $H_{SO}$, and also
+uniquely identifies the degenerate states.
+We choose  $\vec J \equiv \vec L + \vec S$
+recognizing
+
+\begin{equation*}
+\vec L \cdot \vec S = \ohf \ltp |\vec J|^2 - |\vec L|^2 - |\vec S|^2 \rtp
+\end{equation*}
+which yields energies
+
+\begin{equation}
+E_{SO} = \, <H_{SO}> \, = \ohf C \ltk j(j+1) - \ell(\ell+1) - s(s+1) \rtk
+\end{equation}
+with $C$ a constant.
+For fixed $\vec L$ and $\vec S$ (i.e.\ splitting within a level), 
+e.g.\ 2P, we have $\Delta E_{SO} = E_{J+1} - E_J = C (j+1)$.
+For our Hydrogenic ion,
+$\phi = Z e^2/r \imp d \phi/dr = -Z e^2/r^2$ and
+
+\begin{equation}
+H_{SO} = \frac{Z e^2}{2 m_e^2 c^2} \frac{1}{r^3} \vec L \cdot \vec S  \;\; .
+\end{equation}
+Following standard perturbation 
+theory\footnote{See the Lecture notes for an expanded derivation.},
+we find
+
+\begin{equation}
+<H_{SO}> = -E_n \frac{Z^2 \alpha^2}{2n} \frac{[j(j+1) - 
+\ell(\ell+1) - s(s+1)]}{\ell(\ell+\ohf)(\ell+1)}
+\end{equation}
+with $E_n$ given by Equation~\ref{eqn:En}.
+As advertised, spin-orbit coupling is 4th order in $\alpha$
+and we now have explicit energy dependence on $j,\ell$ and $s$.
+For the Hydrogen $n=2$ levels ($Z=1; n=2; \ell = 0,1; j= 1/2, 3/2$),
+we find
+
+\begin{equation}
+<H_{SO}> = 
+  \begin{cases}
+	0 &  2 ^2{\rm S}_\ohf \quad\quad (\ell = 0; j=0) \\
+     \frac{mc^2 \alpha^4}{96} &  2 ^2{\rm P}_{3/2} \quad\quad (\ell=1; j=3/2) \\
+     \frac{-mc^2 \alpha^4}{48} &  2 ^2{\rm P}_{1/2} \quad\quad (\ell=1; j=1/2) \\
+  \end{cases}
+\end{equation}
+giving a 2P$_{3/2}$ - 2P$_{1/2}$ splitting of $4.5 \sci{-5}$~eV
+or $\Delta v \approx \Delta E / cE \approx 1$~km/s.
+
+To derive the Relativistic correction to order $\alpha^4$,
+we expand the K.E. to the next term in $v^2/c^2$ from the Lagrangian
+
+\begin{equation}
+\text{K.E.} = \frac{p^2}{2m} \ltp 1 - \frac{1}{4} \frac{v^2}{c^2} \rtp
+\end{equation}
+This gives a relativistic perturbation 
+
+\begin{equation}
+H_{rel} = -\frac{1}{2mc^2} \ltp \frac{p^2}{2m} \rtp^2
+\end{equation}
+that has no spin dependence (spherically symmetric)
+such that $[H_{rel}, L^2] = [H_{rel}, L] = 0$
+and the standard $\ket{n \ell m m_s}$ diagonalize $H_{rel}$.
+If we recognize that
+
+\begin{equation*}
+H_{rel} = -\frac{1}{2mc^2} \ltp H^{(0)} - V^{(0)} \rtp^2
+\end{equation*}
+with $V^{(0)} = -Z e^2/r$, it is straightforward to
+compute the energies
+
+\begin{equation}
+<H_{rel}> = -E_n \frac{Z^2 \alpha^2}{n} \ltp \frac{3}{4n} - \frac{1}{\ell + \ohf} \rtp
+\end{equation}
+
+Combining this result with spin-orbit coupling,
+we recover (truly remarkably), 
+
+\begin{equation}
+<H_{SO}> + <H_{rel}> \, = E_n \frac{Z^2 \alpha^2}{n} \, 
+\ltk \frac{1}{j+\ohf} - \frac{3}{4n} \rtk
+\end{equation}
+Altogether, the $\alpha^4$ term for $E_n$ has
+no explicit $\ell$ dependence, nor any $s$ dependence.
+Furthermore, higher $j$ implies higher energy 
+following the 3rd Hund's rule.
+The energy shifts from $E_n$ for Hydrogen are then
+
+\begin{equation}
+\Delta E_{nj} = -7.25 \sci{-4} {\rm eV} \; \frac{1}{n^3} 
+   \ltk \frac{1}{j+\ohf} - \frac{3}{4n} \rtk
+\end{equation}
+which for the $n=1,2$ states of Hydrogen evaluate to
+the results in Table~\ref{tab:Enshift}.
+
+\begin{table}
+\label{tab:Enshift}
+\caption{Perturbations to the $n=1,2$ levels of Hydrogen}
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+State & $n$ & $j$ & $<H_{SO}> + <H_{rel}>$ \\
+\hline
+1\,$^2$S$_{\ohf}$ & 1 & $\ohf$ & $-1.8 \sci{-4}$~eV \\
+2\,$^2$S$_{\ohf}$, 2\,$^2$P$_\ohf$ & 2 & $\ohf$ & $-5.7 \sci{-5}$~eV \\
+2\,$^2$P$_\rhf$ & 2 & $\rhf$ & $-1.1 \sci{-5}$~eV \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The splitting of the $n=2$ level implies that
+Ly$\alpha$ (1S-2P) is a doublet with $\approx 1$km/s separation
+which is generally too small to resolve observationally
+but could be important for radiative transfer treatments.
+
+Returning to Table~\ref{tab:En}, the implied
+shift from the Rutherford-Bohr energies
+$\delta\lambda/\lambda \sim \delta E/E$
+is calculated using $\delta E$ from Table~\ref{tab:Enshift}
+and accounting for the relative degeneracy of the 
+2\,$^2$P$_\ohf$, 2\,$^2$P$_\rhf$ states
+yields
+
+\begin{align}
+\delta E &= \frac{1}{3} \ltk 2\delta E_{1S \to 2P_\rhf} + \delta E_{1S \to 2P_\ohf}
+   \rtk \\
+         &= 1.55 \sci{-4}~{\rm eV}
+\end{align}
+or
+\begin{equation}
+\Delta \lambda = -\frac{\delta E}{E} \times 1215.68 {\rm \AA} = -0.0138 {\rm \AA} \perd
+\end{equation}
+Voila!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Line Profile}
+
+We now derive the line profile of \HI\ Lyman series absorption
+which expresses the energy dependence of the
+photon cross-section.   This results from two physical
+effects: 
+(1) the quantum mechanical coupling of the energy
+levels described in the previous sub-section; 
+(2) Doppler broadening from the kinetic motions of the gas.
+We reserve a discussion of the observed
+line-profile related to the instrument to the next section.
+
+We express the opacity $\kappa_{\rm jk}(\nu)$
+of a gas with number
+density $n_j$ in state $j$ as:
+
+\begin{equation} 
+\kappa_{\rm jk}(\nu) = n_j \sigma_{jk}(\nu)
+\end{equation} 
+with $\sigma_\nu$ the photon cross-section 
+at frequency $\nu$ for a transition to state $k$.
+Separate the frequency dependence by introducing
+the line-profile $\phi(\nu)$
+
+\begin{equation}
+\sigma(\nu) = \sigma_{jk} \phi(\nu)
+\end{equation}
+with $\sigma_{jk}$ the integrated cross-section over all frequencies
+and $\phi_\nu \, d\nu$ reflects the probability an atom will absorb
+a photon with energy in $\nu, \nu + d\nu$.
+
+A naive guess for $\phi(\nu)$ is the Delta function,
+i.e.\ the transitions occur only at the exact energies
+splitting the energy levels from the previous subsection:
+
+\begin{equation}
+\phi_\delta(\nu) = \delta \ltp \nu - \nu_{jk} \rtp
+\end{equation}
+Quantum mechanically, however, the excited $n=2$
+state has a half-life $\tau_\ohf$ 
+given by the Spontaneous emission coefficient,
+$\tau_\ohf = 1/A_{\rm jk}$.
+This finite lifetime implies a finite width
+$\Delta E$ to the energy level which may be estimated
+from the Heisenberg Uncertainty principle
+
+\begin{equation}
+\Delta E \sim \frac{\hbar}{\Delta t} \sim \hbar A
+\end{equation}
+Define $W_{jk}(E)$ as the quantum mechanical
+probability of a transition occurring 
+between states $j$ and $k$ with energy $E$
+and $W_j(E)$ 
+as the probability of state $j$ being characterized
+by the energy interval $(E_j, E_j+dE_j)$.
+One may derive that the 
+
+
+
+For a coupling between only two states $j,k$, one
+may derive that $W_{jk}$ takes on a Lorentzian 
+
+\begin{equation}
+W_{jk}(E) dE = \frac{\ltk \gamma_j + \gamma_k \rtk dE/h}{
+(2\pi/h)^2 \ltk E - E_{jk}\rtk^2 + ([\gamma_j + \gamma_k]/2)^2}
+\end{equation}
+
+[NEED to GIVE $A$ for \lya\ somewhere]
 
 % For figures use
 %
