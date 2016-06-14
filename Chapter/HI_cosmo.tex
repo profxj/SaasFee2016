@@ -28,6 +28,7 @@
 % see the list of further useful packages
 % in the Reference Guide
 \usepackage{amsmath}
+\usepackage{amssymb}
 
 \makeindex             % used for the subject index
                        % please use the style svind.ist with
@@ -52,6 +53,7 @@
 \def\rhf{\frac{3}{2}}
 \def\cmma{\;\;\; ,}
 \def\perd{\;\;\; .}
+\def\smm{\sum\limits}
 
 \begin{document}
 
@@ -664,19 +666,170 @@ between states $j$ and $k$ with energy $E$
 and $W_j(E)$ 
 as the probability of state $j$ being characterized
 by the energy interval $(E_j, E_j+dE_j)$.
-One may derive that the 
+A standard Quantum mechanical treatment shows that
+$W_j(E)$ has a Lorentzian shape (aka the Breit-Wigner
+profile): 
 
+\begin{equation}
+W_j(E_j) dE_j = \frac{\gamma_j dE_j/h}{(2\pi/h)^2 \ltk E_j - 
+<E_j>\rtk^2 + (\gamma_j/2)^2}
+\end{equation}
+with  
+
+\begin{equation}
+\gamma_j \equiv \smm_{i<j} A_{ij}
+\end{equation}
 
 
 For a coupling between only two states $j,k$, one
-may derive that $W_{jk}$ takes on a Lorentzian 
+derives $W_{jk}$ by convolving $W_j$ and $W_k$: 
 
 \begin{equation}
 W_{jk}(E) dE = \frac{\ltk \gamma_j + \gamma_k \rtk dE/h}{
 (2\pi/h)^2 \ltk E - E_{jk}\rtk^2 + ([\gamma_j + \gamma_k]/2)^2}
+\label{eqn:Wjk}
+\end{equation}
+We reemphasize that this calculation was restricted 
+to the $j$ and $k$ states whereas a proper 
+calculation needs to consider the coupling of all the 
+energy levels (see below).  For our Lyman series lines we
+note that $\gamma_j=0$ as, by definition, there are 
+no energy levels below the ground state.
+
+From Equation~\ref{eqn:Wjk}, we introduce
+the Natural line-profile normalized to have 
+unit integral value in frequency,
+
+\begin{equation}
+\phi_N(\nu) = \frac{1}{\pi} 
+\ltk \frac{(\gamma_j + \gamma_k)/4\pi}{(\nu - \nu_{jk})^2
++ (\gamma_j + \gamma_k)^2 / (4\pi)^2} \rtk \perd
+\end{equation}
+giving (at last)
+
+\begin{equation}
+\sigma(\nu) = \sigma_{jk} \phi_N(\nu)
+\end{equation}
+As illustrated in the Notebook, 
+the "wings" of $\phi_N(\nu)$ are 
+$\approx 10$ orders of magnitude down 
+from line-center.  Remarkably
+these are very important for \lya.
+
+It is standard practice to express the normalization
+$\sigma_{jk}$ in terms of the oscillator strength $f_{jk}$
+which is either measured empirically (preferred)
+or estimated theoretically
+
+\begin{equation}
+\sigma_{jk} = \frac{\pi e^2}{m_e c} f_{jk}
+\end{equation}
+
+Our final expression becomes
+
+\begin{equation}
+\sigma_\nu = \frac{\pi e^2}{m_e c} f_{jk} 
+\ltk \frac{(\gamma_j + \gamma_k)/4\pi^2}{(\nu - \nu_{jk})^2
++ (\gamma_j + \gamma_k)^2 / (4\pi)^2} \rtk
 \end{equation}
 
 [NEED to GIVE $A$ for \lya\ somewhere]
+
+Expressing the FWHM of the line-profile as 
+the frequency width where $\sigma(\nu)/\sigma(\nu)_{max} = 1/2$,
+we have $\Delta\nu_{\rm FWHM} = \pm \frac{\gamma_j + \gamma_k}{4\pi}$
+which very nearly matches our estimate from the
+Uncertainty Principle!
+For \HI\ \lya\ with $\gamma_1=0, \gamma_2=A_{21}$,
+we find the FWHM in velocity to be 
+
+\begin{equation}
+\Delta v_{\rm FWHM} = c \Delta\nu_{\rm FWHM}/\nu
+\approx 1.5\sci{-2} \, {\rm km/s}  
+\label{eqn:vFWHM}
+\end{equation}
+For astrophysical purposes,
+this nearly is a delta function.
+
+In an astrophysical event, each 
+atom in a gas has its own motion 
+which spreads the line without changing the total 
+amount of absorption.  
+This Doppler effect, to lowest order in $v/c$, is
+
+\begin{equation}
+\Delta\nu = \nu - \nu_{jk} = \nu_{jk} \frac{v}{c}
+\end{equation}
+Assuming first that the gas motions are characterized
+soley by $T$ (i.e.\ no turbulence),
+we adopt a Maxwellian distribution for particles of mass $m_A$
+giving a profile function:
+
+\begin{align}
+\phi_D(\nu) &= \frac{1}{\Delta \nu_D \sqrt{\pi}} 
+\exp \ltk - \frac{(\nu - \nu_{jk})^2}{\Delta \nu_D^2} \rtk \\
+{\rm with} \; \Delta \nu_D &\equiv \frac{\nu_{jk}}{c} \sqrt{\frac{2kT}{mA}}
+\end{align}
+At line-center ($\nu = \nu_{jk}$),
+the cross-section (neglecting stimulated emission) is
+
+\begin{equation}
+(\sigma_\nu^D)_{\rm max} = \sigma_{jk} \phi_D(\nu_{jk})  
+	= \frac{\pi e^2}{mc} f_{jk} \frac{1}{\Delta \nu_D \sqrt{\pi}}
+\label{eqn:Dlinecenter}
+\end{equation}
+This cross-section is several orders of magnitude
+lower than $(\sigma_\nu^N)_{\rm max}$ as the absorption has
+been `spread' over a velocity interval several orders of
+magnitude larger than the width estimated by Equation~\ref{eqn:vFWHM}.
+
+We can generalize the profile to include random, turbulent
+motions (characterized by $\xi$)
+by modifying the Doppler width,
+
+\begin{equation}
+\Delta\nu_D = \frac{\nu_{jk}}{c} \ltp \frac{2kT}{m_A} + 
+\xi^2 \rtp^\ohf
+\end{equation}
+Expressing the line-profile in velocity space, we introduce
+the Doppler parameter
+
+\begin{equation}
+b \equiv \sqrt{\frac{2kT}{m_A} + \xi^2}
+\end{equation}
+and the velocity line-profile for Doppler motions is
+
+\begin{equation}
+\phi_D(v) = \frac{1}{b\sqrt{\pi}} \, \exp \ltk -\frac{v^2}{b^2} \rtk \perd
+\label{eqn:phi_Dv}
+\end{equation}
+See the Notebook for a series of examples illustrating this
+profile in comparison to the Natural profile.
+
+
+Generally, the cross-section has contributions from both
+Natural and Doppler broadening,
+with Doppler broadening dominating the line-center 
+and the Lorentzian of Natural broadening dominates the wings.
+The overall profile is a convolution of the two terms,
+
+\begin{equation}
+\phi_V(\nu) = \frac{\gamma}{4\pi} \intl_{-\infty}^\infty
+\frac{ \ltp \frac{m}{2\pi kT} \rtp^\ohf \, \exp \ltp - \frac{mv^2}{2kT} \rtp}
+{\ltp \nu-\nu_{jk}-\nu_{jk}v/c \rtp^2 + \ltp \gamma/4\pi \rtp^2} \, dv
+\end{equation}
+and one is inspired to introduce the Voigt function
+
+\begin{equation}
+H(a,u) = \frac{a}{\pi} \intl_{-\infty}^\infty 
+\frac{\rme^{-y^2} \, dy}{a^2 + (u-y)^2}
+\end{equation}
+where we identify
+
+\begin{align}
+a &\equiv \frac{\gamma}{4\pi \Delta\nu_D} \\
+u &\equiv \frac{\nu-\nu_{jk}}{\Delta\nu_D}
+\end{align}
 
 % For figures use
 %
@@ -767,7 +920,7 @@ Please note that the first line of text that follows a heading is not indented, 
 
 %
 \begin{acknowledgement}
-Acknowledge the NSF
+Acknowledge the NSF.  Wolfe.  Blumenthal
 \end{acknowledgement}
 %
 %\section*{Appendix}
