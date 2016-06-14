@@ -54,6 +54,11 @@
 \def\cmma{\;\;\; ,}
 \def\perd{\;\;\; .}
 \def\smm{\sum\limits}
+\def\intl{\int\limits}
+\def\rme{{\rm e}}
+\newcommand{\mnhi}{N_{\rm HI}}
+\newcommand{\nhi}{$\mnhi$}
+\def\cm#1{\, {\rm cm^{#1}}}
 
 \begin{document}
 
@@ -830,6 +835,145 @@ where we identify
 a &\equiv \frac{\gamma}{4\pi \Delta\nu_D} \\
 u &\equiv \frac{\nu-\nu_{jk}}{\Delta\nu_D}
 \end{align}
+Altogether, we have 
+
+\begin{equation}
+\phi_V(\nu) = \frac{H(a,u)}{\Delta\nu_D \sqrt{\pi}}
+\end{equation}
+which has no analytic solution.
+For speed, one often relies on look-up tables.
+In Python, the real part of scipy.special.wofz is both accurate 
+and fast (see Voigt documentation in the {\tt linetools} package).
+
+The Lorentzian profile from Natural broadening is only an approximation
+because it ignores the coupling between states other than $j,k$.
+Scattering is a second-order quantum mechanical process: annihilation of 
+one photon and the creation of a scattered photon.
+A proper treatment requires second-order time dependent perturbation
+theory and requires one to sum over all bound-states and integrate over
+all continuum-state contributions.
+\cite{lee03} have calculated a series expansion of the corrections
+to the Voigt profile and we refer the reader to his paper for a
+more detailed presentation.  Here, we report the first term
+in the series for \HI\ \lya:
+
+\begin{equation}
+\sigma_\nu = \sigma_{\rm T} \ltp \frac{f_{jk}}{2} \rtp^2 
+\ltp \frac{\nu_{jk}}{\delta\nu} \rtp^2
+\ltk 1 - 1.792 \frac{\delta\nu}{\nu_{jk}} \rtk  \perd
+\end{equation}
+with $\sigma_T$ the Thompson cross-section.
+It is evident that the correction is not symmetric about line-center.
+This leads to an asymmetry which
+shifts the measured line-center if the gas opacity
+is very high (e.g.\ $\mnhi > 10^{21.7} \cm{-2}$).
+
+\subsection{Optical Depth ($\tau_\nu$) and Column Density ($N$)}
+\label{subsec:tauN}
+
+We now introduce two quantities central to absorption-line analysis.
+First, the optical depth $\tau_\nu$ which is defined as the integrated
+opacity along a sightline.  In differential form
+$d\tau(\nu) = -\kappa(\nu) ds$ implying
+
+\begin{equation}
+\tau(\nu) = \sigma(\nu) \int n_j ds
+\end{equation}
+which gives an explicit frequency dependence related to the line-profiles
+of the previous sub-section.
+
+We define the second term as the column density $N_j$,
+
+\begin{equation}
+N_j \equiv \int n_j ds
+\end{equation}
+which has units of cm$^{-2}$ and is akin to a surface density
+($n_j \to \rho$; $N_j \to \Sigma$).
+As an example, consider the column density of 
+of O$_2$ through 1\,m of air.  
+With $\rho_{\rm O_2} = 1.492$\,g/L,
+$N_{\rm O_2} = 3\sci{21} \cm{-2}$.
+
+A quantity of observational interest is the 
+optical depth at line-center $\tau_0$ of a gas with $N_j$
+and Doppler parameter $b$.
+At line-center ($\nu = \nu_{jk})$, our line-profile is 
+dominated by Doppler motions
+$\phi_V(\nu_{jk}) \approx \phi_D (\nu_{jk})$ and from 
+Equation~\ref{eqn:phi_Dv}, we recover
+\begin{equation}
+\tau_0 =  \frac{\sqrt{\pi} e^2}{m_e c} \, \frac{N_j \lambda_{jk} f_{jk}}{b} \perd
+\end{equation}
+For Ly$\alpha$, with $b$ expressed in km/s:
+\begin{equation}
+\tau_0^{\rm Ly\alpha} =  7.6 \sci{-13} \, 
+\frac{N \, [\rm cm^{-2}]}{b \, [\rm km/s]}
+\label{eqn:tau0}
+\end{equation}
+
+\subsection{Idealized Absorption Lines}
+
+Without derivation (see the Lecture notes),
+we express the radiative transfer for a source with
+intensity $I^*_\nu$ through a medium with
+optical depth $\tau_\nu$ simply as
+
+\begin{equation}
+I_\nu = I_\nu^* \rme^{-\tau_\nu}
+\end{equation}
+Therefore, we may consider the formation of absorption lines as the 
+simple integration of the optical depth.
+
+% For figures use
+%
+\begin{figure}[b]
+%\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/fig_lya_lines}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{\lya\ lines
+}
+\label{fig:lyalines}       % Give a unique label
+\end{figure}
+
+
+In Figure~\ref{fig:lyalines}, we show a series of idealized \HI\ \lya\
+lines for a range of \HI\ column densities and Doppler parameters
+(\nhi, $b$).  These illustrate the shapes of the line-profiles, here
+dominated by Doppler broadening, and the varying optical depth
+at line-center.  These are plotted in velocity space, taking
+$\delta v = \delta \lambda / \lambda_0$ with 
+$\delta v=0$\,km/s corresponding to the line-center.  
+In Figure~\ref{fig:dla_compare}
+we contrast these lines, which have $\tau_0 \approx 1$, with 
+an \HI\ absorption line with very high \nhi\ and correspondingly
+high $\tau_0$.  Here the line profile is entirely determined
+by Natural broadening.
+
+% For figures use
+%
+\begin{figure}[b]
+%\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/fig_dla_compare}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{DLA vs.\ \lya\ lines
+}
+\label{fig:lyalines}       % Give a unique label
+\end{figure}
+
+\subsection{Equivalent Width}
+
 
 % For figures use
 %
