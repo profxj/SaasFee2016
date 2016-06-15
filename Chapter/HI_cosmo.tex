@@ -976,6 +976,234 @@ by Natural broadening.
 \label{subsec:EW}
 
 The equivalent width for absorption 
+$W_\lambda$ is a gross measure of the 
+flux absorbed (scattered) by the gas cloud.
+Strictly, $W_\lambda$ is the convolution of the 
+optical depth with the line profile.  
+And although it is primarily an observational quantity,
+its value is {\it independent} of the instrument profile
+and it does depend on physical properties of the
+absorbing gas.
+
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/example_ew.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Box car description of EW
+}
+\label{fig:EWbox}       % Give a unique label
+\end{figure}
+
+The value, expressed in \AA, may be
+visualized as the width of a box-car profile
+that matches the absorbed flux in a normalized 
+spectrum, e.g. Figure~\ref{fig:EWbox}.
+Analytically, we define
+
+\begin{equation}
+W_\lambda = \intl_0^\infty \ltk 1 - \frac{I_\nu}{I_\nu^*} \rtk \, d\lambda
+\end{equation}
+Substituting our simple radiative transfer equation, this gives
+
+\begin{equation}
+W_\lambda = \intl_0^\infty \ltk 1 - \exp(-\tau_\lambda) \rtk \, d\lambda
+\label{eqn:EW}
+\end{equation}
+One may contrast this equation with analysis of stellar 
+atmospheres which has
+a very different radiative transfer equation.
+
+\subsection{Curve of Growth for \HI\ \lya}
+\label{subsec:COGlya}
+
+It is valuable to develop an intuition 
+of the relation bbetween equivalent width and the
+physical properites of a gas ($N,b$).  This 
+relationship is generally referred to as the
+curve-of-growth (COG) and may be inverted to
+constrain $N,b$ from $W_\lambda$ measurements.
+The COG also nicely describes the transition from a 
+Doppler-dominated line to a naturally-broadened line.
+
+On typically considers three regimes for the COG
+which depend on the central optical depth of the
+absorption line $\tau_0$.
+In the Weak limit ($\tau_0 \ll 1$), Natural 
+broadening is negligible and Doppler broadening
+dominates,
+
+\begin{equation}
+\tau_\nu = \frac{\pi e^2}{m_e c} \lambda f_{jk} N_j \phi_D(\nu) 
+\end{equation}
+With $\tau_0$ small, Equation~\ref{eqn:EW} reduces to
+\begin{align}
+W_\lambda &= \frac{\lambda^2}{c} \int \ltk 1 - \exp(-\tau_\nu) \rtk d\nu \\
+  & \approx \frac{\lambda^2}{c} \intl_0^\infty \tau_\nu \, d\nu \\
+  & = \frac{\lambda^2}{c} \frac{\pi e^2}{m_e c} f_{jk} N_j 
+\end{align}
+revealing a linear relationship between $W_\lambda$ and $N_j$
+and no dependence on $b$.
+The Weak limit, therefore, is also referred
+to as the `linear' portion of the COG.
+Evaluating for \lya, we find
+\begin{equation}
+W_\lambda \approx (0.1 \, {\rm \AA}) \, \frac{N_{\rm HI}}{1.83 \sci{13} \cm{-2}} 
+\end{equation}
+Our estimate of $\tau_0$ (Equation~\ref{eqn:tau0})
+requires $\mnhi \ll 10^{14} \cm{-2}$ for $\tau_0 \ll 1$,
+which also implies $W_\lambda \ll 1$\AA.
+This column density is many orders of magnitude less than 
+that typcial of the Galactic ISM.  It implies a gas that 
+is extremely diffuse and, likely, highly ionized.  These
+are the physical conditions of the IGM.
+
+
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/ew_sat_fill}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Saturated \lya\ line in the Strong regime of the
+COG
+}
+\label{fig:EWstrong}       % Give a unique label
+\end{figure}
+
+
+
+The Strong line limit of the COG refers to $\tau_0 \gtrsim 1$
+and we may still ignore Natural broadening.
+In this regime, the light is strongly absorbed at line-center
+and the equivalent width is well described by the width
+of the line (i.e.\ it is nearly approximated as a `box';
+Figure~\ref{fig:EWstrong}).
+Expressing the frequency dependence of the optical
+depth as $\tau_x = \tau_0 \rme^{-x^2}$, with
+$x \equiv \Delta \nu / \Delta \nu_D$, we may estimate the 
+line width by 
+considering the value of $x$ that gives $\tau_x = 1$.
+Trivially, we find $x_1 = \sqrt{\ln \tau_0}$ and therefore
+
+\begin{equation}
+W_\lambda \approx 2 x_1 \approx 2 \sqrt{\ln \tau_0}
+\label{eqn:EWstrong}
+\end{equation}
+in the Strong regime, also known as the saturated limit.
+To change $W_\lambda$ in this saturated
+limit, we need to increase $\tau_0$ immensely
+and likewise $N$, i.e.\ $W_\lambda \propto (\ln N)^\ohf$.
+Whereas $W_\lambda$ is insensitive to
+$\tau_0$, it is sensitive to the internal structure of the cloud
+$W_\lambda \propto b$.
+
+Lastly, there is the Damping regime with $\tau_0 \gg 1$
+and where Natural broadening dominates.
+Now the optical depth is given by the Lorentzian profile
+
+\begin{equation}
+\tau_x \approx \frac{\tau_0 A}{\sqrt{\pi}} \frac{1}{x^2}
+\end{equation}
+and the width (estimated from $\tau_x = 1$) is
+$x_1 = \ltk \tau_0 A \rtk^\ohf$.
+Therefore, $W_\lambda \approx 2x_1 \propto N^\ohf$
+or formally
+
+\begin{equation}
+\frac{W_\lambda}{\lambda} \approx \frac{2}{c} \ltk \lambda^2 N_j 
+\frac{\pi e^2}{m_e c} f_{jk} A \rtk^\ohf
+\end{equation}
+In the Damping regime, the equivalent width scales
+as $\sqrt{N}$ with no dependence on the Doppler parameter
+as the core is fully saturated.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/fig_cog}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{COG
+}
+\label{fig:COG}       % Give a unique label
+\end{figure}
+
+
+Figure~\ref{fig:COG} shows the COG for a single
+\HI\ \lya\ line with varying \nhi\ and Doppler parameter.
+The three COG regimes are well-described.  We stress
+that only a small portion of the Weak limit ($W_\lambda \ll 1$\AA)
+permits actual detections with modern spectrometers
+and that the Damping regime is limited to gas with
+galactic surface densities.
+This leaves approximately 6 orders of magnitude in 
+\nhi\ in the Strong (saturated) regime where observations
+of the equivalent width for
+\lya\ alone offer a weak constrain on the gas column
+density.
+
+\subsection{Curve of Growth for the Lyman Series}
+
+Another application of the COG is to evaluate the
+absorption from a series of transitions from as 
+single ion in a single `cloud' of gas.
+Such analysis may enable one to derive more precisely
+the physical parameters ($N,b$) of the absorbing gas.
+Recalling that 
+
+\begin{equation}
+\tau_0 = \frac{\sqrt{\pi} e^2}{m_e c} \frac{\lambda_{jk} f_{jk} N_j}{b} \cmma
+\end{equation}
+a single hydrogen gas cloud with fixed $N,b$ will
+show decreasing $\tau_0$ in increasing terms of the
+Lyman series. Therefore, the Lyman series absorption 
+generates a COG that may span several regimes.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/fig_excog}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{COG fit
+}
+\label{fig:COGfit}       % Give a unique label
+\end{figure}
+
+
+The standard analysis is to fit COG curves to a
+series of $W_\lambda$ measurements to constrain $N,b$
+as illustrated in Figure~\ref{fig:COGfit}.
+Another example and related code are provided in the
+Notebook.
 
 
 % For figures use

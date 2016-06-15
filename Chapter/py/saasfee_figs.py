@@ -1314,7 +1314,7 @@ def fig_high_ZH(cos_halos=None, outfil='fig_high_ZH.pdf'):
 def main(flg_fig):
 
     if flg_fig == 'all':
-        flg_fig = np.sum( np.array( [2**ii for ii in range(1)] ))
+        flg_fig = np.sum( np.array( [2**ii for ii in range(2)] ))
     else:
         flg_fig = int(flg_fig)
 
