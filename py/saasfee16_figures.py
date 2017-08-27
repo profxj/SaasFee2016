@@ -27,15 +27,17 @@ from linetools.spectralline import AbsLine
 from linetools.analysis import voigt as ltav
 from linetools.spectra import io as lsio
 
+from specdb.specdb import IgmSpec
+
 from pyigm import utils as pyiu
 from pyigm.continuum import quasar as pyicq
 from pyigm.fN.fnmodel import FNModel
 from pyigm.fN.tau_eff import lyman_ew, lyman_limit
 from pyigm.fN import mockforest as pyimock
 
-from xastropy.sdss import quasars
-from xastropy.xutils import xdebug as xdb
-from xastropy.plotting import utils as xputils
+#from xastropy.sdss import quasars
+#from xastropy.xutils import xdebug as xdb
+#from xastropy.plotting import utils as xputils
 
 
 def example_ew(outfil='Figures/example_ew.pdf'):
@@ -240,34 +242,44 @@ def fj0812(outfil='Figures/fj0812.pdf'):
 def qso_sed(outfil='Figures/qso_sed.pdf'):
     """ Plots a few QSO examples
     """
-    sdss_dr7 = quasars.SdssQuasars()
+    igmsp = IgmSpec()
+    #sdss_dr7 = quasars.SdssQuasars()
     #bal = sdss_dr7[(367, 506)]
     #bal = sdss_dr7[(726, 60)]
-    bal = sdss_dr7[(668, 193)]
-    bal.load_spec(load_conti=False)
-    fj0812 = sdss_dr7[(861,333)]
-    fj0812.load_spec(load_conti=False)
+    weakbal, wb_meta = igmsp.get_sdss(668, 193, groups=['SDSS_DR7'])
+    normal, n_meta = igmsp.get_sdss(393,250, groups=['SDSS_DR7'])
+    sbal, sb_meta = igmsp.get_sdss(690,131, groups=['SDSS_DR7'])
     # Start the plot
     xmnx = (1180., 1580)
     pp = PdfPages(outfil)
     fig = plt.figure(figsize=(8.0, 5.0))
 
     plt.clf()
-    gs = gridspec.GridSpec(2,1)
+    gs = gridspec.GridSpec(3,1)
 
     # Lya line
-    for qq in range(2):
+    for qq in range(3):
+        ylim = None
         if qq == 0:
-            qso = fj0812
+            spec = normal
+            meta = n_meta
         elif qq == 1:
-            qso = bal
+            spec = weakbal
+            meta = wb_meta
+            ylim = (-10,99)
+        elif qq == 2:
+            spec = sbal
+            meta = sb_meta
+            ylim = (-1,7)
         ax = plt.subplot(gs[qq])
     #ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
     #ax.xaxis.set_major_locator(plt.MultipleLocator(20.))
     #ax.yaxis.set_minor_locator(plt.MultipleLocator(0.1))
     #ax.yaxis.set_major_locator(plt.MultipleLocator(0.2))
         ax.set_xlim(xmnx)
-    #ax.set_ylim(ymnx) 
+        if ylim is not None:
+            ax.set_ylim(ylim)
+    #ax.set_ylim(ymnx)
         ax.set_ylabel('Relative Flux')
         if qq < 1:
             ax.get_xaxis().set_ticks([])
@@ -275,8 +287,8 @@ def qso_sed(outfil='Figures/qso_sed.pdf'):
             ax.set_xlabel('Rest Wavelength (Angstroms)')
 
         lw = 1.
-        ax.plot(qso.spec.wavelength/(qso.z+1), qso.spec.flux, 'k', linewidth=lw) 
-        xputils.set_fontsize(ax, 17.)
+        ax.plot(spec.wavelength/(meta['zem_GROUP']+1), spec.flux, 'k', linewidth=lw)
+        set_fontsize(ax, 17.)
 
     # Layout and save
     print('Writing {:s}'.format(outfil))
@@ -1280,6 +1292,21 @@ def drho_dNHI(outfil='Figures/drho_dNHI.pdf'):
     # Finish
     pp.close()
 
+def set_fontsize(ax,fsz):
+    '''
+    Generate a Table of columns and so on
+    Restrict to those systems where flg_clm > 0
+
+    Parameters
+    ----------
+    ax : Matplotlib ax class
+    fsz : float
+      Font size
+    '''
+    for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] +
+                ax.get_xticklabels() + ax.get_yticklabels()):
+        item.set_fontsize(fsz)
+
 
 #### ########################## #########################
 #### ########################## #########################
@@ -1382,7 +1409,7 @@ if __name__ == '__main__':
         #flg_fig += 2**0   # Example of EW
         #flg_fig += 2**1   # LSF
         #flg_fig += 2**2   # FJ0812
-        #flg_fig += 2**3   # QSO SED
+        flg_fig += 2**3   # QSO SED
         #flg_fig += 2**4   # QSO Template
         #flg_fig += 2**5   # Redshift
         #flg_fig += 2**6   # Q1422
@@ -1398,7 +1425,7 @@ if __name__ == '__main__':
         #flg_fig += 2**16   # real DLA 
         #flg_fig += 2**17   # DLA deviation 
         #flg_fig += 2**18   # QSO FUV
-        flg_fig += 2**19   # QSO FUV
+        #flg_fig += 2**19   # QSO FUV
     else:
         flg_fig = sys.argv[1]
 
