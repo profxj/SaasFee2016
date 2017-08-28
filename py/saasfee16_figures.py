@@ -604,9 +604,19 @@ def q1422(outfil='Figures/q1422.pdf'):
     print('Writing {:s}'.format(outfil))
     pp.close()
 
+
 def evolving_forest(outfil='Figures/evolving_forest.pdf'):
     """ Show varying IGM transmission
     """
+    igmsp = IgmSpec()
+    idicts = [dict(coord='J212329.50-005052.9', group=['HD-LLS_DR1']),
+              dict(coord='J020950.7-000506.4', group=['HD-LLS_DR1'], INSTR='HIRES'),
+              dict(coord='J113621.00+005021.0', group=['HD-LLS_DR1']),
+              dict(coord='J094932.27+033531.7', group=['HD-LLS_DR1']),
+              dict(coord='J013421.63+330756.5', group=['HD-LLS_DR1']),
+              dict(coord='J083108.01+402531.0', group=['HD-LLS_DR1']),
+              ]
+
     hdlls_path = '/Users/xavier/paper/LLS/Optical/Data/DR1/Spectra/'
     esi_path = '/Users/xavier/Keck/ESI/RedData/'
     hst_path = '/Users/xavier/HST/Cycle23/z1IGM/Archive/PG1206+459/'
@@ -624,7 +634,7 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
                 '/Users/xavier/MLSS/data/3C273/STIS/E140M/3C273_STIS_E140M_F.fits',
                 ]
     conti_fil = '/Users/xavier/MLSS/data/3C273/STIS/E140M/3C273_STIS_E140M_c.fits'
-    conti_3c273 = fits.open(conti_fil)[0].data
+    #conti_3c273 = fits.open(conti_fil)[0].data
     lbls = [
             'Keck/HIRES: J2123-0050',
             'Keck/HIRES: J0209-0005',
@@ -654,8 +664,22 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
 
     # Loop
     for qq, lbl in enumerate(lbls):
+        if qq > 3:
+            break
 
-        spec = lsio.readspec(dat_files[qq])
+        # Grab data
+        idict = idicts[qq]
+        qdict = {}
+        for key in idict.keys():
+            if key not in ['coord','group']:
+                qdict[key] = idict[key]
+        spec, meta = igmsp.spectra_from_coord(idict['coord'], tol=5.*u.arcsec, groups=idict['group'], query_dict=qdict)
+        if meta is None:
+            print("Bad coord?")
+            pdb.set_trace()
+        elif len(meta) > 1:
+            pdb.set_trace()
+        #spec = lsio.readspec(dat_files[qq])
         if lbl == 'HST/STIS: 3C273':
             spec.co = conti_3c273
             spec.normed = True
@@ -674,7 +698,7 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
         ax.text(0.05, 0.95, lbl+' zem={:0.1f}'.format(zems[qq]), color='blue',
             transform=ax.transAxes, size=csz, ha='left', bbox={'facecolor':'white'})
         #
-        xputils.set_fontsize(ax, 17.)
+        set_fontsize(ax, 17.)
         # Layout and save
         plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
         plt.subplots_adjust(hspace=0)
@@ -683,6 +707,8 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
     # Finish
     print('Writing {:s}'.format(outfil))
     pp.close()
+
+
 
 def dteff(outfil='Figures/dteff.pdf'):
     """ Differential teff (Lya)
@@ -1410,10 +1436,10 @@ if __name__ == '__main__':
         #flg_fig += 2**1   # LSF
         #flg_fig += 2**2   # FJ0812
         #flg_fig += 2**3   # QSO SED
-        flg_fig += 2**4   # QSO Template
+        #flg_fig += 2**4   # QSO Template
         #flg_fig += 2**5   # Redshift
         #flg_fig += 2**6   # Q1422
-        #flg_fig += 2**7   # Evolving IGM
+        flg_fig += 2**7   # Evolving IGM
         #flg_fig += 2**8   # dteff
         #flg_fig += 2**9   # IGM transmission
         #flg_fig += 2**10   # IGM transmission
