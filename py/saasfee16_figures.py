@@ -16,6 +16,8 @@ from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 
+from pkg_resources import resource_filename
+
 from astropy import units as u
 from astropy import constants as const
 from astropy.table import Table
@@ -303,15 +305,13 @@ def qso_sed(outfil='Figures/qso_sed.pdf'):
 def qso_template(outfil='Figures/qso_template.pdf'):
     """ van den berk
     """
-    pyigm_path = imp.find_module('pyigm')[1]
-
     # Load
     telfer = pyicq.get_telfer_spec()
 
     clight = const.c.cgs
 
     # Beta spliced to vanden Berk template with host galaxy  removed
-    van_file = pyigm_path+'/data/quasar/VanDmeetBeta_fullResolution.txt'
+    van_file = resource_filename('pyigm', '/data/quasar/VanDmeetBeta_fullResolution.txt')
     van_tbl = Table.read(van_file,format='ascii')
     isort = np.argsort(van_tbl['nu'])
     nu_van = van_tbl['nu'][isort]
@@ -323,7 +323,7 @@ def qso_template(outfil='Figures/qso_template.pdf'):
     flam_van = flam_van / nrm_van
 
     # Start the plot
-    xmnx = (1170., 2300)
+    xmnx = (1050., 2300)
     pp = PdfPages(outfil)
     fig = plt.figure(figsize=(8.0, 5.0))
 
@@ -350,7 +350,7 @@ def qso_template(outfil='Figures/qso_template.pdf'):
     legend = plt.legend(loc='upper right', scatterpoints=1, borderpad=0.3, 
         handletextpad=0.3, fontsize='large', numpoints=1)
     # Layout and save
-    xputils.set_fontsize(ax, 17.)
+    set_fontsize(ax, 17.)
     print('Writing {:s}'.format(outfil))
     plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
     plt.subplots_adjust(hspace=0)
@@ -1409,8 +1409,8 @@ if __name__ == '__main__':
         #flg_fig += 2**0   # Example of EW
         #flg_fig += 2**1   # LSF
         #flg_fig += 2**2   # FJ0812
-        flg_fig += 2**3   # QSO SED
-        #flg_fig += 2**4   # QSO Template
+        #flg_fig += 2**3   # QSO SED
+        flg_fig += 2**4   # QSO Template
         #flg_fig += 2**5   # Redshift
         #flg_fig += 2**6   # Q1422
         #flg_fig += 2**7   # Evolving IGM
