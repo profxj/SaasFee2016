@@ -614,7 +614,7 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
               dict(coord='J113621.00+005021.0', group=['HD-LLS_DR1']),
               dict(coord='J094932.27+033531.7', group=['HD-LLS_DR1']),
               dict(coord='J013421.63+330756.5', group=['HD-LLS_DR1']),
-              dict(coord='J083108.01+402531.0', group=['HD-LLS_DR1']),
+              dict(coord='J083122.57+404623.4', group=['ESI_DLA']),
               ]
 
     hdlls_path = '/Users/xavier/paper/LLS/Optical/Data/DR1/Spectra/'
@@ -664,7 +664,7 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
 
     # Loop
     for qq, lbl in enumerate(lbls):
-        if qq > 3:
+        if qq > 5:
             break
 
         # Grab data
