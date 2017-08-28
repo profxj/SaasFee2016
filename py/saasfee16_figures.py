@@ -16,6 +16,8 @@ from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 
+from pkg_resources import resource_filename
+
 from astropy import units as u
 from astropy import constants as const
 from astropy.table import Table
@@ -27,15 +29,17 @@ from linetools.spectralline import AbsLine
 from linetools.analysis import voigt as ltav
 from linetools.spectra import io as lsio
 
+from specdb.specdb import IgmSpec
+
 from pyigm import utils as pyiu
 from pyigm.continuum import quasar as pyicq
 from pyigm.fN.fnmodel import FNModel
 from pyigm.fN.tau_eff import lyman_ew, lyman_limit
 from pyigm.fN import mockforest as pyimock
 
-from xastropy.sdss import quasars
-from xastropy.xutils import xdebug as xdb
-from xastropy.plotting import utils as xputils
+#from xastropy.sdss import quasars
+#from xastropy.xutils import xdebug as xdb
+#from xastropy.plotting import utils as xputils
 
 
 def example_ew(outfil='Figures/example_ew.pdf'):
@@ -240,34 +244,44 @@ def fj0812(outfil='Figures/fj0812.pdf'):
 def qso_sed(outfil='Figures/qso_sed.pdf'):
     """ Plots a few QSO examples
     """
-    sdss_dr7 = quasars.SdssQuasars()
+    igmsp = IgmSpec()
+    #sdss_dr7 = quasars.SdssQuasars()
     #bal = sdss_dr7[(367, 506)]
     #bal = sdss_dr7[(726, 60)]
-    bal = sdss_dr7[(668, 193)]
-    bal.load_spec(load_conti=False)
-    fj0812 = sdss_dr7[(861,333)]
-    fj0812.load_spec(load_conti=False)
+    weakbal, wb_meta = igmsp.get_sdss(668, 193, groups=['SDSS_DR7'])
+    normal, n_meta = igmsp.get_sdss(393,250, groups=['SDSS_DR7'])
+    sbal, sb_meta = igmsp.get_sdss(690,131, groups=['SDSS_DR7'])
     # Start the plot
     xmnx = (1180., 1580)
     pp = PdfPages(outfil)
     fig = plt.figure(figsize=(8.0, 5.0))
 
     plt.clf()
-    gs = gridspec.GridSpec(2,1)
+    gs = gridspec.GridSpec(3,1)
 
     # Lya line
-    for qq in range(2):
+    for qq in range(3):
+        ylim = None
         if qq == 0:
-            qso = fj0812
+            spec = normal
+            meta = n_meta
         elif qq == 1:
-            qso = bal
+            spec = weakbal
+            meta = wb_meta
+            ylim = (-10,99)
+        elif qq == 2:
+            spec = sbal
+            meta = sb_meta
+            ylim = (-1,7)
         ax = plt.subplot(gs[qq])
     #ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
     #ax.xaxis.set_major_locator(plt.MultipleLocator(20.))
     #ax.yaxis.set_minor_locator(plt.MultipleLocator(0.1))
     #ax.yaxis.set_major_locator(plt.MultipleLocator(0.2))
         ax.set_xlim(xmnx)
-    #ax.set_ylim(ymnx) 
+        if ylim is not None:
+            ax.set_ylim(ylim)
+    #ax.set_ylim(ymnx)
         ax.set_ylabel('Relative Flux')
         if qq < 1:
             ax.get_xaxis().set_ticks([])
@@ -275,8 +289,8 @@ def qso_sed(outfil='Figures/qso_sed.pdf'):
             ax.set_xlabel('Rest Wavelength (Angstroms)')
 
         lw = 1.
-        ax.plot(qso.spec.wavelength/(qso.z+1), qso.spec.flux, 'k', linewidth=lw) 
-        xputils.set_fontsize(ax, 17.)
+        ax.plot(spec.wavelength/(meta['zem_GROUP']+1), spec.flux, 'k', linewidth=lw)
+        set_fontsize(ax, 17.)
 
     # Layout and save
     print('Writing {:s}'.format(outfil))
@@ -291,15 +305,13 @@ def qso_sed(outfil='Figures/qso_sed.pdf'):
 def qso_template(outfil='Figures/qso_template.pdf'):
     """ van den berk
     """
-    pyigm_path = imp.find_module('pyigm')[1]
-
     # Load
     telfer = pyicq.get_telfer_spec()
 
     clight = const.c.cgs
 
     # Beta spliced to vanden Berk template with host galaxy  removed
-    van_file = pyigm_path+'/data/quasar/VanDmeetBeta_fullResolution.txt'
+    van_file = resource_filename('pyigm', '/data/quasar/VanDmeetBeta_fullResolution.txt')
     van_tbl = Table.read(van_file,format='ascii')
     isort = np.argsort(van_tbl['nu'])
     nu_van = van_tbl['nu'][isort]
@@ -311,7 +323,7 @@ def qso_template(outfil='Figures/qso_template.pdf'):
     flam_van = flam_van / nrm_van
 
     # Start the plot
-    xmnx = (1170., 2300)
+    xmnx = (1050., 2300)
     pp = PdfPages(outfil)
     fig = plt.figure(figsize=(8.0, 5.0))
 
@@ -338,7 +350,7 @@ def qso_template(outfil='Figures/qso_template.pdf'):
     legend = plt.legend(loc='upper right', scatterpoints=1, borderpad=0.3, 
         handletextpad=0.3, fontsize='large', numpoints=1)
     # Layout and save
-    xputils.set_fontsize(ax, 17.)
+    set_fontsize(ax, 17.)
     print('Writing {:s}'.format(outfil))
     plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
     plt.subplots_adjust(hspace=0)
@@ -592,12 +604,27 @@ def q1422(outfil='Figures/q1422.pdf'):
     print('Writing {:s}'.format(outfil))
     pp.close()
 
+
 def evolving_forest(outfil='Figures/evolving_forest.pdf'):
     """ Show varying IGM transmission
     """
-    hdlls_path = '/Users/xavier/paper/LLS/Optical/Data/DR1/Spectra/'
-    esi_path = '/Users/xavier/Keck/ESI/RedData/'
-    hst_path = '/Users/xavier/HST/Cycle23/z1IGM/Archive/PG1206+459/'
+    #hdlls_path = '/u/xavier/paper/LLS/Optical/Data/DR1/Spectra/'
+    esi_path = '/u/xavier/Keck/ESI/RedData/'
+    hst_path = '/u/xavier/HST/Cycle23/z1IGM/Archive/PG1206+459/'
+    #
+    igmsp = IgmSpec()
+    idicts = [dict(coord='J212329.50-005052.9', group=['HD-LLS_DR1']),
+              dict(coord='J020950.7-000506.4', group=['HD-LLS_DR1'], INSTR='HIRES'),
+              dict(coord='J113621.00+005021.0', group=['HD-LLS_DR1']),
+              dict(coord='J094932.27+033531.7', group=['HD-LLS_DR1']),
+              dict(coord='J013421.63+330756.5', group=['HD-LLS_DR1']),
+              dict(coord='J083122.57+404623.4', group=['ESI_DLA']),
+              dict(coord='J113246.5+120901.6', group=['ESI_DLA']),
+              dict(filename=esi_path+'J1148+5251/SDSSJ1148+5251_stack.fits'),  # z=6
+              dict(coord='J212329.50-005052.9', group=['HD-LLS_DR1']),
+              dict(filename=hst_path+'PG1206+459_E230M_f.fits'),
+              ]
+    '''
     dat_files = [
                 hdlls_path+'HD-LLS_J212329.50-005052.9_HIRES.fits',
                 hdlls_path+'HD-LLS_J020951.10-000513.0_HIRES.fits',
@@ -613,14 +640,15 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
                 ]
     conti_fil = '/Users/xavier/MLSS/data/3C273/STIS/E140M/3C273_STIS_E140M_c.fits'
     conti_3c273 = fits.open(conti_fil)[0].data
+    '''
     lbls = [
             'Keck/HIRES: J2123-0050',
             'Keck/HIRES: J0209-0005',
-            'Magellan/MIKE: J1136+0050',
+            'Magellan/MIKE: J1136+0050', # 3.43
             'Magellan/MIKE: J0949+0335',
             'Keck/ESI: PSS0134+3307',
             'Keck/ESI: J0831+4046',
-            'Keck/ESI: J1132+1209',
+            'Keck/ESI: J1132+1209', # 5.17
             'Keck/ESI: J1148+5251',
             'Keck/HIRES: J2123-0050',
             'HST/STIS: PG1206+459',
@@ -642,8 +670,24 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
 
     # Loop
     for qq, lbl in enumerate(lbls):
+        if qq > 9:
+            break
 
-        spec = lsio.readspec(dat_files[qq])
+        # Grab data
+        idict = idicts[qq]
+        if 'coord' in idict.keys():
+            qdict = {}
+            for key in idict.keys():
+                if key not in ['coord','group']:
+                    qdict[key] = idict[key]
+            spec, meta = igmsp.spectra_from_coord(idict['coord'], tol=5.*u.arcsec, groups=idict['group'], query_dict=qdict)
+            if meta is None:
+                print("Bad coord?")
+                pdb.set_trace()
+            elif len(meta) > 1:
+                pdb.set_trace()
+        else:
+            spec = lsio.readspec(idict['filename'])
         if lbl == 'HST/STIS: 3C273':
             spec.co = conti_3c273
             spec.normed = True
@@ -662,7 +706,7 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
         ax.text(0.05, 0.95, lbl+' zem={:0.1f}'.format(zems[qq]), color='blue',
             transform=ax.transAxes, size=csz, ha='left', bbox={'facecolor':'white'})
         #
-        xputils.set_fontsize(ax, 17.)
+        set_fontsize(ax, 17.)
         # Layout and save
         plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
         plt.subplots_adjust(hspace=0)
@@ -671,6 +715,94 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
     # Finish
     print('Writing {:s}'.format(outfil))
     pp.close()
+
+
+def evolving_forest_in_chapter(outfil='Figures/evolving_forest_in_chapter.pdf'):
+    """ Show varying IGM transmission
+    """
+    #hdlls_path = '/u/xavier/paper/LLS/Optical/Data/DR1/Spectra/'
+    esi_path = '/u/xavier/Keck/ESI/RedData/'
+    hst_path = '/u/xavier/HST/Cycle23/z1IGM/Archive/PG1206+459/'
+    #
+    igmsp = IgmSpec()
+    idicts = [
+        dict(filename='Data/3C273_STIS_E140M_F.fits'),
+        dict(filename=hst_path+'PG1206+459_E230M_f.fits'),
+        dict(coord='J212329.50-005052.9', group=['HD-LLS_DR1']),
+        dict(coord='J113621.00+005021.0', group=['HD-LLS_DR1']),
+        dict(coord='J113246.5+120901.6', group=['ESI_DLA']),
+        dict(filename=esi_path+'J1148+5251/SDSSJ1148+5251_stack.fits'),  # z=6
+        ]
+    lbls = [
+        'HST/STIS: 3C273',
+        'HST/STIS: PG1206+459',
+        'Keck/HIRES: J2123-0050',  # 2.26
+        'Magellan/MIKE: J1136+0050', # 3.43
+        'Keck/ESI: J1132+1209', # 5.17
+        'Keck/ESI: J1148+5251', # 6.4
+        ]
+    zems = [0.17, 1.16, 2.26, 3.43, 5.17, 6.4]
+    xrest = np.array([1080, 1200.])
+    ymnx = [-0.1, 1.1]
+
+    lw = 1.
+    csz = 19.
+
+    # Start the plot
+    fig = plt.figure(figsize=(5.0, 8.0))
+
+    plt.clf()
+    gs = gridspec.GridSpec(6,1)
+
+    # Loop
+    for qq, lbl in enumerate(lbls):
+
+        # Grab data
+        idict = idicts[qq]
+        if 'coord' in idict.keys():
+            qdict = {}
+            for key in idict.keys():
+                if key not in ['coord','group']:
+                    qdict[key] = idict[key]
+            spec, meta = igmsp.spectra_from_coord(idict['coord'], tol=5.*u.arcsec, groups=idict['group'], query_dict=qdict)
+            if meta is None:
+                print("Bad coord?")
+                pdb.set_trace()
+            elif len(meta) > 1:
+                pdb.set_trace()
+        else:
+            spec = lsio.readspec(idict['filename'])
+
+        if lbl == 'HST/STIS: 3C273':
+            #spec.co = conti_3c273
+            spec.normed = True
+
+        # Spectrum
+        ax = plt.subplot(gs[qq])
+        ax.set_xlim(xrest*(1+zems[qq])/1215.67 - 1)
+        ax.set_ylim(ymnx)
+        if qq == 3:
+            ax.set_ylabel('Normalized Flux')
+        if qq == len(lbls)-1:
+            ax.set_xlabel(r'Redshift of Ly$\alpha$')
+
+
+        ax.plot(spec.wavelength.value/1215.6701 - 1, spec.flux, 'k', linewidth=lw)
+
+        # Label
+        #ax.text(0.05, 0.95, lbl+' zem={:0.1f}'.format(zems[qq]), color='blue',
+        #    transform=ax.transAxes, size=csz, ha='left', bbox={'facecolor':'white'})
+        #
+        set_fontsize(ax, 12.)
+
+    # Layout and save
+    #plt.subplots_adjust(hspace=0)
+    plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
+    plt.savefig(outfil)
+    plt.close()
+    # Finish
+    print('Writing {:s}'.format(outfil))
+
 
 def dteff(outfil='Figures/dteff.pdf'):
     """ Differential teff (Lya)
@@ -1280,6 +1412,21 @@ def drho_dNHI(outfil='Figures/drho_dNHI.pdf'):
     # Finish
     pp.close()
 
+def set_fontsize(ax,fsz):
+    '''
+    Generate a Table of columns and so on
+    Restrict to those systems where flg_clm > 0
+
+    Parameters
+    ----------
+    ax : Matplotlib ax class
+    fsz : float
+      Font size
+    '''
+    for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] +
+                ax.get_xticklabels() + ax.get_yticklabels()):
+        item.set_fontsize(fsz)
+
 
 #### ########################## #########################
 #### ########################## #########################
@@ -1322,7 +1469,8 @@ def main(flg_fig):
 
     # IGM with Redshift
     if (flg_fig % 2**8) >= 2**7:
-        evolving_forest()
+        #evolving_forest()
+        evolving_forest_in_chapter()
 
     # dteff
     if (flg_fig % 2**9) >= 2**8:
@@ -1386,7 +1534,7 @@ if __name__ == '__main__':
         #flg_fig += 2**4   # QSO Template
         #flg_fig += 2**5   # Redshift
         #flg_fig += 2**6   # Q1422
-        #flg_fig += 2**7   # Evolving IGM
+        flg_fig += 2**7   # Evolving IGM
         #flg_fig += 2**8   # dteff
         #flg_fig += 2**9   # IGM transmission
         #flg_fig += 2**10   # IGM transmission
@@ -1398,7 +1546,7 @@ if __name__ == '__main__':
         #flg_fig += 2**16   # real DLA 
         #flg_fig += 2**17   # DLA deviation 
         #flg_fig += 2**18   # QSO FUV
-        flg_fig += 2**19   # QSO FUV
+        #flg_fig += 2**19   # QSO FUV
     else:
         flg_fig = sys.argv[1]
 
