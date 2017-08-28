@@ -608,6 +608,10 @@ def q1422(outfil='Figures/q1422.pdf'):
 def evolving_forest(outfil='Figures/evolving_forest.pdf'):
     """ Show varying IGM transmission
     """
+    #hdlls_path = '/u/xavier/paper/LLS/Optical/Data/DR1/Spectra/'
+    esi_path = '/u/xavier/Keck/ESI/RedData/'
+    hst_path = '/u/xavier/HST/Cycle23/z1IGM/Archive/PG1206+459/'
+    #
     igmsp = IgmSpec()
     idicts = [dict(coord='J212329.50-005052.9', group=['HD-LLS_DR1']),
               dict(coord='J020950.7-000506.4', group=['HD-LLS_DR1'], INSTR='HIRES'),
@@ -615,11 +619,12 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
               dict(coord='J094932.27+033531.7', group=['HD-LLS_DR1']),
               dict(coord='J013421.63+330756.5', group=['HD-LLS_DR1']),
               dict(coord='J083122.57+404623.4', group=['ESI_DLA']),
+              dict(coord='J113246.5+120901.6', group=['ESI_DLA']),
+              dict(filename=esi_path+'J1148+5251/SDSSJ1148+5251_stack.fits'),  # z=6
+              dict(coord='J212329.50-005052.9', group=['HD-LLS_DR1']),
+              dict(filename=hst_path+'PG1206+459_E230M_f.fits'),
               ]
-
-    hdlls_path = '/Users/xavier/paper/LLS/Optical/Data/DR1/Spectra/'
-    esi_path = '/Users/xavier/Keck/ESI/RedData/'
-    hst_path = '/Users/xavier/HST/Cycle23/z1IGM/Archive/PG1206+459/'
+    '''
     dat_files = [
                 hdlls_path+'HD-LLS_J212329.50-005052.9_HIRES.fits',
                 hdlls_path+'HD-LLS_J020951.10-000513.0_HIRES.fits',
@@ -634,15 +639,16 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
                 '/Users/xavier/MLSS/data/3C273/STIS/E140M/3C273_STIS_E140M_F.fits',
                 ]
     conti_fil = '/Users/xavier/MLSS/data/3C273/STIS/E140M/3C273_STIS_E140M_c.fits'
-    #conti_3c273 = fits.open(conti_fil)[0].data
+    conti_3c273 = fits.open(conti_fil)[0].data
+    '''
     lbls = [
             'Keck/HIRES: J2123-0050',
             'Keck/HIRES: J0209-0005',
-            'Magellan/MIKE: J1136+0050',
+            'Magellan/MIKE: J1136+0050', # 3.43
             'Magellan/MIKE: J0949+0335',
             'Keck/ESI: PSS0134+3307',
             'Keck/ESI: J0831+4046',
-            'Keck/ESI: J1132+1209',
+            'Keck/ESI: J1132+1209', # 5.17
             'Keck/ESI: J1148+5251',
             'Keck/HIRES: J2123-0050',
             'HST/STIS: PG1206+459',
@@ -664,22 +670,24 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
 
     # Loop
     for qq, lbl in enumerate(lbls):
-        if qq > 5:
+        if qq > 9:
             break
 
         # Grab data
         idict = idicts[qq]
-        qdict = {}
-        for key in idict.keys():
-            if key not in ['coord','group']:
-                qdict[key] = idict[key]
-        spec, meta = igmsp.spectra_from_coord(idict['coord'], tol=5.*u.arcsec, groups=idict['group'], query_dict=qdict)
-        if meta is None:
-            print("Bad coord?")
-            pdb.set_trace()
-        elif len(meta) > 1:
-            pdb.set_trace()
-        #spec = lsio.readspec(dat_files[qq])
+        if 'coord' in idict.keys():
+            qdict = {}
+            for key in idict.keys():
+                if key not in ['coord','group']:
+                    qdict[key] = idict[key]
+            spec, meta = igmsp.spectra_from_coord(idict['coord'], tol=5.*u.arcsec, groups=idict['group'], query_dict=qdict)
+            if meta is None:
+                print("Bad coord?")
+                pdb.set_trace()
+            elif len(meta) > 1:
+                pdb.set_trace()
+        else:
+            spec = lsio.readspec(idict['filename'])
         if lbl == 'HST/STIS: 3C273':
             spec.co = conti_3c273
             spec.normed = True
@@ -708,6 +716,92 @@ def evolving_forest(outfil='Figures/evolving_forest.pdf'):
     print('Writing {:s}'.format(outfil))
     pp.close()
 
+
+def evolving_forest_in_chapter(outfil='Figures/evolving_forest_in_chapter.pdf'):
+    """ Show varying IGM transmission
+    """
+    #hdlls_path = '/u/xavier/paper/LLS/Optical/Data/DR1/Spectra/'
+    esi_path = '/u/xavier/Keck/ESI/RedData/'
+    hst_path = '/u/xavier/HST/Cycle23/z1IGM/Archive/PG1206+459/'
+    #
+    igmsp = IgmSpec()
+    idicts = [
+        dict(filename='Data/3C273_STIS_E140M_F.fits'),
+        dict(filename=hst_path+'PG1206+459_E230M_f.fits'),
+        dict(coord='J212329.50-005052.9', group=['HD-LLS_DR1']),
+        dict(coord='J113621.00+005021.0', group=['HD-LLS_DR1']),
+        dict(coord='J113246.5+120901.6', group=['ESI_DLA']),
+        dict(filename=esi_path+'J1148+5251/SDSSJ1148+5251_stack.fits'),  # z=6
+        ]
+    lbls = [
+        'HST/STIS: 3C273',
+        'HST/STIS: PG1206+459',
+        'Keck/HIRES: J2123-0050',  # 2.26
+        'Magellan/MIKE: J1136+0050', # 3.43
+        'Keck/ESI: J1132+1209', # 5.17
+        'Keck/ESI: J1148+5251', # 6.4
+        ]
+    zems = [0.17, 1.16, 2.26, 3.43, 5.17, 6.4]
+    xrest = np.array([1080, 1200.])
+    ymnx = [-0.1, 1.1]
+
+    lw = 1.
+    csz = 19.
+
+    # Start the plot
+    fig = plt.figure(figsize=(5.0, 8.0))
+
+    plt.clf()
+    gs = gridspec.GridSpec(6,1)
+
+    # Loop
+    for qq, lbl in enumerate(lbls):
+
+        # Grab data
+        idict = idicts[qq]
+        if 'coord' in idict.keys():
+            qdict = {}
+            for key in idict.keys():
+                if key not in ['coord','group']:
+                    qdict[key] = idict[key]
+            spec, meta = igmsp.spectra_from_coord(idict['coord'], tol=5.*u.arcsec, groups=idict['group'], query_dict=qdict)
+            if meta is None:
+                print("Bad coord?")
+                pdb.set_trace()
+            elif len(meta) > 1:
+                pdb.set_trace()
+        else:
+            spec = lsio.readspec(idict['filename'])
+
+        if lbl == 'HST/STIS: 3C273':
+            #spec.co = conti_3c273
+            spec.normed = True
+
+        # Spectrum
+        ax = plt.subplot(gs[qq])
+        ax.set_xlim(xrest*(1+zems[qq])/1215.67 - 1)
+        ax.set_ylim(ymnx)
+        if qq == 3:
+            ax.set_ylabel('Normalized Flux')
+        if qq == len(lbls)-1:
+            ax.set_xlabel(r'Redshift of Ly$\alpha$')
+
+
+        ax.plot(spec.wavelength.value/1215.6701 - 1, spec.flux, 'k', linewidth=lw)
+
+        # Label
+        #ax.text(0.05, 0.95, lbl+' zem={:0.1f}'.format(zems[qq]), color='blue',
+        #    transform=ax.transAxes, size=csz, ha='left', bbox={'facecolor':'white'})
+        #
+        set_fontsize(ax, 12.)
+
+    # Layout and save
+    #plt.subplots_adjust(hspace=0)
+    plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
+    plt.savefig(outfil)
+    plt.close()
+    # Finish
+    print('Writing {:s}'.format(outfil))
 
 
 def dteff(outfil='Figures/dteff.pdf'):
@@ -1375,7 +1469,8 @@ def main(flg_fig):
 
     # IGM with Redshift
     if (flg_fig % 2**8) >= 2**7:
-        evolving_forest()
+        #evolving_forest()
+        evolving_forest_in_chapter()
 
     # dteff
     if (flg_fig % 2**9) >= 2**8:
