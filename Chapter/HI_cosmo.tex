@@ -59,6 +59,11 @@
 \newcommand{\mnhi}{N_{\rm HI}}
 \newcommand{\nhi}{$\mnhi$}
 \def\cm#1{\, {\rm cm^{#1}}}
+\def\mfnhi{f(\mnhi)}
+\def\fnhi{$\mfnhi$}
+\def\prodl{\prod\limits}
+\def\mfnorm{<F>_{\rm norm}}
+\def\fnorm{$\mfnorm$}
 
 \begin{document}
 
@@ -338,8 +343,7 @@ This chapter is organized into the following sections:
  (ii) key concepts of spectral-line analysis;
  (iii) characterizing the \HI\ \lya\ forest as absorption lines;
  (iv) optically thick \HI\ absorption;
- (v) the damped \lya\ systems;
- (vi) an overview of modern analysis and results.
+ (v) an overview of modern analysis and results.
 The focus throughout is observational and the approaches
 are largely traditional;  excellent reviews with a greater
 emphasis on theory are given by \cite{meiksin0X} and
@@ -349,12 +353,14 @@ This Chapter is also supplemented by the lecture notes
 and slides presented in SaasFee, and a set of iPython
 Notebooks illustrating concepts and providing 
 example code for related calculations and modeling.
-These supplementary materials are publicaly available
+These supplementary materials are publicly available
 at https://github.com/profxj/SaasFee2016.
 Python code relevant to \HI\ \lya\ absorption and 
 IGM analysis are packaged as  {\tt linetools}
-and {\tt pyigm} on github.
+and {\tt pyigm} on github. [give links]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Physics of Lyman Series Absorption}
 \label{sec:physics}
 
@@ -1206,6 +1212,69 @@ Another example and related code are provided in the
 Notebook.
 
 
+\section{Basics of Spectral Analysis (for Absorption)}
+\label{sec:specanaly}
+
+In this section, we provide a brief introduction to 
+several key concepts of spectroscopy and then describes
+several of the fundamental aspects relatd to absorption-line
+analysis with data.
+
+\subsection{Characteristics of a Spectrum}
+
+It is beyond the scope of this Chapter to describe in detail the
+fundamentals of spectrometers in astronomy.  For what follows,
+the reader need only appreciate that spectrometers' implement
+a dispersion element (e.g.\ grating) to redirect incident light 
+as a function of wavelength such that a packet of photons with
+a distribution of energies are spread (monotonically) across a detector.
+The number of photons collected at a given detector pixel depends
+on the flux and the dispersion of the spectrograph.
+Of course, one cannot achieve infinite resolution and, further, the
+optics of the instrument affect the resultant spectral image.
+
+One defines the Line Spread Function (LSF)
+as the functional form a monochromatic source exhibits 
+on the detector of a spectrometer.
+The diffraction of light (e.g.\ slit + dispersing element)
+transforms the input PSF of the source (typically a Moffat) into a line 
+profile in wavelength.  The precise 
+LSF that results depends on type of spectrometer 
+\cite[e.g.][]{Robertson2013} as summarized in Table~\ref{tab:LSF}.
+
+\begin{table}[ht]
+\begin{center}
+\caption{{\sc Line Spread Functions}}
+\label{tab:LSF}
+\vskip 0.05in
+\begin{tabular}{ccc}
+\hline
+Type of Spectrograph & LSF & R \\
+\hline
+Diffraction-limited slit & sinc$^2$     & $mN$ \\
+Single-mode fiber        & Gaussian     & FWHM \\
+Multi-mode fiber         & Half ellipse & ??\\ 
+Fabry-Perot etalon       & Lorentzian   & $mF$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+In Figure~\ref{fig:LSF}, we compare the idealized LSFs for the
+most common spectrometers in use: a diffraction-limited slit 
+spectrometer and a fiber-fed spectrograph.
+Although the functional forms are distinct and one recognizes
+quantitative differences in the wings of the profiles,
+the inner line-profiles are very similar and one would
+require high signal data to distinguish the two.
+Furthermore, system imperfections in the spectrograph, variations
+in the PSF, and the Central Limit Theorem tends the LSF 
+towards a Gaussian. For this school, we will adopt a Gaussian LSF.
+In practice, the LSF may be assessed empirically, e.g.\ through
+analysis of arc-line emission lamps and/or 
+atmospheric absorption lines imprinted on an external source.
+
+
 % For figures use
 %
 \begin{figure}[b]
@@ -1213,68 +1282,56 @@ Notebook.
 % Use the relevant command for your figure-insertion program
 % to insert the figure file.
 % For example, with the graphicx style use
-\includegraphics[scale=.4]{Figures/web_vs_HIRES}
+\includegraphics[scale=.4]{Figures/lsf}
 %
 % If no graphics program available, insert a blank space i.e. use
 %\picplace{5cm}{2cm} % Give the correct figure height and width in cm
 %
-\caption{Cosmic web vs.\ HIRES spectrum
+\caption{Comparison of the LSF for a slit spectrometer (black) with
+that for a fiber-fed spectrometer (blue).  Despite quantitative 
+differences in the wings of the profiles, the majority of light is
+similarly describe in the inner portion of the profile.
 }
-\label{fig:web_vs_HIRES}       % Give a unique label
+\label{fig:LSF}       % Give a unique label
 \end{figure}
 
 
-% Always give a unique label
-% and use \ref{<label>} for cross-references
-% and \cite{<label>} for bibliographic references
-% use \sectionmark{}
-% to alter or adjust the section heading in the running head
-Instead of simply listing headings of different levels we recommend to
-let every heading be followed by at least a short passage of text.
-Further on please use the \LaTeX\ automatism for all your
-cross-references and citations.
+The primary impact of the LSF is to artificially broaden
+any spectral features through the convolution of the instrument
+profile with the intrinsic spectrum.  While the LSF offers a
+complete description of this effect, we tend to describe it
+(and the spectrometer) in terms of the width of the LSF, 
+i.e.\ the resolution $R$.
+The actual metric for $R$ depends on the shape of the 
+LSF (i.e.\ Table~\ref{tab:LSF}) and for a Gaussian profile
+the standard metric is the full-width at half-maximum (FWHM).
+For an optical slit/fiber spectrograph, $R$ is primarily 
+dependent on the slit/fiber width (inversely proportional)
+and the grating.  It is generally independent of any detector
+properties.  Formally, we define
 
-Please note that the first line of text that follows a heading is not indented, whereas the first lines of all subsequent paragraphs are.
-
-Use the standard \verb|equation| environment to typeset your equations, e.g.
-%
 \begin{equation}
-a \times b = c\;,
+R = \frac{\lambda}{\Delta\lambda_{\rm FWHM}}
+\label{eqn:R}
 \end{equation}
-%
-however, for multiline equations we recommend to use the \verb|eqnarray| environment\footnote{In physics texts please activate the class option \texttt{vecphys} to depict your vectors in \textbf{\itshape boldface-italic} type - as is customary for a wide range of physical subjects}.
-\begin{eqnarray}
-a \times b = c \nonumber\\
-\vec{a} \cdot \vec{b}=\vec{c}
-\label{eq:01}
-\end{eqnarray}
+with $\lambda$ the wavelength where the LSF has a measured
+FWHM of $\lambda_{\rm FWHM}$.
 
-\subsection{Subsection Heading}
-\label{subsec:2}
-Instead of simply listing headings of different levels we recommend to
-let every heading be followed by at least a short passage of text.
-Further on please use the \LaTeX\ automatism for all your
-cross-references\index{cross-references} and citations\index{citations}
-as has already been described in Sect.~\ref{sec:2}.
+While $R$ describes the width of the LSF, the spectral
+width of a pixel on the detector is given by the dispersion
+$\delta \lambda$.  Obviously, this depends on both $R$ 
+and the characteristics of the detector (i.e.\ the
+physical size of the pixel).  To further confuse matters,
+many detectors can be `binned' in electronics
+to increase $\delta\lambda$ and reduce the detector noise
+per effective pixel.  
 
-\begin{quotation}
-Please do not use quotation marks when quoting texts! Simply use the \verb|quotation| environment -- it will automatically render Springer's preferred layout.
-\end{quotation}
+The sampling of the LSF is the number of pixels per resolution element,
+i.e.\  $\Delta\lambda_{\rm FWHM} / \delta\lambda$.  To achieve the
+full resolution of the spectrograph in the theoretical limit,
+one must sample the LSF by 2 or more pixels.  This is commonly
+referred to as the Nyquist limit.  
 
-
-\subsubsection{Subsubsection Heading}
-Instead of simply listing headings of different levels we recommend to
-let every heading be followed by at least a short passage of text.
-Further on please use the \LaTeX\ automatism for all your
-cross-references and citations as has already been described in
-Sect.~\ref{subsec:2}, see also Fig.~\ref{fig:1}\footnote{If you copy
-text passages, figures, or tables from other works, you must obtain
-\textit{permission} from the copyright holder (usually the original
-publisher). Please enclose the signed permission with the manuscript. The
-sources\index{permission to print} must be acknowledged either in the
-captions, as footnotes or in a separate section of the book.}
-
-Please note that the first line of text that follows a heading is not indented, whereas the first lines of all subsequent paragraphs are.
 
 % For figures use
 %
@@ -1283,15 +1340,1448 @@ Please note that the first line of text that follows a heading is not indented, 
 % Use the relevant command for your figure-insertion program
 % to insert the figure file.
 % For example, with the graphicx style use
-%\includegraphics[scale=.65]{figure}
+\includegraphics[scale=.4]{Figures/fj0812}
 %
 % If no graphics program available, insert a blank space i.e. use
 %\picplace{5cm}{2cm} % Give the correct figure height and width in cm
 %
-\caption{If the width of the figure is less than 7.8 cm use the \texttt{sidecapion} command to flush the caption on the left side of the page. If the figure is positioned at the top of the page, align the sidecaption with the top of the figure -- to achieve this you simply need to use the optional argument \texttt{[t]} with the \texttt{sidecaption} command}
-\label{fig:1}       % Give a unique label
+\caption{Three spectra of the quasar FJ0812+32 observed with the
+SDSS, Keck/ESI, and Keck/HIRES spectrometers with resolution ranging
+from $R \approx 2,000 - 30,000$.  The lower-right panel shows
+a zoom-in where one can easily appreciate the effects of varying
+spectral resolution.
+}
+\label{fig:R}       % Give a unique label
 \end{figure}
 
+Commonly used spectrometers for \HI\ absorption have $R$ ranging
+from 2,000 (Keck/LRIS; SDSS) to many thousands (echellettes; 
+Keck/ESI, VLT/X-Shooter), to tens of thousands
+(echelles; Keck/HIRES, VLT/UVES).  Figure~\ref{fig:R}
+compares spectra of the quasar FJ0812+32 observed
+with spectrometers having a range of $R$.  It is evident
+that for the lower resolution spectra (SDSS), the intrinsic
+width of the lines have been substantially smeared by the 
+instrumental LSF.
+
+Although Equation~\ref{eqn:R} is the formal definition of $R$,
+astronomers frequently refer to the FWHM.  In velocity,
+$\Delta v_{\rm FWHM} = c/R$, e.g. 
+$\Delta v_{\rm FWHM} \approx 10$\,km/s for $R = 30,000$.
+This provides a physical intuition for the sensitivity
+one can achieve.  Old-timers (and many instrument web-pages)
+frequently refer to $\Delta \lambda_{\rm FWHM}$, e.g.\ $\approx 2$\AA\
+for SDSS.
+
+\subsection{Continuum Normalization}
+Studies of \HI\ in absorption require a background, light source
+with emission at FUV wavelengths (and bluer!) to excite \HI\
+at \lya\ and higher order transitions.
+For extragalactic research, this has included the O and B stars
+in star-forming galaxies \cite{lee16}, the bright afterglows
+of gamma-ray bursts \cite{fynbo1X}, and quasars (the focus
+of this Chapter).   To estimate the opacity, one must estimate
+the source continuum $f^C_\lambda$ then normalize the flux, 
+
+\begin{equation}
+\bar f_\lambda = \frac{f_\lambda^{\rm obs}}{f_\lambda^C}
+\end{equation}
+In essence, we aim to remove any trace of the background
+source as it is scientifically irrelevant to the analysis.
+This process is referred to as continuum normalization and
+it is often the dominant systematic uncertainty in absorption
+analysis.
+
+To date, quasars have been the most commonly observed background
+sources because they are the most common, steadily luminous, distant
+phenomena.   Unfortunately, they may also exhibit the most complexity
+in their spectral energy distribution (SED).  This includes
+very strong and wide emission lines, an underlying power-law
+continuum with varying exponent, intrinsic absorption from gas
+associated with the quasars, and a plethora of unresolved emission
+features (e.g.\ Figure~\ref{fig:qso_SED}.
+
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/qso_sed}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Three quasar spectra from the SDSS survey
+which demonstrate diversity in the degree of associated
+absorption due to highly ionized gas in the quasar
+environment.
+}
+\label{fig:qso_SED}       % Give a unique label
+\end{figure}
+
+The challenge is compounded by the fact that no well-developed physical
+model exists for the quasar SED.  The phenomenon is well-modeled
+by a combination of synchrotron emission, optically thick
+emission lines arising in a wind, a hot accretion disks 
+emitting preferentially at UV wavelengths, and a partially
+obscuring dust torus that radiates at IR wavelengths.
+But each of these is at best empirically parameterized, may
+contribute largely independent of one another, and 
+with great diversity.  Furthermore, the emission is
+poorly constrained at $\lambda_{\rm rest} < 900$\AA\
+in part because the IGM greatly absorbs the SED
+making it very difficult to assess the intrinsic flux 
+\cite[see][]{lusso+16}.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/qso_template}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Comparison of the quasar composite spectrum derived
+from {\it HST} spectra of $z \sim 1$ quasars 
+\cite{telfer2001} with a composite spectrum derived
+primarily from $z \sim 2$ quasars taken from the SDSS survey
+\cite{vandden0X}.  Each composite is normalized to unity
+at $\lambda_{\rm rest} \approx 1450$\AA.
+While there are notable differences in the
+strength and widths of the emission line features (dominated
+by the so-called Baldwin effect), the overall SED is remarkably
+similar.  
+}
+\label{fig:qso_template}       % Give a unique label
+\end{figure}
+
+
+
+Despite all of these vagaries and variabilities, the average
+quasar spectrum exhibits remarkably little evolution across
+cosmic time.  Figure~\ref{fig:qso_template}
+compares composite quasar SED spectra generated by
+averaging tens of $z \sim 1$ sources \cite{telfer01}
+and thousands of $z \sim 2$ sources \cite{vanden01}.
+There are significant differences in the broad emission
+lines (e.g.\ \lya, CIV~1550), but the underlying
+SED is very similar between the two samples.  This commonality
+holds to the highest redshifts where quasars are
+observed \cite[Figure~\ref{fig:becker13_fig2}][]{becker+13}.
+This offers hope that quasar continua can at least
+empirically be estimated \cite{new_paper_by_AZ_guy}.
+
+
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/becker13_fig2}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Composite spectra for quasars drawn
+from the SDSS over redshifts $z \approx 2.2-5$
+by \cite{becker+13}.  Note the closer similarity
+in the SEDs across these several Gyr.  The obvious
+exception is at $\lambda_{\rm rest} < 1215$\AA, where
+the IGM opacity increase with increasing redshift. 
+We will return to an analysis of the spectra in this
+figure in the following section.
+}
+\label{fig:becker13_fig2}       % Give a unique label
+\end{figure}
+
+Historically, and even today \cite[e.g.]{kodiaq_dr2}, the majority of 
+continuum normalization has been performed manually.  Redward
+of \lya\ emission, where absorption from intervening gas is
+minimal (e.g.\ Figure~\ref{fig:qso_SED}), one can identify
+unabsorbed regions (by-eye or by-algorithm) to fit the
+continuum with a model.  A higher order ($n \sim 7$)
+polynomial suffices over each span of $\approx 100$\AA\ to
+capture undulations due to underlying emission features.
+One can routinely achieve a precision of several percent,
+depending on the data quality.  An example in the 
+{\it Spectral\_Analysis} Notebook shows the call to a 
+GUI used for continuum fitting.
+
+Blueward of \lya\ emission, where the IGM opacity is
+substantial, continuum estimation is very difficult.
+Human (by-eye) analysis typically involves spline evaluations
+through spectral regions purportedly free of IGM absorption.
+But even at echelle resolution, there may be not a single
+pixel unscathed by the IGM.
+
+Modern analysis has aimed to eliminate the human asepct
+by empirically predicting the quasar continuum.  
+\cite{suzuki06} were the first to perform a Principal
+Component Analysis (PCA) of quasar continua.  This 
+mathematical technique analyzes a cohort of individual
+spectra (they used the same $z \sim 1$ quasar spectra
+of the Telfer composite) to calculate the eigenvectors
+that best describe variations in the spectra off the mean.
+Formally, we have
+\begin{equation}
+\ket{q_i} = \ket{\mu} + \smm_{j=1}^{m} c_{ij} \ket{\xi_j}
+\label{eqn:PCA}
+\end{equation}
+where $\ket{q_i}$ is any quasar spectrum,
+$\ket{\mu}$ is the mean (composite) spectrum,
+$\ket{\xi_j}$ are the Principal Components, and
+$c_{ij}$ are the eigenvalues.
+These eigenvectors are orthogonal and generally
+have little physical meaning.  The eigenvectors
+derived by \cite{susuki06}
+are shown in Figure~\ref{fig:PCA} and they found
+the first 3 PCA components accounted for over
+80\%\ of the observed variance in the quasar spectra.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.4]{Figures/suzuki06_fig2}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Each of the sub panels shows one PCA eigenvector 
+$\xi_j$  (left) 
+and the distribution of eigenvalues $c_{ij}$ (right) for the 
+$z\sim 1$ quasars analyzed by \cite{suzuki06}.
+The eigenvectors from top-left to lower-right are ordered
+in decreasing relevance.
+Taken from \cite{suzuki06}.
+}
+\label{fig:PCA}       % Give a unique label
+\end{figure}
+
+The modern approach to quasar fitting, especially in 
+lower resolution spectra, is to fit the quasar SED
+with these PCA eigenvectors outside the \lya\ forest
+($\lambda_{\rm rest} > 1215.67$\AA) and then extrapolate
+the model to wavelengths impacted by the IGM.
+A more recent example of this technique is described
+in \cite{paris11}.  We also refer the student to analysis
+that includes Mean Flux Regulation \cite{lee11} where the
+PCA estimate is further refined in the \lya\ forest by
+imposing that the IGM opacity match the average (which
+we derive in a later section).
+
+\subsection{Equivalent Width Analysis}
+
+Now that we have normalized the spectrum by the
+intrinsic source continuum, we may proceed to analyze
+the observed absorption.  The fundamental observable
+of absorption strength is the equivalent width $W_\lambda$.
+Observationally, this metric describes the fraction of
+incident flux absorbed by the gas.  Empirically, there
+are two standard approaches to estimating $W_\lambda$.
+A non-parametric evaluation may be performed with
+boxcar integration, i.e.,
+the simple summation over the pixels covering the absorption line.
+With the flux continuum normalized  (and expressed as $\bar f$),
+we have
+\begin{equation}
+W_\lambda = \smm_i (1- \bar f_i) \delta\lambda_i
+\label{eqn:EWtwo}
+\end{equation}
+where $\delta\lambda_i$ is the dispersion of each pixel.
+The uncertainty follows from propagation of error (neglecting
+continuum uncertainty),
+\begin{equation}
+\sigma^2(W_\lambda) = \smm_i \sigma^2(\bar f_i) (\delta\lambda_i)^2
+\label{eqn:sigEW}
+\end{equation}
+
+One may also adopt parametric techniques by fitting a model
+of the line-profile to the observed absorption.  This is
+referred to as Line fitting.  Most \HI\ absorption features
+(aside from the very strongest) may be
+well approximated by a (upside-down) Gaussian.  Or by   
+considering $(1-\bar f)$ one can fit with
+\begin{equation}
+g(\lambda) = A \exp[- (\lambda-\lambda_0)^2 / (2 \sigma_\lambda^2)]
+\end{equation}
+and calculate the equivalent-width as the 
+area under the curve
+\begin{equation}
+W_\lambda = A \sigma_\lambda \sqrt{2 \pi}
+\end{equation}
+Uncertainty should include the co-variance between $A$ and $\sigma$
+\begin{equation}
+\sigma(W_\lambda) = W_\lambda \sqrt{\sigma^2(A)/A^2 +
+		\sigma^2(\sigma_\lambda)/\sigma_\lambda^2 + 2 \sigma(A)\sigma(\sigma_\lambda)/[A \sigma_\lambda]}
+\end{equation}
+We show examples of calculate $W_\lambda$ in the
+{\it Spectral\_Analysis} Notebook.
+
+Analysis of $W_\lambda$ is 
+generally performed in the observer (i.e.\ measured) frame,
+but $W_\lambda^{\rm obs}$ depends on $\lambda$ and therefore redshift.
+To relate $W_\lambda$ to physical quantities (e.g.\ $N,b$ via a
+curve-of-growth analysis),  one requires a shift to the rest-frame
+\begin{equation}
+W_\lambda^{\rm rest} = \frac{W_\lambda^{\rm obs}}{1+z}
+\end{equation}
+
+When designing an absorption-line observation, one generally
+must estimate the signal-to-noise (S/N) required to achieve
+the desired sensitivity.   The latter may follow from a
+desired equivalent width limit $W_\lambda^{\rm lim}$.
+We relate the two quantities by asking (and answering):
+{\it What is the limiting equivalent width one can measure from
+data with a given set of spectral characteristics?}
+Returning to our boxcar estimate of the uncertainty 
+(Equation~\ref{eqn:sigEW}), we 
+assume a constant dispersion $\delta\lambda$ and
+recognize that $\sigma(\bar f)$ is equivalent to 
+the inverse of the S/N per pixel for normalized data.
+If the S/N is roughly constant across the absorption,
+then the terms inside the sum in Equation~\ref{eqn:sigEW}
+come out and the sum evaluates to $M$, the number of pixels
+across the line, 
+\begin{equation}
+\sigma(W_\lambda) = \frac{\sqrt{M} \delta\lambda}{S/N}
+\label{eqn:sigSN}
+\end{equation}
+For a $3\sigma$ detection, we relate 
+$W_\lambda^{\rm lim} = 3 \sigma(W_\lambda)$ and we can invert
+Equation~\ref{eqn:sigEW} to calculate S/N:
+
+\begin{equation}
+S/N = 3 \frac{\sqrt{M} \delta\lambda}{W_\lambda^{\rm lim}}
+\label{eqn:SN}
+\end{equation}
+The lingering unknown is the number of pixels in the
+integration.
+If the line is unresolved (or barely resolved), 
+$M$ is simply the sampling ($\Delta\lambda_{\rm FWHM} / \delta\lambda$).
+Otherwise, $M$ depends on the intrinsic line-width. 
+
+We may also characterize the data quality in terms of a
+limiting equivalent width.  As an example, consider 
+\HI\ Ly$\alpha$ in SDSS spectra (see also the Notebook).
+For $R=2,000$, S/N=10 per pixel, and a sampling of 2 pixels,
+we estimate  $W_{\rm lim}^{3\sigma} \approx 1$\AA.
+This falls on the saturated portion of the COG for \lya\
+(Figure~\ref{fig:COG}).  One expects, therefore,
+to have  poor sensitivity to \nhi\ in such spectra. 
+As another example, consider the required S/N for a 
+30m\AA\ detection at $3\sigma$ significance in an echelle
+spectrum with $R=30,000$ and 3 pixel sampling.  Using
+Equation~\ref{eqn:SN}, we estimate that a 
+S/N$\approx 10$ is desired.
+
+\subsection{Line-Profile Analysis}
+
+While $W_\lambda$ offers an intuitive, observationally based
+measure of the absorption, it is difficult to translate
+such measurements to physical quantities, i.e.\ the column
+density and/or kinematics of the gas.  At high spectral
+resolution ($R > 20,000$), one may fully resolve
+the line profile and estimate the optical depth directly.
+In turn, a line-profile analysis yields the line-centroid
+(i.e.\ redshift) and the $N,b$ values described in the
+previous section.
+A full discussion of line-profile fitting techniques is
+beyond the scope of this Chapter.  We refer the reader
+to a simple example in the {\it Spectral\_Analysis} Notebook.
+And we further refer the reader to two of the widely adopted
+packages for line-profile analysis:
+VPFIT (developed by R. Carswell):  {\tt http://www.ast.cam.ac.uk/$\sim$rfc/vpfit.html}
+and ALIS (R. Cooke): {\tt https://github.com/rcooke-ast/ALIS}.
+Each package performs $\chi^2$ minimization on a set of
+input absorption lines to derive physical quantities.
+We will see examples of the results from such analysis in the
+following sections.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[ht]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.8]{Figures/evolving_forest_in_chapter}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Snapshots of the \lya\ forest in a series of spectra
+with increasing source redshift.  Note the evolution from a nearly
+transparent \lya\ forest at $z \approx 0$ to essentially 
+zero transmission at $z \approx 6$.
+}
+\label{fig:lyf_z}       % Give a unique label
+\end{figure}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Fluctuating and Evolving Opacity of the
+\lya\ Forest $f(\mnhi,z)$}
+
+The term \lya\ forest refers to the thicket of absorption
+observed in the spectra of a distant source at 
+$\lambda_{\rm rest} < 1215.67$\AA\ in the source rest-frame.
+The absorption lies blueward of the source \lya\ emission
+because these photos redshift while traveling to the
+intervening \HI\ gas at $z < z_{\rm source}$ to then
+scatter at \lya\ in the rest-frame of the gas.
+Figure~\ref{fig:lyf_z} shows \lya\ forest spectra for
+sources ranging from $z \approx 0-6$.  Two aspects are
+immediately obvious: 
+(i) the opacity fluctuations are substantial at any given
+redshift;
+(ii) there is a significant increase in the average opacity
+with increasing redshift.  
+
+In this section, we introduce
+the standard approaches used to characterize the \lya\ 
+forest opacity.  These techniques are primarily empirical
+although the results offer valuable constraints on modern
+cosmology.
+Fundamentally, any precise measurement from the IGM offers a 
+ valuable constraint on our cosmology
+Because we have a well-developed theory of structure formation (e.g.\ N-body
+simulations) and
+on quasi-linear scales, the baryons track the dark matter,
+one may predict the \lya\ opacity provided an estimate
+of the universe's ambient
+radiation field (which may also be constrained).
+This section focuses on results for gas that is
+optically thin at the \HI\ Lyman limit (i.e.\ $\mnhi<10^{17} \cm{-2}$,
+as derived in the following section).  We note further
+that true intergalactic gas 
+likely corresponds to even lower column densities
+($\mnhi <10^{14} \cm{-2}$).
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=.6]{Figures/kirkman97_fig1}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Examples of a series of fits to lines in
+high S/N, echelle spectra of the \lya\ forest.
+Taken from \cite{kt97}.
+}
+\label{fig:kirkman97_fig1}       % Give a unique label
+\end{figure}
+        
+\subsection{\nhi\ frequency distribution \fnhi: Concept and Definition}
+
+Motivated by the discrete appearance of lines in the 
+\lya\ forest (e.g. Figure~\ref{fig:lyf_z}), the
+first approach developed was to model the gas
+as a series of absorption lines.  Each line has
+three physical parameters ($N,b,z$) and 
+the \lya\ forest is described by the distributions of
+$N$ and $b$ across cosmic time.  This technique demands
+echelle resolution spectra and high S/N to precisely 
+constrain the absorption-line parameters.
+
+In practice, one laboriously fits the individual lines in a set of
+spectra (as described in the previous section).  
+Figure~\ref{fig:kirkman97_fig1} shows a snippet of spectra
+analyzed in this manner by \cite{kt97}.  The approach has the
+positive features of 
+capturing the stochastic nature of the \lya\ Forest and
+its absorption-line appearance.  Furthermore, it is 
+primarily model-independent aside from the underlying
+ansatz that the gas arises primarily in discrete lines.
+On the other hand, the $N,b,z$ distributions do not
+represent a physical model and similar quantities are not
+easily derived from actual models or simulations of the IGM.
+Furthermore, the analysis tends to 
+be very expensive (laborious), any
+human interaction implies non-reproducible results,
+and the data required is expensive to obtain
+demanding many hours of integration with 
+echelle spectrometers on 10-m class telescopes.
+Nonetheless, it is the most precise description of the IGM.
+
+Formally, one defines a frequency distribution for the
+lines of the \lya\ forest
+$f(\mnhi, b, z) \, d\mnhi \, db \, dz $, the number of lines on
+average in the intervals $\mnhi, \mnhi+d\mnhi$; $b, b+db$; $z, z+dz$.
+This distribution function is
+akin to a luminosity function $\phi(L) dL$, which describes
+the average number of galaxies per volume in a luminosity interval $L, L+dL$.
+The absorption, however, occurs along 
+sightlines instead of within a volume.  
+A standard assumption adopted in most analyses is that
+the Doppler parameter ($b$-value) distribution has 
+minimal \nhi\ (or $z$) dependence, i.e.\ the \nhi\ and $b$-value
+distributions are separable,
+
+\begin{equation}
+f(\mnhi,b) = \mfnhi \, g(b)
+\end{equation}
+Indeed, in the following, we discuss these separately.
+
+\subsection{Binned Evaluations of \fnhi}
+We may estimate \fnhi\ from a set of absorption-line 
+measurements as follows. Consider first, a single sightline
+to a source at $z=3$.  A spectrum spanning $\lambda = 3500-5000$\AA\
+will cover \lya\ absorption at $z \approx 2-3$.
+One may slice the sightline into multiple redshift intervals,
+e.g. each with $\delta z = 0.5$.  To bolster the statistics
+for evaluating \fnhi\ at a given redshift, we repeat the
+experiment for many $\mathcal{N}$
+sightlines and cover a survey path 
+(see the {\it characterizing\_lya\_forest} Slides for
+an illustration):
+
+\begin{equation}
+\Delta z = \smm_i^{\mathcal{N}} (\delta z)_i
+\label{eqn:survey_path}
+\end{equation}
+Later in this chapter,
+I will define the $\Delta X$ survey path which offers
+a more physical definition than the observational redshift path.
+
+The simplest estimator of \fnhi\ is a binned evaluation
+within a finite $\Delta \mnhi$ interval
+large enough to have statistical significance.
+We evaluate,
+\begin{equation}
+f(\mnhi,z) = \frac{\rm \# \; lines \; in \; [\Delta \mnhi,\Delta z]}{
+\Delta\mnhi \, \Delta z}
+ \end{equation}
+where again $\Delta z$ is the survey path for lines
+in the $\Delta \mnhi$ interval.  Uncertainty is simply
+assumed to follow Poisson statistics. 
+An important subtlety with this estimator is that 
+evolution in \fnhi\ with \nhi\ or $z$ 
+skews the detection within a bin (to lower \nhi and higher $z$).
+Therefore, simple model fitting with $\chi^2$ analysis using the 
+center of the bins will be (marginally) wrong.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[width=2.7in]{Figures/tytler87_fig2.pdf}
+\includegraphics[width=2.7in]{Figures/petitjean93_fig1.pdf}
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Binned evaluations of \fnhi\ from early data sets
+on the \lya\ forest (left) \cite{tytler87}, (right) \cite{petitjean93}.
+}
+\label{fig:binfN}       % Give a unique label
+\end{figure}
+
+Early results adopting this approach are shown in 
+Figure~\ref{fig:binfN}.  There is a steep and monotonic
+decrease in \fnhi\ with increasing \nhi.  As the figures
+illustrate, over many orders of magnitude in \nhi, the
+data are reasonably  well-described with a power-law.
+This led \cite{tytler87}
+to propose a single-population of gas `clouds'.
+In contrast, \cite{petitjean93} observed significant
+departures from a single power-law and 
+argued for distinct populations. Indeed, the
+modern data and interpretation is even more complex.
+
+With the commissioning of an echelle spectrometer on
+the 10-m Keck I telescope \cite[HIRES]{vogt94}, 
+observers had access to exquisite data on multiple 
+sightlines to assess \fnhi.  Figure~\ref{fN_kt97}
+show early results from \cite{kt97} derived from
+line-profile fitting analysis along the sightline
+to HS~1946+7658 observed to very high S/N.  
+Their results show the decline in \fnhi\ for
+$\mnhi > 10^{12} \cm{-2}$ as in previous work, but 
+also an apparent turn-over in \fnhi\ at lower \nhi. 
+
+This turn-over could reflect a lack of sensitivity 
+(i.e.\ incompleteness) as one notes that \HI\ \lya\
+with  $\mnhi = 10^{12} \cm{-2}$ has $\tau_0 \approx 0.025$.
+However, the data are exquisite (see Figure~\ref{fig:kirkman97_fig1})
+and a careful assessment of incompleteness was performed.
+Another possibility is that they have underestimated the
+quasar continuum; indeed even a few percent error in
+in the continuum would overwhelm the signal at these
+optical depths.  Again, the data quality (S/N~$>100$)
+is such that this is not the most likely explanation.
+Instead, we are likely witnessing the transition from
+describing the \lya\ forest by individual lines to 
+a more continuous opacity.  We return to this concept
+towards the end of the section.
+
+Modern estimates of \fnhi\ now include tens of sightlines
+with exquisitely small statistical error \cite{rudie13,kim13}.
+The results, however, are not in uniform agreement suggesting
+that systematic error is the limiting factor.
+
+%\includegraphics[width=5.0in]{Paper_figs/prochaska14_fig5.pdf}
+
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=0.4]{Figures/kirkman97_fig3.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{Estimation of \fnhi\ from Keck/HIRES spectroscopy of the
+very bright quasar HS~1946+7658 by \cite{kt97}.
+}
+\label{fig:fN_kt97}       % Give a unique label
+\end{figure}
+
+\subsection{Models for \fnhi}
+
+The binned evaluations of \fnhi\ describe the shape of 
+distribution function and have motivated empirical
+models. These models reduce the binned evaluations to a few, 
+well-constrained parameters.  In turn, one can
+examine redshift evolution in the amplitude and shape
+of \fnhi\ and use the model to evaluate \fnhi\ at 
+any \nhi\ for calculations on the \lya\ forest (see below).
+We emphasize, however, that we have no {\it a priori}
+physical model for \fnhi\ and therefore there is the
+freedom to introduce any functional form.
+We also note that the results will depend
+on the \nhi\ range considered. 
+
+As the observational constrains have improved, the
+functional forms adopted for \fnhi\ have evolved from
+a single power-law \cite{tytler87},
+$\mfnhi = B N^\beta$
+to broken power-laws \cite{petitjean93,pro+10},
+to broken, disjoint power-laws \cite{rudie13} 
+to the sum of several functional forms \cite{inoue14},
+to spline evaluations \cite{pro+14}.
+
+In the early days, simple $\chi^2$ analysis
+was sufficient but these results
+are sensitive to the choice of bins and did
+not account for evolution within the bin.
+A more robust approach is to apply Maximum
+Likelihood techniques \cite{storrie96;cooksey2010}.
+
+Consider a sightline sample with a survey total path $\Delta z$ 
+covering the interval $\delta z$ at redshift $z$ (refer
+back to Equation~\ref{eqn:survey_path}).
+We wish to model \fnhi\ at this redshift over a
+range of \nhi.  
+Divide the distribution space into $M$ cells, each with 
+`volume': $\delta v = \delta z \, \delta \mnhi$.
+Here, we have divided the range in \nhi\ into small intervals
+and have assumed that \fnhi\ does not evolve in the small
+redshift interval $\delta z$ considered.
+The expected number of lines $\mu_i$ in $i$th cell
+follows from our definition of \fnhi, 
+\begin{equation}
+\mu_i = f(\mnhi)_i \, \Delta z \, \delta\mnhi
+\end{equation}
+where we consider the full survey path $\Delta z$.
+Therefore, the probability of detecting $m$ absorbers within 
+cell $i$ is given by Poisson statistics,
+\begin{equation}
+P(m; \mu_i) = {\rm e}^{-\mu_i} \frac{\mu_i^m}{m!}
+\end{equation}
+
+We construct a Likelihood function as the 
+simple product over all cells
+\begin{equation}
+\mathcal{L} = \prodl_i^M P(m; \mu_i) \;\; .
+\end{equation}
+Now perform what appears to be a swindle.
+Reduce the volume of the cell so that each one contains
+at most one absorber.  This is achieved by letting
+$\delta\mnhi \to 0$.
+In this case, $P(m;\mu_i)$ reduces to ${\rm e}^{-\mu_i}$ for an
+empty cell and ${\rm e}^{-\mu_i} \mu_i$ for a cell with 1 system.
+We may then evaluate the likelihood
+by summing over all $M$ cells.  Explicitly,  
+let there be $p$ lines detected giving $g=M-p$ empty cells.
+It follows that 
+
+\begin{align}
+\mathcal{L} &= \prodl_{i=1}^g {\rm e}^{-\mu_i} \;
+\prodl_{j=1}^p {\rm e}^{-\mu_j} \, \mu_j \\
+&= \prodl_{i=1}^M {\rm e}^{-\mu_i} \; \prodl_{j=1}^p \mu_j
+\end{align}
+and the log-Likelihood is expressed as
+
+\begin{align}
+\ln \mathcal{L} &= \smm_i^M -\mu_i \, + \, \smm_i^p \ln \mu_i \\
+&= \smm_i^M -f(\mnhi)_i \Delta z \, \delta\mnhi +
+\smm_j^p \ln f(\mnhi)_j \Delta z + p \ln [\delta\mnhi]
+\end{align}
+In our limit with $\delta\mnhi \to 0$,
+we ignore the last term (a constant) and take the integral form
+of the first term to derive
+
+\begin{equation}
+\ln \mathcal{L} = - \intl_{N_{min}}^{N_{max}} f(\mnhi) \Delta z \, d\mnhi 
+\, + \, \smm_{j=1}^p \ln f(\mnhi)_j \Delta z
+\end{equation}
+If $\Delta z$ is independent of \nhi\ it may be ignored,
+but see \cite{cooksey10} for a treatment where
+$\Delta z$ is dependent on \nhi.
+
+Lastly, we maximize $\mathcal{L}$ for the parameterization of \fnhi\
+to derive the ``best'' values for the parameters.
+We emphasize that the resultant model need not 
+provide a good description of the data.  It is simply the 
+best model for the functional form imposed.
+The assessment of goodness of fit requires another statistical
+test (see the following section).
+
+With modern data and the assumption of a simple
+power-law, \cite{rudie13} report
+$\mfnhi \propto \mnhi^{-1.65 \pm 0.02}$ for
+$\mnhi = 10^{13.5} - 10^{17} \cm{-2}$ at $z \approx 2.5$.
+With a similar but distinct dataset 
+\cite{kim13} derive
+$\mfnhi \propto \mnhi^{-1.52 \pm 0.02}$
+for $\mnhi = 10^{12.75} - 10^{18} \cm{-2}$
+at $z \approx 2.8$.
+Formally, these are statistically incompatible.
+Progress with the \fnhi\ approach
+requires resolving systematic errors, including
+human biases (ugh).
+
+\subsection{$b$-value Distribution}
+
+The results from  line-profile fitting also yield 
+a distribution of measured $b$-values.
+Data from \cite{kt97} are shown in 
+Figure~\ref{fig:kt97_bN_scatter} where we identify
+no strong dependence on \HI\ column density aside from
+a possible increase in the minimum $b$-value with increasing \nhi.
+The distribution of $b$-values is dominated by lines with
+$b \approx 20-30$\,km/s.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=0.4]{Figures/kirkman97_fig5.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{Scatter plot of $b$ vs.\ \nhi\ measurements for
+the absorption lines analysed along the sightline
+to quasar HS~1946+7658 by \cite{kt97}.
+}
+\label{fig:kt97_bN_scatter}       % Give a unique label
+\end{figure}
+
+\cite{hui99} derived a functional form for the $b$-value
+distribution based on theoretical expectations (fluctuations
+in the IGM optical depth):
+\begin{equation}
+g(b) = \frac{4 b_\sigma^4}{b^5} \, \exp \ltp - \frac{b_\sigma^4}{b^4} \rtp
+\end{equation}
+This model is described by a single parameter $b_\sigma$.
+Fitting to the results in Figure~\ref{fig:kt97_bN_scatter}
+they achieved a 
+good description of the observations with $b_\sigma = 26.3$ km/s
+(Figure~\ref{fig:hui_fig1}).
+This yields an average $b$-value
+\begin{equation}
+<b> = \frac{\int b g(b) \, db}{\int g(b) \, db} = b_\sigma \Gamma(3/4)
+\approx 32 \, {\rm km/s}
+\end{equation}
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[scale=0.4]{Figures/hui99_fig1.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{Fit by \cite{hui99} to the observed $b$-value distribution of
+lines in the \lya\ forest \cite{kt97}.  This one-parameter
+model has an average $b$-value of 32\,km/s.
+}
+\label{fig:hui99_fig1}       % Give a unique label
+\end{figure}
+
+It is evident in both of the above figures that the
+\lya\ forest lines exhibit a lower limit to the 
+measured $b$-values.  This is  $b_{\rm min} \approx 18$\,km/s.
+What sets this apparent lower bound to the $b$-value (which is 
+well above the spectral resolution of the instrument)?
+Recalling that $b = \sqrt{\frac{2kT}{m_A} + \xi^2}$
+with $\xi^2$ a characteristic turbulence of the gas,
+one is tempted to associate $b_{\rm min}$ to the IGM temperature.
+For purely thermal broadening of Hydrogen, we have
+\begin{equation}
+T = 10^4 \, {\rm K} \; \ltp \frac{b}{13 \, \rm km/s} \rtp^2
+\end{equation}
+and may estimate $T \approx 20,000$\,K.
+We comment on modern estimations in the final section.
+
+One also notes an upper bound to the distribution
+of $b_{\rm max} \approx 100$\,km/s.
+It is difficult to estalish whether this represents
+a sensitivity limit (recall $\tau_0 \propto b^{-1}$)
+or a physical limit.
+
+\subsection{Line Density (the incidence of lines in the \lya\ forest)}
+Referring back to Figure~\ref{fig:lyf_z}, the average 
+opacity of the \lya\ forest clearly evolves with redshift.
+In our description of the IGM as a series of lines, this
+implies the evolution in the line density (or incidence).
+Confusingly, the literature is abound with notation for
+this quantity: $dN/dz, n(z), N(z)$.
+I have adopted my own:  $\ell(z) dz $ defined as the
+number of lines detected on average in the interval 
+$z, z+dz$ over an interval of 
+column density $\mnhi = [N_{\rm min}, N_{\rm max}]$.
+This is the zeroth moment of our frequency distribution,
+
+\begin{equation}
+\ell(z) dz = \intl_{N_{\rm min}}^{N_{\rm max}} f(\mnhi,z) \, d\mnhi \, dz
+\label{eqn:loz}
+\end{equation}
+It is akin to the number density of galaxies derived from a 
+luminosity function.
+
+Taking the results for \fnhi\ from \cite{kim13} at $z \approx 2.8$,
+and integrating from $N_{\rm min} = 10^{12.75} \cm{-2}$
+to $N_{\rm max} = 10^{17} \cm{-2}$, we estimate
+\begin{equation}
+\ell(z \approx 2.8) = \frac{10^{9.1}}{0.52} \mnhi^{-0.52} 
+|_{N_{\rm min}}^{N_{\rm max}} \approx 560
+\end{equation}
+This integral is dominated, of course, by the lowest 
+\nhi\ systems.  If we consider a 5\AA\ patch of spectrum at 4600\AA,
+we estimate $\delta z = (1+z) (\delta\lambda/\lambda) = 0.004$
+and predict $\mathcal{N} = \ell(z) \, \delta z = 2.4$ lines
+on average.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[width=4.0in]{Figures/kim13_fig9.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{Evolution in the incidence of \lya\ forest lines
+with redshift for two intervals of \nhi.  As inferred from a visual
+inspection of the data (Figure~\ref{fig:lyf_z}, 
+the incidence decreases steeply with decreasing redshift.
+}
+\label{fig:kim13_loz}       % Give a unique label
+\end{figure}
+
+
+Binned evaluations of $\ell(z)$ from \cite{kim13}
+are shown in Figure~\ref{fig:kim13_loz}.
+where one observes strong redshift evolution, 
+as evident in individual spectra.
+Their analysis also indicates differing behavior
+for lines of differing \nhi\ implying a likely
+evolution in the shape of \fnhi.
+
+As with the shape of \fnhi\ at a given $z$,
+we can model the redshift evolution in $\ell(z)$,
+which is also the redshift evolution in the
+normalization of \fnhi.  Here we have some
+physical guidance on the functional form
+(see also \cite{meiksin09}).
+Imagine a population of absorbers with physical (proper)
+number density $n_p(z)$ and proper cross-section $A_p(z)$,
+e.g.\ a population of spherical absorbing cows.
+On average, we expect to intersect
+$\ell(r) = n_p(z) A_p(z)$ absorbers per proper path length $d r_p$.
+In our Cosmology,
+
+\begin{equation}
+\frac{dr_p}{dz} = \frac{c}{H(z) (1+z)} \;\; .
+\label{eqn:drdz}
+\end{equation}
+Recognizing $\ell(r) dr = \ell(z) dz$, we have
+
+\begin{equation}
+\frac{dN}{dz} = n_p(z) A_p(z) \frac{c}{H(z) (1+z)}
+\end{equation}
+The Hubble Parameter in a flat $\Lambda$CDM universe
+is given by
+
+\begin{equation}
+H(z) = H_0 \sqrt{\Omega_m (1+z)^3 + \Omega_\Lambda}
+\end{equation}
+and at $z>2$, the universe is matter dominated and 
+$\Omega_\Lambda$ may be ignored.  This gives
+$H(z) \approx H_0 \Omega_m^{1/2} (1+z)^{3/2}$
+
+Now ansatz that the absorbing gas (cows) is
+a constant comoving population, 
+$n_p(z) = n_c(z) (1+z)^{3}$, with a constant
+physical size.  This gives
+
+\begin{equation}
+\ell(z) \propto n_c(z) A_p(z) (1+z)^{\ohf}
+\end{equation}
+which (on its own) implies a relatively shallow
+redshift dependence (indeed, much weaker than observed).
+However, if the gas is undergoing Hubble expansion, then 
+$\bar\rho \propto (1+z)^3$ and one predicts
+an increasing neutral fraction with $z$ 
+provided the emissivity from ionizing sources does
+not rise more steeply than $(1+z)^3$.
+In any case, the number density of ionizing sources
+should also scale as $(1+z)^\gamma$
+and altogether, we have a physical motivation for a $(1+z)^\gamma$
+evolution in $\ell(z)$.
+
+The results at $z \sim 2-3$ shown in Figure~\ref{fig:kim13_loz}
+yield
+\begin{equation}
+\ell(z) = 100 (1+z)^{1.12 \pm 0.24}
+\end{equation}
+for $\mnhi < 10^{14} \cm{-2}$ and
+\begin{equation}
+\ell(z) = 0.4 \, (1+z)^{4.14 \pm 0.6}
+\end{equation}
+for $\mnhi = [10^{14}, 10^{17}] \cm{-2}$.
+
+%\item Current results including measurements at $z<1$ (Kim et al.\ 2003, Figure 5)
+%			\begin{itemize}
+%			\item Power-law extrapolation of $\ell(z)$ to $z=0$ fails
+%			\item Observed incidence of absorption is much *higher*
+%				\begin{itemize}
+%				\item Caution: sample size is modest
+%				\item Caution: Comparison at fixed \nhi\ implies varying gas density (see Schaye01 formalism to come)
+%%				\end{itemize}
+%			\item Nevertheless, we infer a greatly reduced EUVB
+%				\begin{itemize}
+%				\item Consistent with declining quasar population
+%				\item Although not exactly (see Kollmeier et al.\ 2014)
+%				\end{itemize}
+%			\end{itemize}
+
+\subsection{Mock Spectra of the \lya\ Forest}
+Provided the \fnhi\ distribution, one may generate mock
+spectra of the \lya\ forest (with or without an underlying
+source continuum).  This produces an empirical description
+that basically ignores any underlying physical model
+and its implications (e.g. clustering of gas in the IGM).
+However, as it is derived directly from the data it may
+have a greater realism in many respects.  
+
+An example is provided in the {\it fN} Notebook and the
+code is available in the {\it pyigm} package.  We provide
+here the basic recipe:
+
+\begin{enumerate}
+		\item Define a redshift interval $\delta z$ for the mock Forest
+		\item Define \nhi\ bounds for \fnhi\ (usually the full dynamic range)
+		\item Calculate the average number of lines 
+		($N_{lines} = \ell(z) \delta z$)
+		\item Random draw (Poisson) from $N_{lines}$
+		\item Draw \nhi\ values from \fnhi
+		\item Draw $b$ from $g(b)$
+		\item Draw $z$ from $\ell(z)$
+		\item Calculate $\tau_\lambda$, including all 
+		Lyman series lines (as applicable)
+			\begin{itemize}
+			\item On a wavelength grid fine enough to 
+			capture the line profile
+			\item i.e.\ a perfect spectrometer
+			\end{itemize}
+		\item Calculate $F_\lambda = \exp[-\tau_\lambda]$
+		\item Add in spectral characteristics
+			\begin{itemize}
+			\item Convolve with instrument LSF
+			\item Rebin to final wavelength array
+			\item Add in Noise
+			\end{itemize}
+		\item Add in source SED
+\end{enumerate}
+
+\subsection{Effective \lya\ Opacity: $\tau_{\rm eff}^{\rm Ly\alpha}$}
+As emphasized above, the opacity of the \lya\ forest
+is highly stochastic, both within a given sightline and
+from sightline to sightline.
+This implies an underlying, stochastic density field
+associated with the underling large-scale structure of the
+universe.  While there is great scientific value in the
+undulations \cite[e.g.]{lee1X,natalie}, one may also derive
+value constraints and inferences from the mean opacity across
+cosmic time.  
+
+Let \fnorm\ be the average, normalized flux in
+the \lya\ forest as observed across many sightlines. 
+See the {\it characterizing\_lya\_forest} Slides for 
+a visualization.
+One defines an effective \lya\ opacity
+\begin{equation}
+\tau_{\rm eff, \alpha} \equiv - \ln \mfnorm
+\end{equation}
+as the average opacity of the IGM from \lya\ absorption alone
+(and generally limited to lower density gas, i.e.\ $\mnhi < 10^{17} \cm{-2}$).
+An alternative description used is
+the \lya\ decrement
+\begin{equation}
+D_A = 1 \, - \mfnorm
+\end{equation}
+Cosmologicially (as described below), this
+average opacity is a balance between the baryon density 
+$\Omega_b$ and the ambient radiation field.
+With an accurate measurement of $\tau_{\rm eff,\alpha}$
+one can infer either $\Omega_b$ or constrain the radiation
+field. 
+
+In principle, one can estimate $\tau_{\rm eff,\alpha}$
+from \fnhi\ as described by
+\cite{mj90,press93}. %[Moller \& Jakobsen 1990; Press et al.\ 1993]
+We describe the technique here for completeness but note
+that $\tau_{\rm eff,\alpha}$ is measured directly from observations.
+As such, it can be used as a constraint on \fnhi.
+Consider the number of lines $\mathcal{N}$ per unit rest wavelength 
+per redshift interval $dz$
+with
+\begin{equation}
+d\lambda_{\rm rest} = \lambda_{\rm rest} dz / (1+z) \;\; .
+\end{equation}
+We can calculate the number of lines per $dz$
+from  our \HI\ frequency distribution
+\begin{equation}
+\ell(z) = \int f(\mnhi,b,z) dN db
+\end{equation}
+Translating to a rest wavelength interval,
+\begin{equation}
+\mathcal{N} = \frac{1+z}{\lambda_{\rm rest}} \int f(\mnhi,b,z) dN db
+\end{equation}
+For these lines, the
+mean equivalent width is
+
+\begin{equation}
+\bar{W_\lambda} = \frac{1+z}{\mathcal{N} \lambda_{\rm rest}} 
+\int f(\mnhi,b,z) W_\lambda(N,b) dN db 
+\end{equation}
+If the lines are randomly distributed (i.e.\ no clustering),
+then the mean transmission ($1-D_A$) is\footnote{
+This equation appears intuitive yet a proper derivation 
+is remarkably complex! (see above references)}
+
+\begin{equation}
+1-D_A = \exp (-\mathcal{N} \bar W_\lambda)
+\end{equation}
+An expression for the effective opacity follows, 
+\begin{equation}
+\tau_{\rm eff, \alpha} = \int f(\mnhi,b,z) 
+W^{\rm Ly\alpha}_\lambda(N,b) \, dN db  \;\; .
+\label{eqn:teff}
+\end{equation}
+This equation is relatively straightforward, but
+not analytic.
+A typical cheat is to assume the average $b$-value instead
+of a distribution which
+gives a one-to-one correspondence between \nhi\ and $W_\lambda$.
+The {\it fN} Notebook shows example calculations using
+the {\it pyigm} software package.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+\includegraphics[width=4.5in]{Figures/dteff.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{Differential contribution to 
+$\tau_{\rm eff, \alpha}$ for $z=2.5$ using the
+\fnhi\ function from \cite{p+14}.
+}
+\label{fig:dteff}       % Give a unique label
+\end{figure}
+
+Using \fnhi\ from \cite{p+14}, %Prochaska+14
+we estimate $\tau_{\rm eff, \alpha} = 0.24$ at $z=2.5$.
+Figure~\ref{fig:dteff} shows the
+differential contribution with $\log \mnhi$.
+It is evident that $\tau_{\rm eff,\alpha}$
+is dominated by lines with $\tau_0 \approx 1$ and
+that the result
+depends on the choice of $N_{\rm min}$. 
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+%\includegraphics[width=4.5in]{Figures/dteff.pdf}
+\includegraphics[width=4.5in]{Figures/kirkman05_fig4.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{Measurements of the \lya\ decrement
+$D_A$ at $z \approx 2-3$ from a modest sample of
+quasar spectra, by \cite{k05}.
+}
+\label{fig:DA}       % Give a unique label
+\end{figure}
+
+Returning to actual measurements of $\tau_{\rm eff,\alpha}$,
+the first results were derived from
+24 quasar spectra observed at Lick Observatory
+\cite{kirkman05}.  The authors employed an
+`army' of undergrad students to fit continua,
+normalize the data, and assess
+systematic uncertainty.
+After masking metal absorption and \HI\
+lines with $\mnhi > 10^{17} \cm{-2}$, they
+reported $D_A$ measurements for $z \approx 2-3$
+(Figure~\ref{fig:DA}).
+Modeling $D_A$ as $(1+z)^\gamma$, they reported 
+\begin{equation}
+D_A = 0.0062 \, (1+z)^{2.75}
+\end{equation}
+which gives $\tau_{\rm eff, \alpha} = 0.22$ 
+at $z=2.5$.
+
+Analyzing a larger dataset ($\mathcal{N} \sim 100$)
+at higher spectral
+resolution, \cite{fg08} extended the results
+to $z=4$ and improved the precision of the
+measurements.  These authors
+%			\item Analyzed nearly 100 echelle spectra at $z>2$
+corrected statistically for metal absorption,
+assessed continuum bias on mock spectra, and
+reported on a disturbing `wiggle' in their measurements
+(which has appeared to disappear in later datasets).
+Their best-fit power law
+is $\tau_{\rm eff, \alpha} = 0.0018 \, (1+z)^{3.92}$.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+%\includegraphics[width=4.5in]{Figures/dteff.pdf}
+\includegraphics[width=4.5in]{Figures/becker13_fig4.pdf}
+%\includegraphics[width=4.5in]{Paper_figs/kirkman05_fig4.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{Relative measurements of the mean flux in the 
+\lya\ forest as measured in composite quasar spectra
+by \cite{becker+13}.
+}
+\label{fig:rel_teff}       % Give a unique label
+\end{figure}
+
+Most recently, \cite{becker+13} have considered the full dataset
+of SDSS and leveraged the nearly constant mean continuum of
+quasar spectra (see Figure~\ref{fig:becker13_fig2}) to
+measure $\tau_{\rm eff,\alpha}$ in stacked, composite spectra.
+Their analysis yields the relative evolution in $\tau_{\rm eff,\alpha}$
+with redshift (Figure~\ref{fig:rel_teff}).
+Tying their relative measurement to the absolute value at
+$z=2.5$ in \cite{fg08}, they report
+\begin{equation}
+\tau_{\rm eff, \alpha}(z) = 0.751 \ltp \frac{1+z}{1+3.5} 
+\rtp^{2.9}  - 0.132
+\end{equation}
+which includes
+statistical corrections for $\mnhi > 10^{17} \cm{-2}$ absorbers 
+and metal absorption.
+These measurements provide a blunt yet powerful test
+for any cosmological model of the IGM.
+
+\subsection{Fluctuating Gunn-Peterson Approximation (FGPA)}
+The modern paradigm of the \lya\ forest, or IGM,
+is that the observed opacity results from undulations
+in the underlying dark matter density.  The baryons
+trace the dark matter overdensities and are predominantly
+ionized with ionization state dictated by photoionization
+from the extragalactic UV background (EUVB).
+
+This paradigm lends to the formalism now known as the
+fluctuating Gunn-Peterson approximation (FPGA).  The
+standard formalism is derived as follows.
+We begin with our result from quantum mechanics
+that the  optical depth of \lya\ at line center is
+\begin{equation}
+\tau_0 = \frac{\pi e^2}{m_e c} \frac{N_{\rm HI} 
+f_{\rm Ly\alpha}}{\Delta \nu_D}
+\end{equation}
+Expressing the  \nhi\ column density as
+\begin{equation}
+\mnhi = n_{\rm HI} \Delta r
+\end{equation}
+with $\Delta r$ an interval in space and $n_{\rm HI}$
+the gas density.
+From Cosmology (see Equation~\ref{eqn:drdz} for $dr/dz$),
+we can relate distance to redshift
+\begin{equation}
+\Delta r = \frac{c \Delta z}{H(z) (1+z)} \;\; ,
+\end{equation}
+and we have 
+\begin{equation}
+\tau_0 = \frac{\pi e^2}{m_e} \frac{n_{\rm HI} \, \Delta z
+f_{\rm Ly\alpha}}{\Delta \nu_D H(z) (1+z)}
+\end{equation}
+Because the absorption occurs over a small redshift interval,
+we can express
+$\Delta z/(1+z) = \Delta\nu_{\rm Ly\alpha} / \nu_{\rm Ly\alpha}$
+and identify $\Delta \nu_D$ with $\Delta \nu_{\rm Ly\alpha}$
+(i.e.\ the line width is given by cosmic expansion).
+Ionization balance for $n_{\rm HI}$ with ionization rate $\Gamma$
+and recombination rate $\alpha(T)$ gives
+
+\begin{equation}
+n_{\rm HI} \Gamma = \alpha(T) n_{\rm HII} n_e
+\label{eqn:ion_balance}
+\end{equation}
+Altogether now,
+\begin{equation}
+\tau = \frac{\pi e^2 f_{\rm Ly\alpha}}{m_e \nu_{\rm Ly\alpha}}
+\frac{1}{H(z)} \frac{\alpha(T) n_{\rm HII} n_e}{\Gamma}
+\end{equation}
+
+To link the gas density $n$ with the dark
+matter density, we introduce the over-density $\delta$
+where
+\begin{equation}
+\rho = \bar\rho (1+\delta)
+\label{eqn:overdensity}
+\end{equation}
+and we express our number densities in terms of the over-density.
+Furthermore, we define
+ionization and mass fractions  -- $X$ is the Hydrogen mass fraction 
+and $x$ is the ionized Hydrogen fraction, to express 
+
+\begin{equation}
+n_{\rm HII} = \frac{\rho_{\rm crit} \Omega_b}{m_p} \, X x \; (1+\delta) (1+z)^3
+\end{equation}
+A similar (uglier) expression for $n_e$ includes Helium 
+(with $Y$, $y_{II}, y_{III}$ defined similarly):
+\begin{equation}
+n_e = \frac{\rho_{\rm crit} \Omega_b}{m_p} [Xx + 0.25Y(y_{II} + 2y_{III})] \; (1+\delta) (1+z)^3
+\end{equation}
+For gas with $T \sim 10^4$K (as expected for a photoionized medium),
+$\alpha(T)$ is a power-law of the form,
+\begin{equation}
+\alpha(T) \approx \alpha_0 T^{-0.7} \;\; .
+\end{equation}
+Lastly, one assumes the IGM gas follows a power-law temperature-density
+relation, (as derived from hydrodynamic analysis by \cite{hui97})
+\begin{equation}
+T = T_0 (1+\delta)^\beta
+\label{eqn:rhoT}
+\end{equation}
+
+The FGPA expression becomes
+\begin{equation}
+\tau = A(z) \, (1+\delta)^{2 - 0.7 \beta}
+\end{equation}
+where the opacity ``fluctuates'' with the local over-density.
+The $A(z)$ term is proportional to  $(1+z)^6 / [H(z) \Gamma]$.
+or, in its glory,
+\begin{equation}
+A(z) \equiv \frac{\pi e^2 f_{\rm Ly\alpha}}{m_e \nu_{\rm Ly\alpha}}
+\ltp \frac{\rho_{\rm crit} \Omega_b}{m_p} \rtp^2 
+\frac{1}{H(z)} Xx [Xx + 0.25Y(y_{II} + 2y_{III})] \frac{\alpha_0 T_0^{-0.7}}{\Gamma}
+(1+z)^6
+\end{equation}
+Given a probability density function for the overdensity
+$P(\Delta)$ with $\Delta \equiv 1 + \delta$, we 
+may calculate the mean flux (and opacity)
+\begin{equation}
+<F>(z) = \intl_0^\infty P(\Delta; z) \exp(-\tau) d\Delta \;\; .
+\label{eqn:fgpa}
+\end{equation}
+See \cite{miralda00} for models of $P(\Delta)$
+based on numerical simulations.
+This FGPA provides an analytic expression, calibrated
+against cosmological simulations, for the IGM opacity.
+
+Returning to $\tau_{\rm eff,\alpha}$ measurements,
+we can relate Equation~\ref{eqn:fgpa} to the data
+with the only significant unknown\footnote{There is a
+weak dependence on $T$ which leads to degeneracy.} 
+being the photoionization rate $\Gamma$.
+Figure~\ref{fig:Gamma} from \cite{fg08c}
+shows estimates for $\Gamma$
+ased on the $\tau_{\rm eff,\alpha}$ measurements of 
+\cite{fg08a}.  The figure also shows their  
+estimate for $\Gamma$ from quasars alone and the
+authors argued that star-forming galaxies
+must dominate the radiation field by $z \sim 3$.
+Recent work, however, has raised the possibility
+that faint quasars play as strong a role
+\cite{giallongo15,hm15} an issue that awaits
+deeper, high-$z$ surveys.
+
+\subsection{Effective Lyman Series Opacity}
+We finish this section by extending our calculations
+for the effective opacity of \lya\ to the full
+Lyman series.  Each line up the energy ladder of \HI\
+contributes additional opacity at shorter
+wavelengths with sequentially smaller opacity
+($\tau_0 \propto \lambda f N$).
+A complex `blending' of the Lyman series
+from various redshifts occurs.  
+
+For example
+consider the quasar light emitted at 
+at $\lambda_{\rm rest} = 920$\AA) 
+from a quasar at $z_{\rm em} = 4$
+(we observe these photons at $\lambda_{\rm obs} = 4600$\AA).
+The photons emitted by the quasar will redshift into
+resonance with 
+\HI\ Ly$\alpha$ at $z_{\rm Ly\alpha} = 2.78$,
+Ly$\beta$ at $z_{\rm Ly\beta} = 3.48$,
+Ly$\gamma$ at $z_{\rm Ly\gamma} = 3.73$,
+Ly$\delta$ at $z_{\rm Ly\delta} = 3.84$, etc.
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+%\includegraphics[width=4.5in]{Figures/dteff.pdf}
+%\includegraphics[width=4.5in]{Figures/fg08c_fig1.pdf}
+\includegraphics[width=5.0in]{Figures/sawtooth.pdf}
+%\includegraphics[width=4.5in]{Paper_figs/kirkman05_fig4.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{So-called `sawtooth' transmission function of the
+\HI\ Lyman series of the IGM for a source at $z=5$.
+Redward of \HI\ \lya\ there is no attenuation
+($\mathcal{T} = 1$).  From $\lambda_{\rm obs} \approx 5100-6000$\AA,
+only \HI\ \lya\ contributes and the increasing transmission
+with decreasing redshift is due to evolution in the \lya\ line density.
+At shorter wavelengths, additional \HI\ Lyman series lines
+contribute and reduce the transmission accordingly.
+}
+\label{fig:sawtooth}       % Give a unique label
+\end{figure}
+
+The effective opacity from each Lyman series is independent
+and sum simply.  An example calculation for the
+predicted transmission $\mathcal{T}$ through the IGM
+with $\mathcal{T} = \exp(-\tau_{\rm eff}$ is
+shown in Figure~\ref{fig:sawtooth}.
+This `sawtooth' curve has teeth at each of the additional
+Lyman series lines.  The slope of increasing transmission
+with decreasing wavelength is due to the decreasing 
+incidence of lines with decreasing redshift.
+The {\it fN} Notebook shows an example calculation using
+software from {\it pyigm}.
+
+In Figure~\ref{fig:stack_saw}, we show the average 
+relative flux (normalized to unity at $\lambda_{\rm rest} = 1450$\AA)
+of $\approx 150$, $z \sim 4$ quasars from the SDSS.
+Overlayed on the data is a the quasar SED from 
+\cite{telfer02} attenuated by the effective opacity
+shown in Figure~\ref{fig:sawtooth}.
+The good agreement down to $\lambda \approx 4700$\AA\
+is truly remarkable and demonstrates the quality of our
+characterization of the IGM.
+
+This IGM attenuation 
+is imprinted in the spectra of {\it all} distant sources.
+This includes galaxies.  
+For a $z=4$ galaxy, the $g$-band flux suffers a decrement
+of $\Delta m_g \approx 1$\,mag.
+This insight  led to the discovery
+of the first high-$z$ star-forming galaxies 
+\cite{madau95,steidel96,koo}.
+This attenuation will also affect our \lya\ emitters (LAEs).
+At $z=5$, $\tau_{\rm eff, \alpha} \approx 1.5$ 
+which leads to an asymmetry in \lya\ emission. 
+
+
+% For figures use
+%
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the graphicx style use
+%\includegraphics[width=4.5in]{Figures/dteff.pdf}
+%\includegraphics[width=4.5in]{Figures/fg08c_fig1.pdf}
+\includegraphics[width=5.0in]{Figures/obs_sawtooth.pdf}
+%\includegraphics[width=5.0in]{Figures/sawtooth.pdf}
+%\includegraphics[width=4.5in]{Paper_figs/kirkman05_fig4.pdf}
+%
+% If no graphics program available, insert a blank space i.e. use
+%\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
+%
+\caption{Composite spectrum of 150 quasars at $z \sim 4$
+from the SDSS (black).  These are shown in the observer
+frame for $z=4$ (but were stacked in the rest-frame)
+and were normalized to unity at $\lambda_{\rm rest} = 1450$\AA.
+Overlayed on the data is a model using the quasar SED
+from \cite{telfer+02} and our estimate of the IGM transmission
+from the full \HI\ Lyman series.  The excellent agreement
+(down to at least 4700\AA) is remarkable.
+}
+\label{fig:stack_saw}       % Give a unique label
+\end{figure}
+
+%
 
 %
 \begin{acknowledgement}
