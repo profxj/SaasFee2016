@@ -1412,6 +1412,100 @@ def drho_dNHI(outfil='Figures/drho_dNHI.pdf'):
     # Finish
     pp.close()
 
+
+def idealized_lls():
+    """ LLS (also in the Notebook)
+    """
+    outfil = 'Figures/fig_idealized_lls.pdf'
+    from linetools.spectra.xspectrum1d import XSpectrum1D
+    from pyigm.abssys.lls import LLSSystem
+    from pyigm.abssys.utils import hi_model
+    #LLs
+    lls = LLSSystem((0., 0.), 3.5, None, NHI=17.2)
+    # Spectrum
+    wave = np.arange(3600., 5000., 0.1) * u.AA
+    spec = XSpectrum1D.from_tuple((wave, np.ones_like(wave)))
+    # Model
+    full_model, lines = hi_model(lls, spec, add_lls=True)
+
+    # Start the plot
+    xmnx = (4020., 4250)
+    ymnx = (0., 1.05)
+    fig = plt.figure(figsize=(8.0, 5.0))
+
+    plt.clf()
+    gs = gridspec.GridSpec(1, 1)
+
+    # Lya line
+    ax = plt.subplot(gs[0])
+    # ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
+    # ax.xaxis.set_major_locator(plt.MultipleLocator(20.))
+    ax.set_xlim(xmnx)
+    # ax.set_ylim(ymnx)
+    ax.set_ylabel(r'Normalized Flux')
+    ax.set_xlabel(r'Wavelength (Ang)')
+
+    ax.plot(full_model.wavelength, full_model.flux, 'b', lw=2)
+
+    # Legend
+    # legend = plt.legend(loc='lower left', scatterpoints=1, borderpad=0.3,
+    #    handletextpad=0.3, fontsize='large', numpoints=1)
+    set_fontsize(ax, 17.)
+    # Layout and save
+    print('Writing {:s}'.format(outfil))
+    plt.tight_layout(pad=0.2, h_pad=0.0, w_pad=0.4)
+    plt.subplots_adjust(hspace=0)
+    plt.savefig(outfil)
+
+
+def j0529():
+    """ Real LLS (also in the Notebook)
+    """
+    from linetools.spectra import utils as lspecu
+    outfil = 'Figures/fig_j0529.pdf'
+    # Read
+    j0529_uvb = lsio.readspec('Data/J0529-3526_uvb.fits')
+    j0529_vis = lsio.readspec('Data/J0529-3526_vis.fits')
+    # Splice
+    j0529 = lspecu.splice_two(j0529_uvb, j0529_vis)
+
+    # One LLS at 4900A
+    # One LLS at 4450A
+
+    # Start the plot
+    scale =1e17
+    xmnx = (4200., 5900)
+    ymnx = (-0.5, 7.) # scaled
+    fig = plt.figure(figsize=(7.0, 5.0))
+
+    plt.clf()
+    gs = gridspec.GridSpec(1, 1)
+
+    # Lya line
+    ax = plt.subplot(gs[0])
+    # ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
+    # ax.xaxis.set_major_locator(plt.MultipleLocator(20.))
+    ax.set_xlim(xmnx)
+    ax.set_ylim(ymnx)
+    ax.set_ylabel(r'Relative Flux')
+    ax.set_xlabel(r'Wavelength (Ang)')
+
+    ax.plot(j0529.wavelength, j0529.flux.value*scale, 'k', lw=1.2)
+    ax.plot(xmnx, [0., 0.], '--', color='gray')
+
+    # Label LLS
+    
+
+    # Legend
+    # legend = plt.legend(loc='lower left', scatterpoints=1, borderpad=0.3,
+    #    handletextpad=0.3, fontsize='large', numpoints=1)
+    set_fontsize(ax, 17.)
+    # Layout and save
+    print('Writing {:s}'.format(outfil))
+    plt.tight_layout(pad=0.2, h_pad=0.0, w_pad=0.4)
+    plt.subplots_adjust(hspace=0)
+    plt.savefig(outfil)
+
 def set_fontsize(ax,fsz):
     '''
     Generate a Table of columns and so on
@@ -1516,10 +1610,17 @@ def main(flg_fig):
     if (flg_fig % 2**19) >= 2**18:
         qso_fuv()
 
-    # QSO FUV
+    # drho/dNHI
     if (flg_fig % 2**20) >= 2**19:
         drho_dNHI()
 
+    # Idealized LLS
+    if (flg_fig % 2**21) >= 2**20:
+        idealized_lls()
+
+    # J0529
+    if (flg_fig % 2**22) >= 2**21:
+        j0529()
 
 
 # Command line execution
@@ -1534,7 +1635,7 @@ if __name__ == '__main__':
         #flg_fig += 2**4   # QSO Template
         #flg_fig += 2**5   # Redshift
         #flg_fig += 2**6   # Q1422
-        flg_fig += 2**7   # Evolving IGM
+        #flg_fig += 2**7   # Evolving IGM
         #flg_fig += 2**8   # dteff
         #flg_fig += 2**9   # IGM transmission
         #flg_fig += 2**10   # IGM transmission
@@ -1546,7 +1647,9 @@ if __name__ == '__main__':
         #flg_fig += 2**16   # real DLA 
         #flg_fig += 2**17   # DLA deviation 
         #flg_fig += 2**18   # QSO FUV
-        #flg_fig += 2**19   # QSO FUV
+        #flg_fig += 2**19   #
+        #flg_fig += 2**20   # Idealized LLS
+        flg_fig += 2**21   # J0529
     else:
         flg_fig = sys.argv[1]
 
