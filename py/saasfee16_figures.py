@@ -1023,7 +1023,7 @@ def wfc3_qso(outfil='Figures/wfc3_qso.pdf'):
     csz = 17
     ax.text(0.10, 0.80, 'HST/WFC3: QSO spectrum (z~2)', color='black',
             transform=ax.transAxes, size=csz, ha='left') 
-    xputils.set_fontsize(ax, 17.)
+    set_fontsize(ax, 17.)
     # Layout and save
     print('Writing {:s}'.format(outfil))
     plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
@@ -1036,16 +1036,20 @@ def wfc3_qso(outfil='Figures/wfc3_qso.pdf'):
 def dXdz(outfil='Figures/dXdz.pdf'):
     """ Plot dXdz vs. z
     """
+    from astropy.cosmology import LambdaCDM
     # z
-    zval = np.linspace(1., 5, 100)
+    zval = np.linspace(0., 5, 100)
 
-    # dX/dz
-    dXdz = pyiu.cosm_xz(zval, cosmo=Planck15, flg_return=1)
+    # Cosmologies
+    cosmos = [Planck15, LambdaCDM(H0=70., Om0=1., Ode0=0.),
+        LambdaCDM(H0=70., Om0=0.3, Ode0=0.)]
+    lbls = [r'$\Lambda$CDM', 'CDM', 'Open']
+
 
     # Start the plot
     xmnx = (1., 5)
     pp = PdfPages(outfil)
-    fig = plt.figure(figsize=(8.0, 5.0))
+    fig = plt.figure(figsize=(6.0, 5.0))
 
     plt.clf()
     gs = gridspec.GridSpec(1,1)
@@ -1053,23 +1057,25 @@ def dXdz(outfil='Figures/dXdz.pdf'):
     # Lya line
     ax = plt.subplot(gs[0])
     #ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
-    #ax.xaxis.set_major_locator(plt.MultipleLocator(20.))
+    ax.xaxis.set_major_locator(plt.MultipleLocator(1.))
     #ax.yaxis.set_minor_locator(plt.MultipleLocator(0.1))
     #ax.yaxis.set_major_locator(plt.MultipleLocator(0.2))
     ax.set_xlim(xmnx)
     ax.set_ylim(0., 5)
     ax.set_ylabel('dX/dz')
-    ax.set_xlabel('z')
+    ax.set_xlabel('1+z')
 
     lw = 2.
-    # Data
-    ax.plot(zval, dXdz, 'k', linewidth=lw)#, label='SDSS QSOs (z=4)')
+    for cosmo, lbl in zip(cosmos,lbls):
+        # dX/dz
+        dXdz = pyiu.cosm_xz(zval, cosmo=cosmo, flg_return=1)
+        ax.plot((1+zval), dXdz, linewidth=lw, label=lbl)
 
     # Label
-    csz = 17
-    #ax.text(0.10, 0.80, 'HST/WFC3: QSO spectrum (z~2)', color='black',
-    #        transform=ax.transAxes, size=csz, ha='left') 
-    xputils.set_fontsize(ax, 17.)
+    set_fontsize(ax, 17.)
+
+    legend = plt.legend(loc='upper left', scatterpoints=1, borderpad=0.3,
+                        handletextpad=0.3, fontsize='large', numpoints=1)
     # Layout and save
     print('Writing {:s}'.format(outfil))
     plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
@@ -1412,6 +1418,111 @@ def drho_dNHI(outfil='Figures/drho_dNHI.pdf'):
     # Finish
     pp.close()
 
+
+def idealized_lls():
+    """ LLS (also in the Notebook)
+    """
+    outfil = 'Figures/fig_idealized_lls.pdf'
+    from linetools.spectra.xspectrum1d import XSpectrum1D
+    from pyigm.abssys.lls import LLSSystem
+    from pyigm.abssys.utils import hi_model
+    #LLs
+    lls = LLSSystem((0., 0.), 3.5, None, NHI=17.2)
+    # Spectrum
+    wave = np.arange(3600., 5000., 0.1) * u.AA
+    spec = XSpectrum1D.from_tuple((wave, np.ones_like(wave)))
+    # Model
+    full_model, lines = hi_model(lls, spec, add_lls=True)
+
+    # Start the plot
+    xmnx = (4020., 4250)
+    ymnx = (0., 1.05)
+    fig = plt.figure(figsize=(8.0, 5.0))
+
+    plt.clf()
+    gs = gridspec.GridSpec(1, 1)
+
+    # Lya line
+    ax = plt.subplot(gs[0])
+    # ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
+    # ax.xaxis.set_major_locator(plt.MultipleLocator(20.))
+    ax.set_xlim(xmnx)
+    # ax.set_ylim(ymnx)
+    ax.set_ylabel(r'Normalized Flux')
+    ax.set_xlabel(r'Wavelength (Ang)')
+
+    ax.plot(full_model.wavelength, full_model.flux, 'b', lw=2)
+
+    # Legend
+    # legend = plt.legend(loc='lower left', scatterpoints=1, borderpad=0.3,
+    #    handletextpad=0.3, fontsize='large', numpoints=1)
+    set_fontsize(ax, 17.)
+    # Layout and save
+    print('Writing {:s}'.format(outfil))
+    plt.tight_layout(pad=0.2, h_pad=0.0, w_pad=0.4)
+    plt.subplots_adjust(hspace=0)
+    plt.savefig(outfil)
+
+
+def j0529():
+    """ Real LLS (also in the Notebook)
+    """
+    from linetools.spectra import utils as lspecu
+    outfil = 'Figures/fig_j0529.pdf'
+    # Read
+    j0529_uvb = lsio.readspec('Data/J0529-3526_uvb.fits')
+    j0529_vis = lsio.readspec('Data/J0529-3526_vis.fits')
+    # Splice
+    j0529 = lspecu.splice_two(j0529_uvb, j0529_vis)
+
+    # One LLS at 4900A
+    # One LLS at 4450A
+
+    # Start the plot
+    scale =1e17
+    xmnx = (4200., 5900)
+    ymnx = (-0.5, 7.) # scaled
+    fig = plt.figure(figsize=(7.0, 5.0))
+
+    plt.clf()
+    gs = gridspec.GridSpec(1, 1)
+
+    # Lya line
+    ax = plt.subplot(gs[0])
+    # ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
+    # ax.xaxis.set_major_locator(plt.MultipleLocator(20.))
+    ax.set_xlim(xmnx)
+    ax.set_ylim(ymnx)
+    ax.set_ylabel(r'Relative Flux')
+    ax.set_xlabel(r'Wavelength (Ang)')
+
+    ax.plot(j0529.wavelength, j0529.flux.value*scale, 'k', lw=1.2)
+    ax.plot(xmnx, [0., 0.], '--', color='gray')
+
+    # Label LLS
+    headl = 0.3
+    csz = 13.
+    ax.arrow(4900, 4.0, 0., -0.5, linewidth=2,
+             head_width=15., head_length=headl, fc='blue', ec='blue')
+    ax.text(4900, 4.2, r'LLS at $z=4.4$', size=csz, va='bottom', rotation=90.,
+        ha='center', color='blue')
+    wvlls = 4470
+    ax.arrow(wvlls, 1.5, 0., -0.5, linewidth=2,
+             head_width=15., head_length=headl, fc='green', ec='green')
+    ax.text(wvlls, 1.7, r'LLS at $z=3.9$', size=csz, va='bottom', rotation=90.,
+            ha='center', color='green')
+
+
+    # Legend
+    # legend = plt.legend(loc='lower left', scatterpoints=1, borderpad=0.3,
+    #    handletextpad=0.3, fontsize='large', numpoints=1)
+    set_fontsize(ax, 17.)
+    # Layout and save
+    print('Writing {:s}'.format(outfil))
+    plt.tight_layout(pad=0.2, h_pad=0.0, w_pad=0.4)
+    plt.subplots_adjust(hspace=0)
+    plt.savefig(outfil)
+
 def set_fontsize(ax,fsz):
     '''
     Generate a Table of columns and so on
@@ -1516,10 +1627,17 @@ def main(flg_fig):
     if (flg_fig % 2**19) >= 2**18:
         qso_fuv()
 
-    # QSO FUV
+    # drho/dNHI
     if (flg_fig % 2**20) >= 2**19:
         drho_dNHI()
 
+    # Idealized LLS
+    if (flg_fig % 2**21) >= 2**20:
+        idealized_lls()
+
+    # J0529
+    if (flg_fig % 2**22) >= 2**21:
+        j0529()
 
 
 # Command line execution
@@ -1534,19 +1652,21 @@ if __name__ == '__main__':
         #flg_fig += 2**4   # QSO Template
         #flg_fig += 2**5   # Redshift
         #flg_fig += 2**6   # Q1422
-        flg_fig += 2**7   # Evolving IGM
+        #flg_fig += 2**7   # Evolving IGM
         #flg_fig += 2**8   # dteff
         #flg_fig += 2**9   # IGM transmission
         #flg_fig += 2**10   # IGM transmission
         #flg_fig += 2**11   # WFC3 QSO
-        #flg_fig += 2**12   # dXdz
+        flg_fig += 2**12   # dXdz
         #flg_fig += 2**13   # teff_LL
         #flg_fig += 2**14   # MFP stacked spectrum
         #flg_fig += 2**15   # DLA with NHI
         #flg_fig += 2**16   # real DLA 
         #flg_fig += 2**17   # DLA deviation 
         #flg_fig += 2**18   # QSO FUV
-        #flg_fig += 2**19   # QSO FUV
+        #flg_fig += 2**19   #
+        #flg_fig += 2**20   # Idealized LLS
+        #flg_fig += 2**21   # J0529
     else:
         flg_fig = sys.argv[1]
 
