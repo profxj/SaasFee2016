@@ -1023,7 +1023,7 @@ def wfc3_qso(outfil='Figures/wfc3_qso.pdf'):
     csz = 17
     ax.text(0.10, 0.80, 'HST/WFC3: QSO spectrum (z~2)', color='black',
             transform=ax.transAxes, size=csz, ha='left') 
-    xputils.set_fontsize(ax, 17.)
+    set_fontsize(ax, 17.)
     # Layout and save
     print('Writing {:s}'.format(outfil))
     plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
@@ -1036,16 +1036,20 @@ def wfc3_qso(outfil='Figures/wfc3_qso.pdf'):
 def dXdz(outfil='Figures/dXdz.pdf'):
     """ Plot dXdz vs. z
     """
+    from astropy.cosmology import LambdaCDM
     # z
-    zval = np.linspace(1., 5, 100)
+    zval = np.linspace(0., 5, 100)
 
-    # dX/dz
-    dXdz = pyiu.cosm_xz(zval, cosmo=Planck15, flg_return=1)
+    # Cosmologies
+    cosmos = [Planck15, LambdaCDM(H0=70., Om0=1., Ode0=0.),
+        LambdaCDM(H0=70., Om0=0.3, Ode0=0.)]
+    lbls = [r'$\Lambda$CDM', 'CDM', 'Open']
+
 
     # Start the plot
     xmnx = (1., 5)
     pp = PdfPages(outfil)
-    fig = plt.figure(figsize=(8.0, 5.0))
+    fig = plt.figure(figsize=(6.0, 5.0))
 
     plt.clf()
     gs = gridspec.GridSpec(1,1)
@@ -1053,23 +1057,25 @@ def dXdz(outfil='Figures/dXdz.pdf'):
     # Lya line
     ax = plt.subplot(gs[0])
     #ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
-    #ax.xaxis.set_major_locator(plt.MultipleLocator(20.))
+    ax.xaxis.set_major_locator(plt.MultipleLocator(1.))
     #ax.yaxis.set_minor_locator(plt.MultipleLocator(0.1))
     #ax.yaxis.set_major_locator(plt.MultipleLocator(0.2))
     ax.set_xlim(xmnx)
     ax.set_ylim(0., 5)
     ax.set_ylabel('dX/dz')
-    ax.set_xlabel('z')
+    ax.set_xlabel('1+z')
 
     lw = 2.
-    # Data
-    ax.plot(zval, dXdz, 'k', linewidth=lw)#, label='SDSS QSOs (z=4)')
+    for cosmo, lbl in zip(cosmos,lbls):
+        # dX/dz
+        dXdz = pyiu.cosm_xz(zval, cosmo=cosmo, flg_return=1)
+        ax.plot((1+zval), dXdz, linewidth=lw, label=lbl)
 
     # Label
-    csz = 17
-    #ax.text(0.10, 0.80, 'HST/WFC3: QSO spectrum (z~2)', color='black',
-    #        transform=ax.transAxes, size=csz, ha='left') 
-    xputils.set_fontsize(ax, 17.)
+    set_fontsize(ax, 17.)
+
+    legend = plt.legend(loc='upper left', scatterpoints=1, borderpad=0.3,
+                        handletextpad=0.3, fontsize='large', numpoints=1)
     # Layout and save
     print('Writing {:s}'.format(outfil))
     plt.tight_layout(pad=0.2,h_pad=0.0,w_pad=0.4)
@@ -1494,7 +1500,18 @@ def j0529():
     ax.plot(xmnx, [0., 0.], '--', color='gray')
 
     # Label LLS
-    
+    headl = 0.3
+    csz = 13.
+    ax.arrow(4900, 4.0, 0., -0.5, linewidth=2,
+             head_width=15., head_length=headl, fc='blue', ec='blue')
+    ax.text(4900, 4.2, r'LLS at $z=4.4$', size=csz, va='bottom', rotation=90.,
+        ha='center', color='blue')
+    wvlls = 4470
+    ax.arrow(wvlls, 1.5, 0., -0.5, linewidth=2,
+             head_width=15., head_length=headl, fc='green', ec='green')
+    ax.text(wvlls, 1.7, r'LLS at $z=3.9$', size=csz, va='bottom', rotation=90.,
+            ha='center', color='green')
+
 
     # Legend
     # legend = plt.legend(loc='lower left', scatterpoints=1, borderpad=0.3,
@@ -1640,7 +1657,7 @@ if __name__ == '__main__':
         #flg_fig += 2**9   # IGM transmission
         #flg_fig += 2**10   # IGM transmission
         #flg_fig += 2**11   # WFC3 QSO
-        #flg_fig += 2**12   # dXdz
+        flg_fig += 2**12   # dXdz
         #flg_fig += 2**13   # teff_LL
         #flg_fig += 2**14   # MFP stacked spectrum
         #flg_fig += 2**15   # DLA with NHI
@@ -1649,7 +1666,7 @@ if __name__ == '__main__':
         #flg_fig += 2**18   # QSO FUV
         #flg_fig += 2**19   #
         #flg_fig += 2**20   # Idealized LLS
-        flg_fig += 2**21   # J0529
+        #flg_fig += 2**21   # J0529
     else:
         flg_fig = sys.argv[1]
 
