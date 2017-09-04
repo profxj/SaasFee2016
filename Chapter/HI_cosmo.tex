@@ -29,6 +29,7 @@
 % in the Reference Guide
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{natbib}
 
 \makeindex             % used for the subject index
                        % please use the style svind.ist with
@@ -73,6 +74,19 @@
 \def\mtll{\tau_{\rm eff}^{\rm LL}}
 \def\tll{$\mtll$} 
 
+% Journals
+\newcommand{\aj}{AJ}
+\newcommand{\apj}{ApJ}
+\newcommand{\apjl}{ApJL}
+\newcommand{\apjs}{ApJS}
+\newcommand{\araa}{AAR\&A}
+\newcommand{\nat}{Nature}
+\newcommand{\mnras}{MNRAS}
+\newcommand{\aap}{A\&A}
+\newcommand{\jcap}{JCAP}
+\newcommand{\pasa}{PASA}
+
+
 \begin{document}
 
 \title*{\HI\ Absorption in the Intergalactic Medium}
@@ -109,7 +123,7 @@ sources that one could resolve the absorption lines
 from gas -- especially \HI\ \lya\ -- 
 in the foreground universe.  
 Figure~\ref{fig:burb} shows an early example from
-\cite{bb+65} taken with the prime-focus spectrograph
+\cite{blb66} taken with the prime-focus spectrograph
 on the Shane 120-inch telescope at Lick Observatory.
 Even in these early data, one identifies apparently
 discrete absorption lines of Hydrogen and heavy
@@ -140,13 +154,13 @@ shown is that of He+Ar.
 
 
 Spectra like these inspired the first models of
-the IGM as discrete absorption lines \cite{bahcall65}
+the IGM as discrete absorption lines \cite{bs66}
 and by inference the first physical insight.
 The positive detection of flux at rest wavelengths
 shortward of the quasar \lya\ emission line
 ($\lambda_{\rm rest} < 1215$\AA)
 demands a highly ionized IGM.
-\cite{gunn65} recognized that a universe with predominantly
+\cite{gp65} recognized that a universe with predominantly
 neutral hydrogen gas should be opaque to these far-UV
 photons and [inferred] -- correctly -- 
 that the gas must have a neutral fraction $x_{\rm HI}$ of less 
@@ -177,12 +191,12 @@ The remainder of the 1960's introduced a series of
 fundamental papers on the astrophysics of absorption-line
 analysis, especially by Bachall and his collaborators.
 These included the discussion of fundamental diagnostics
-of the gas \cite{bahcall66}, 
+of the gas \cite{bahcall67}, 
 the application of absorption from the fine-structure 
-levels of heavy elements \cite{bahcall67}, and the
+levels of heavy elements \cite{bw68}, and the
 assertion that the majority of heavy element absorption
 may be associated to the halos of galaxies
-\cite{bahcall69a,bahcall69b}.
+\cite{bp69,bs69}.
 In a number of respects, the theory had outpaced the
 observations.
 This held throughout the 1970's, especially for IGM
@@ -203,7 +217,7 @@ reported the first intergalactic detection of
 %\picplace{5cm}{2cm} % Give the correct figure height and width in cm
 %
 \caption{\HI\ \lya\ forest spectrum of the quasar PKS 2126--158
-obtained by \cite{young78}.  Data like these provided the first
+obtained by \cite{young79}.  Data like these provided the first
 detailed view of the IGM.
 }
 \label{fig:young}       % Give a unique label
@@ -213,7 +227,7 @@ detailed view of the IGM.
 In the early 1980's, advances in spectroscopic technology
 (especially the CCD detector) led to the first high-quality
 views of the \HI\ \lya\ forest 
-\cite[Figure~\ref{fig:young}]{young78,boks,sargent}.
+\cite[Figure~\ref{fig:young}]{young79,boks78,sargent80}.
 It was evident from spectra like these that the IGM was
 characterized by a stochastic forest of \HI\ absorption
 well-described by discrete lines.  [add another line]
@@ -232,10 +246,10 @@ describe the gas around galaxies.
 J. Ostriker was the most active theorist on the IGM,
 publishing a series of papers on applications of the
 IGM including its first phase diagram 
-\cite{ostriker83a,ostriker83b,bajtlik87,duncan89}.
+\cite{oi83,oh84,bdo88,duncan89}.
 But one of his leading models of the day envisioned
 "Galaxy formation in an IGM dominated by explostion"
-\cite{ostriker80}.
+\cite{oc81}.
 
 
 In several respects, the 1990's witnessed the
@@ -267,8 +281,8 @@ of Q0636 against the Keck/HIRES data.
 
 
 a new paradigm for the IGM emerged
-from hydrodynamic cosmological simulations \cite{miralda96}
-and related analytic treatments \cite{huixx}.
+from hydrodynamic cosmological simulations \cite{mco+96}
+and related analytic treatments \cite{HuiGnedin97}.
 The \lya\ clouds were replaced by the Cosmic Web (Figure~\ref{fig:web}),
 the filamentary network of dark matter and baryons that 
 describes the large-scale structure of a CDM universe.
@@ -292,7 +306,7 @@ analytic underpinnings.
 % If no graphics program available, insert a blank space i.e. use
 %\picplace{5cm}{2cm} % Give the correct figure height and width in cm
 %
-\caption{Cosmic web (from \cite{miralda96})
+\caption{Cosmic web (from \cite{mco+96})
 }
 \label{fig:web}       % Give a unique label
 \end{figure}
@@ -331,12 +345,12 @@ For the last decade, the observational advances
 have stemmed largely form the massive spectroscopic
 surveys of SDSS and BOSS.
 These have yielded terrific statistical descriptions
-of the IGM \cite{PDF} 
-across large areas of the sky for BAO \cite{IGM_BAO}.
+of the IGM \cite{lee+15} 
+across large areas of the sky for BAO \cite{busca13}.
 Large surveys of the IGM have also been comprised
-\cite{phw05,pow10,noterdaeme} and
+\cite{phw05,pow10,noterdaeme+12} and
 analysis probing the underlying dark matter density
-field probed by the IGM have emerged \cite{font}.
+field probed by the IGM have emerged \cite{font12}.
 In addition, the ongoing discovery of $z>6$ quasars 
 and GRBs coupled with high-performance echellette
 spectrometers have probed the IGM to the epoch
@@ -344,7 +358,7 @@ of \HI\ reionization.  And, a series of increasingly
 sensitive UV spectrometers on the
 {\it Hubble Space Telescope}
 have anchored the results in the modern universe
-\cite{penton,tripp,xx}.
+\cite{pss00,dt01}.
 
 This chapter is organized into the following sections:
  (i) the physics of \HI\ \lya\ absorption;
@@ -354,8 +368,8 @@ This chapter is organized into the following sections:
  (v) an overview of modern analysis and results.
 The focus throughout is observational and the approaches
 are largely traditional;  excellent reviews with a greater
-emphasis on theory are given by \cite{meiksin0X} and
-\cite{mcquinn1X}.  
+emphasis on theory are given by \cite{meiksin09} and
+\cite{mcquinn16}.  
 
 This Chapter is also supplemented by the lecture notes
 and slides presented in SaasFee, and a set of iPython
@@ -1257,7 +1271,7 @@ The diffraction of light (e.g.\ slit + dispersing element)
 transforms the input PSF of the source (typically a Moffat) into a line 
 profile in wavelength.  The precise 
 LSF that results depends on type of spectrometer 
-\cite[e.g.][]{Robertson2013} as summarized in Table~\ref{tab:LSF}.
+\cite[e.g.][]{robertson13} as summarized in Table~\ref{tab:LSF}.
 
 \begin{table}[ht]
 \begin{center}
@@ -1395,8 +1409,8 @@ Studies of \HI\ in absorption require a background, light source
 with emission at FUV wavelengths (and bluer!) to excite \HI\
 at \lya\ and higher order transitions.
 For extragalactic research, this has included the O and B stars
-in star-forming galaxies \cite{lee16}, the bright afterglows
-of gamma-ray bursts \cite{fynbo1X}, and quasars (the focus
+in star-forming galaxies \cite{lee+14}, the bright afterglows
+of gamma-ray bursts \cite{fjp+09}, and quasars (the focus
 of this Chapter).   To estimate the opacity, one must estimate
 the source continuum $f^C_\lambda$ then normalize the flux, 
 
@@ -1451,7 +1465,7 @@ with great diversity.  Furthermore, the emission is
 poorly constrained at $\lambda_{\rm rest} < 900$\AA\
 in part because the IGM greatly absorbs the SED
 making it very difficult to assess the intrinsic flux 
-\cite[see][]{lusso+16}.
+\cite[see][]{lusso+15}.
 
 % For figures use
 %
@@ -1467,9 +1481,9 @@ making it very difficult to assess the intrinsic flux
 %
 \caption{Comparison of the quasar composite spectrum derived
 from {\it HST} spectra of $z \sim 1$ quasars 
-\cite{telfer2001} with a composite spectrum derived
+\cite{telfer02} with a composite spectrum derived
 primarily from $z \sim 2$ quasars taken from the SDSS survey
-\cite{vandden0X}.  Each composite is normalized to unity
+\cite{vanden01}.  Each composite is normalized to unity
 at $\lambda_{\rm rest} \approx 1450$\AA.
 While there are notable differences in the
 strength and widths of the emission line features (dominated
@@ -1485,7 +1499,7 @@ Despite all of these vagaries and variabilities, the average
 quasar spectrum exhibits remarkably little evolution across
 cosmic time.  Figure~\ref{fig:qso_template}
 compares composite quasar SED spectra generated by
-averaging tens of $z \sim 1$ sources \cite{telfer01}
+averaging tens of $z \sim 1$ sources \cite{telfer02}
 and thousands of $z \sim 2$ sources \cite{vanden01}.
 There are significant differences in the broad emission
 lines (e.g.\ \lya, CIV~1550), but the underlying
@@ -1521,7 +1535,7 @@ figure in the following section.
 \label{fig:becker13_fig2}       % Give a unique label
 \end{figure}
 
-Historically, and even today \cite[e.g.]{kodiaq_dr2}, the majority of 
+Historically, and even today \cite[e.g.]{kodiaq_dr1}, the majority of 
 continuum normalization has been performed manually.  Redward
 of \lya\ emission, where absorption from intervening gas is
 minimal (e.g.\ Figure~\ref{fig:qso_SED}), one can identify
@@ -1560,7 +1574,7 @@ $\ket{\xi_j}$ are the Principal Components, and
 $c_{ij}$ are the eigenvalues.
 These eigenvectors are orthogonal and generally
 have little physical meaning.  The eigenvectors
-derived by \cite{susuki06}
+derived by \cite{suzuki06}
 are shown in Figure~\ref{fig:PCA} and they found
 the first 3 PCA components accounted for over
 80\%\ of the observed variance in the quasar spectra.
@@ -1595,7 +1609,7 @@ with these PCA eigenvectors outside the \lya\ forest
 the model to wavelengths impacted by the IGM.
 A more recent example of this technique is described
 in \cite{paris11}.  We also refer the student to analysis
-that includes Mean Flux Regulation \cite{lee11} where the
+that includes Mean Flux Regulation \cite{lee+12} where the
 PCA estimate is further refined in the \lya\ forest by
 imposing that the IGM opacity match the average (which
 we derive in a later section).
@@ -1910,7 +1924,7 @@ center of the bins will be (marginally) wrong.
 %\picplace{5cm}{2cm} % Give the correct figure height and width in cm
 %
 \caption{Binned evaluations of \fnhi\ from early data sets
-on the \lya\ forest (left) \cite{tytler87}, (right) \cite{petitjean93}.
+on the \lya\ forest (left) \cite{tytler87}, (right) \cite{petit93}.
 }
 \label{fig:binfN}       % Give a unique label
 \end{figure}
@@ -1922,7 +1936,7 @@ illustrate, over many orders of magnitude in \nhi, the
 data are reasonably  well-described with a power-law.
 This led \cite{tytler87}
 to propose a single-population of gas `clouds'.
-In contrast, \cite{petitjean93} observed significant
+In contrast, \cite{petit93} observed significant
 departures from a single power-law and 
 argued for distinct populations. Indeed, the
 modern data and interpretation is even more complex.
@@ -1998,9 +2012,9 @@ As the observational constrains have improved, the
 functional forms adopted for \fnhi\ have evolved from
 a single power-law \cite{tytler87},
 $\mfnhi = B N^\beta$
-to broken power-laws \cite{petitjean93,pro+10},
+to broken power-laws \cite{petit93,pow10},
 to broken, disjoint power-laws \cite{rudie13} 
-to the sum of several functional forms \cite{inoue14},
+to the sum of several functional forms \cite{inoue+14},
 to spline evaluations \cite{pro+14}.
 
 In the early days, simple $\chi^2$ analysis
@@ -2008,7 +2022,7 @@ was sufficient but these results
 are sensitive to the choice of bins and did
 not account for evolution within the bin.
 A more robust approach is to apply Maximum
-Likelihood techniques \cite{storrie96;cooksey2010}.
+Likelihood techniques \cite{sim96,ctp+10}.
 
 Consider a sightline sample with a survey total path $\Delta z$ 
 covering the interval $\delta z$ at redshift $z$ (refer
@@ -2070,7 +2084,7 @@ of the first term to derive
 \, + \, \smm_{j=1}^p \ln f(\mnhi)_j \Delta z
 \end{equation}
 If $\Delta z$ is independent of \nhi\ it may be ignored,
-but see \cite{cooksey10} for a treatment where
+but see \cite{ctp+10} for a treatment where
 $\Delta z$ is dependent on \nhi.
 
 Lastly, we maximize $\mathcal{L}$ for the parameterization of \fnhi\
@@ -2125,7 +2139,7 @@ to quasar HS~1946+7658 by \cite{kt97}.
 \label{fig:kt97_bN_scatter}       % Give a unique label
 \end{figure}
 
-\cite{hui99} derived a functional form for the $b$-value
+\cite{hr99} derived a functional form for the $b$-value
 distribution based on theoretical expectations (fluctuations
 in the IGM optical depth):
 \begin{equation}
@@ -2154,7 +2168,7 @@ This yields an average $b$-value
 % If no graphics program available, insert a blank space i.e. use
 %\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
 %
-\caption{Fit by \cite{hui99} to the observed $b$-value distribution of
+\caption{Fit by \cite{hr99} to the observed $b$-value distribution of
 lines in the \lya\ forest \cite{kt97}.  This one-parameter
 model has an average $b$-value of 32\,km/s.
 }
@@ -2369,7 +2383,7 @@ from sightline to sightline.
 This implies an underlying, stochastic density field
 associated with the underling large-scale structure of the
 universe.  While there is great scientific value in the
-undulations \cite[e.g.]{lee1X,natalie}, one may also derive
+undulations \cite[e.g.]{lee+15}, one may also derive
 value constraints and inferences from the mean opacity across
 cosmic time.  
 
@@ -2459,12 +2473,12 @@ the {\it pyigm} software package.
 %
 \caption{Differential contribution to 
 $\tau_{\rm eff, \alpha}$ for $z=2.5$ using the
-\fnhi\ function from \cite{p+14}.
+\fnhi\ function from \cite{pro+14}.
 }
 \label{fig:dteff}       % Give a unique label
 \end{figure}
 
-Using \fnhi\ from \cite{p+14}, %Prochaska+14
+Using \fnhi\ from \cite{pro+14}, %Prochaska+14
 we estimate $\tau_{\rm eff, \alpha} = 0.24$ at $z=2.5$.
 Figure~\ref{fig:dteff} shows the
 differential contribution with $\log \mnhi$.
@@ -2488,7 +2502,7 @@ depends on the choice of $N_{\rm min}$.
 %
 \caption{Measurements of the \lya\ decrement
 $D_A$ at $z \approx 2-3$ from a modest sample of
-quasar spectra, by \cite{k05}.
+quasar spectra, by \cite{kts+05}.
 }
 \label{fig:DA}       % Give a unique label
 \end{figure}
@@ -2496,7 +2510,7 @@ quasar spectra, by \cite{k05}.
 Returning to actual measurements of $\tau_{\rm eff,\alpha}$,
 the first results were derived from
 24 quasar spectra observed at Lick Observatory
-\cite{kirkman05}.  The authors employed an
+\cite{kts+05}.  The authors employed an
 `army' of undergrad students to fit continua,
 normalize the data, and assess
 systematic uncertainty.
@@ -2513,7 +2527,7 @@ at $z=2.5$.
 
 Analyzing a larger dataset ($\mathcal{N} \sim 100$)
 at higher spectral
-resolution, \cite{fg08} extended the results
+resolution, \cite{fpl+08} extended the results
 to $z=4$ and improved the precision of the
 measurements.  These authors
 %			\item Analyzed nearly 100 echelle spectra at $z>2$
@@ -2552,7 +2566,7 @@ measure $\tau_{\rm eff,\alpha}$ in stacked, composite spectra.
 Their analysis yields the relative evolution in $\tau_{\rm eff,\alpha}$
 with redshift (Figure~\ref{fig:rel_teff}).
 Tying their relative measurement to the absolute value at
-$z=2.5$ in \cite{fg08}, they report
+$z=2.5$ in \cite{fpl+08}, they report
 \begin{equation}
 \tau_{\rm eff, \alpha}(z) = 0.751 \ltp \frac{1+z}{1+3.5} 
 \rtp^{2.9}  - 0.132
@@ -2640,7 +2654,7 @@ $\alpha(T)$ is a power-law of the form,
 \alpha(T) \approx \alpha_0 T^{-0.7} \;\; .
 \end{equation}
 Lastly, one assumes the IGM gas follows a power-law temperature-density
-relation, (as derived from hydrodynamic analysis by \cite{hui97})
+relation, (as derived from hydrodynamic analysis by \cite{HuiGnedin97})
 \begin{equation}
 T = T_0 (1+\delta)^\beta
 \label{eqn:rhoT}
@@ -2676,16 +2690,16 @@ we can relate Equation~\ref{eqn:fgpa} to the data
 with the only significant unknown\footnote{There is a
 weak dependence on $T$ which leads to degeneracy.} 
 being the photoionization rate $\Gamma$.
-Figure~\ref{fig:Gamma} from \cite{fg08c}
+Figure~\ref{fig:Gamma} from \cite{flh+08b}
 shows estimates for $\Gamma$
-ased on the $\tau_{\rm eff,\alpha}$ measurements of 
-\cite{fg08a}.  The figure also shows their  
+based on the $\tau_{\rm eff,\alpha}$ measurements of 
+\cite{fpl+08}.  The figure also shows their  
 estimate for $\Gamma$ from quasars alone and the
 authors argued that star-forming galaxies
 must dominate the radiation field by $z \sim 3$.
 Recent work, however, has raised the possibility
 that faint quasars play as strong a role
-\cite{giallongo15,hm15} an issue that awaits
+\cite{giallongo+15,madau15} an issue that awaits
 deeper, high-$z$ surveys.
 
 \subsection{Effective Lyman Series Opacity}
@@ -2766,7 +2780,7 @@ For a $z=4$ galaxy, the $g$-band flux suffers a decrement
 of $\Delta m_g \approx 1$\,mag.
 This insight  led to the discovery
 of the first high-$z$ star-forming galaxies 
-\cite{madau95,steidel96,koo}.
+\cite{mad95,sgp+96,lkg+97}.
 This attenuation will also affect our \lya\ emitters (LAEs).
 At $z=5$, $\tau_{\rm eff, \alpha} \approx 1.5$ 
 which leads to an asymmetry in \lya\ emission. 
@@ -2793,7 +2807,7 @@ from the SDSS (black).  These are shown in the observer
 frame for $z=4$ (but were stacked in the rest-frame)
 and were normalized to unity at $\lambda_{\rm rest} = 1450$\AA.
 Overlayed on the data is a model using the quasar SED
-from \cite{telfer+02} and our estimate of the IGM transmission
+from \cite{telfer02} and our estimate of the IGM transmission
 from the full \HI\ Lyman series.  The excellent agreement
 (down to at least 4700\AA) is remarkable.
 }
@@ -2822,7 +2836,7 @@ in environments within and around galaxies as well, possibly,
 the denser gas within the IGM.  Work on the gas
 around galaxies (also referred to as the circumgalactic medium
 or CGM) indicates a high incidence of such gas to at least 100\,kpc
-\cite{bergeron,qpq5,p+17}.
+\cite{bb91,QPQ5,p+17}.
 In turn, the study of optically thick \HI\ bears
 on the accretion of gas onto galaxies (aka cold flows) and
 the flow of cool gas away from galaxies (aka feedback).
@@ -3032,7 +3046,7 @@ with optical depth of 1.
 
 Figure~\ref{fig:j0529} shows a real-world example, the
 LLS identified in the VLT/X-Shooter spectrum of 
-J0529--3526 taken from the XQ-100 Survey \cite{lopez16}.
+J0529--3526 taken from the XQ-100 Survey \cite{xq_100}.
 The LLS at $z \approx 4.37$ ($\lambda_{\rm LL} \approx 4900$\AA)
 absorbs approx 66\%\ of the quasar flux that is transmitting
 through the \lya\ forest.  This implies an optical depth
@@ -3054,7 +3068,7 @@ which completely absorbs the quasar flux (i.e.\ $\tau_{\rm LL} > 3$).
 %\picplace{5cm}{2cm} % Givethe correct figure height and width in cm
 %
 \caption{A portion of the quasar spectrum of J0529--3526 recorded
-by the XQ-100 survey \cite{lopez16}.  One observes a sharp break
+by the XQ-100 survey \cite{xq_100}.  One observes a sharp break
 in the flux at $\lambda \approx 4900$\AA\ corresponding the 
 Lyman limit opacity of an \HI\ absorber at $z \approx 4.37$.
 The flux decrement corresponds to an optical depth of 
@@ -3375,7 +3389,7 @@ From cosmology,  the physical distance is
 and we estimate $\Delta r \approx 100$\,Mpc
 (see also the {\it Optically\_Thick} Notebook).
 This exceeds the mean separation between faint
-quasars by a factor of $3-10$ \cite{fg09}.
+quasars by a factor of $3-10$ \cite{flz+09}.
 Therefore, we expect each volume in the universe sees
 the radiation from multiple sources, although we caution
 that the opacity to ionizing photons may be dominated
@@ -3411,7 +3425,7 @@ from z=0 to 7.  In this parameter space, quasars only separate
 themselves from stars when they have a {\it red} $u-g$ color.
 This occur for $z=3$ quasars when an intervening LLS absorbs
 the $u$-band flux.
-Taken from \cite{richards06}.
+Taken from \cite{RichardsSED06}.
 }
 \label{fig:stack_saw}       % Give a unique label
 \end{figure}
@@ -3544,7 +3558,7 @@ greatly declines ($n_c$) and/or their physical size ($A_p$)
 is decreasing.
 
 Consider a toy model of dark matter halos within hierarchical
-cosmology \cite{f13}.  This model yields a prediction for
+cosmology \cite{fop+13}.  This model yields a prediction for
 $\ell(X)$ with redshift according to assumptions made on the
 covering fraction $f_c$ of optically thick gas in each halo.
 
@@ -3562,7 +3576,7 @@ expresses the comoving number density.
 Figure~\ref{fig:f13_fig12} compares this toy model against
 the observations for several assumptions on $f_c$ with each
 tuned to match at $z \approx 3$
-\cite{f13}.  The red dotted line in the Figure assumes
+\cite{fop+13}.  The red dotted line in the Figure assumes
 constant $f_c$ with redshift.  Because of the growth of
 structure with decreasing redshift in our cosmology,
 this model predicts a steep {\it increase} in $\ell(X)$
@@ -3606,7 +3620,7 @@ This is a fundamental
 input to calculations of the extragalactic UV background (EUVB).
 Specifically, the mean free path \lmfp\ 
 relates the emissivity of sources to the mean intensity
-\cite{hm96,fg08}:
+\cite{hm96,flz+09}:
 \begin{equation}
 J_\nu(z) \approx \frac{1}{4 \pi} \, \mlmfp \, \epsilon_\nu(z)
 \end{equation}
@@ -3689,7 +3703,7 @@ must account for the frequency dependence of $\sigma_{\rm photo}$
 \label{fig:teff_LL}       % Give a unique label
 \end{figure}
 
-For the \fnhi\ model of \cite{p14}, we calculate \tll\
+For the \fnhi\ model of \cite{pro+14}, we calculate \tll\
 as shown in Figure~\ref{fig:teff_LL}.
 Of course, \tll\ rises with decreasing redshift as the photons
 are traveling ever greater distances from the source.
@@ -3704,7 +3718,7 @@ because the Lyman series lines lie
 on the saturated portion of the COG.  Furthermore, 
 line-blending poses a significant problem and 
 surveys of $\tau \approx 1$ LLS are difficult to perform.
-Indeed, the \fnhi\ function of \cite{p14} used an estimation
+Indeed, the \fnhi\ function of \cite{pro+14} used an estimation
 of \lmfp\ as a constraint at $\mnhi \lesssim 10^{17} \cm{-2}$. 
 
 \cite{pwo09} proposed a new method to directly assess 
@@ -3778,9 +3792,9 @@ and sample variance (estimated from a bootstrap approach).
 \end{figure}
 
 Model fits to composite quasar spectra at $z \sim 4$ are 
-shown in Figure~\ref{fig:pwo_fig2} from \cite{pow09}.
+shown in Figure~\ref{fig:pwo_fig2} from \cite{pwo09}.
 Similar analysis has been performed at a range of redshifts
-by \cite{omeara13,f13,worseck14}.
+by \cite{omeara13,fop+13,worseck+14}.
 Each composite yields an estimate of \lmfp\ by estimating the
 distrance where the flux is attenuated by $\rm e^{-1}$.
 These are presented in Figure~\ref{fig:w14_fig10}.
@@ -3829,7 +3843,7 @@ of ionizing photons from galaxies $f_{\rm esc}$.
 The observational experiment is to directly observe the flux
 of a galaxy (e.g.\ at $z=3$) at wavelengths
 just blueward of its Lyman limit.  For this, one employs
-a narrow-band filter \cite[e.g.]{nestor1X}
+a narrow-band filter \cite[e.g.]{nsk+13}
 or integrates a spectrum near
 the the Lyman limit: $<f_\nu>_{\rm LL,obs}$.
 The escape fraction is then defined as the
@@ -3868,7 +3882,7 @@ of reionization.
 We conclude our discussion of LLS with a few additional comments
 on the origin of optically thick gas in a cosmological context.
 Early cosmological simulations woefully underpredicted
-the incidence of LLS \cite{gardner01}.   In hindsight, this
+the incidence of LLS \cite{gkh+01}.   In hindsight, this
 was not surprising; the requirements to model LLS on simulations
 are steep.
 LLS are from non-linear structure formation and
@@ -3880,11 +3894,11 @@ simulations.
 
 More recently, theory has connected LLS to an emerging paradigm
 for accreting cold ($T \sim 10^4$) gas onto galaxies,
-a.k.a. cold streams or cold flows \cite[e.g.]{keres05,db06}.
+a.k.a. cold streams or cold flows \cite[e.g.]{db06,keres09a}.
 Such gas may be optically thick (or partially optically thick)
 and a series of papers have associated at least a fraction
 of LLS with these streams
-\cite[e.g.]{fg11,f11,voort12}.
+\cite[e.g.]{fg11,fpk+11,freeke12}.
 An illustration of the results is shown
 in Figure~\ref{fig:f11_fig3}.
 Here one finds		
@@ -3954,7 +3968,7 @@ until an observed break at $\mnhi \approx 10^{21.7} \cm{-2}$
 (Figure~\ref{fig:phw05_fN}).
 This break may be naturally understood in a simple model
 of DLAs as a population of randomly inclined exponential disks
-\cite{fp93,wolfe95}.
+\cite{fall93,wlf+95}.
 Assume a face-on column density distribution with radius $r$
 \begin{equation}
 N_\perp (r) = N_{\perp,0} \, \exp(-r/r_d)
@@ -3981,7 +3995,7 @@ f(N,X) =
 The first term scales as $N^{-2}$ for $N \ll N_{\perp,0}$
 i.e., we expect a broken power-law!
 
-A larger sample of DLAs has been analyzed by \cite{noterdaeme12}
+A larger sample of DLAs has been analyzed by \cite{noterdaeme+12}
 from BOSS.
 The report an approximately $\mnhi^{-3}$ decline at the highest column 
 densities and the
@@ -4009,7 +4023,7 @@ with $\mnhi > 10^{22} \cm{-2}$.
 Surprisingly, the \fnhi\ distribution for DLAs shows
 very weak evolution in its shape across cosmic time.
 This includes $z=0$, i.e.\ 21\,cm observations 
-\cite{zwaan05} (but see \cite{braun12}).
+\cite{zvb+05} (but see \cite{braun12}).
 This implies a nearly non-evolving population of HI gas from $z=2$ to 0
 
 % For figures use
@@ -4083,7 +4097,7 @@ are otherwise difficult to measure
 \lmfp\ measurements indicate an inflection in \fnhi\ at these
 \nhi\ values
 Suggested by theory, at this transition from optically thin to thick
-\cite{zm02,altay11}.
+\cite{zheng02,altay11}.
 
 %
 \begin{acknowledgement}
@@ -4116,6 +4130,7 @@ Acknowledge the NSF.  Wolfe.  Blumenthal
 
 
 %\input{referenc}
-% \bibliographystyle{}
-% \bibliography{}
+\bibliographystyle{spbasic}
+\bibliography{HI_ref}
+
 \end{document}
