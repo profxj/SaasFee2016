@@ -1,0 +1,22 @@
+We review studies of the intergalctic medium (IGM) via 
+\HI\ absorption with emphasis on the decades of previous
+research with quasar absorption line studies.
+The chapter begins with a historical perspective
+and then offers a pedagogical description of the 
+quantum mechanics underlying the Lyman series and 
+Lyman continuum opacity of the \HI\ atom.
+We describe the manifestation of these opacities in 
+absorption spectroscopy and the challenges related to
+normalization of quasar emission.  Standard measurement
+techniques (equivalent width, line-profile fitting) are
+introduced.  We then introduce the \nhi\ frequency distribution
+\fnhi\ and efforts to constrain this distribution across
+cosmic time with emphasis on the optically thin \lya\ forest.   
+A discussion of optically gas (Lyman limit systems and
+damped \lya\ systems) and its relation to the mean free path
+is presented.
+Online presentations and Python notebooks supplement
+this chapter with examples, a review of modern work, and 
+thoughts on future progress.  
+See https://github.com/profxj/SaasFee2016
+for additional resources.
