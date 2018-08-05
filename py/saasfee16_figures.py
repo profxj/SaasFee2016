@@ -1523,6 +1523,84 @@ def j0529():
     plt.subplots_adjust(hspace=0)
     plt.savefig(outfil)
 
+def lya_lines():
+    """ Idealized Lya lines
+    """
+    from linetools.spectra import utils as lspecu
+    outfil = 'Figures/fig_lya_lines.pdf'
+
+    # Generate a simple Lya line
+    lya = AbsLine(1215.6700*u.AA)
+    bval = 20.
+    lya.attrib['b'] = bval * u.km/u.s
+    lya.attrib['z'] = 0.
+
+    # Spectrum
+    wave = np.linspace(1180., 1250., 20000) * u.AA
+
+    fig = plt.figure(figsize=(7.0, 5.0))
+
+    plt.clf()
+    gs = gridspec.GridSpec(1, 2)
+
+    # Vary NHI
+    ax0 = plt.subplot(gs[0])
+
+    for NHI in [12,13,14,15]:
+        lya.attrib['N'] = 10.**(NHI)/u.cm**2
+        f_obs = ltav.voigt_from_abslines(wave, [lya])
+        # Plot
+        ax0.plot(wave, f_obs.flux, label=r'$\log N_{\rm HI} = $'+'{:d}'.format(int(NHI)))
+    # ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
+    ax0.xaxis.set_major_locator(plt.MultipleLocator(1.))
+    ax0.set_xlim(1214.9, 1216.3)
+    ax0.set_ylim(-0.1,1.1)
+    ax0.set_ylabel(r'Normalized Flux')
+    ax0.set_xlabel(r'Wavelength (Ang)')
+
+    ax0.plot([1200., 1300.], [0,0], ':', color='gray', alpha=0.5)
+    asz = 15.
+    set_fontsize(ax0, asz)
+    ax0.minorticks_on()
+
+    # Legend
+    lsz = 9.
+    legend = ax0.legend(loc='lower left', scatterpoints=1, borderpad=0.3,
+        handletextpad=0.3, fontsize=lsz, numpoints=1)
+
+    #
+
+    # Vary NHI
+    ax1 = plt.subplot(gs[1])
+
+    vel = (wave.value-1215.67)/1215.67 * 3e5
+    lya.attrib['N'] = 10. ** (14.) / u.cm ** 2
+    for bval in [20., 30., 50, 80]:
+        lya.attrib['b'] = bval * u.km/u.s
+        f_obs = ltav.voigt_from_abslines(wave, [lya])
+        # Plot
+        ax1.plot(vel, f_obs.flux, label=r'$b = $' + '{:d} km/s'.format(int(bval)))
+    # ax.xaxis.set_minor_locator(plt.MultipleLocator(0.5))
+    #ax1.xaxis.set_major_locator(plt.MultipleLocator(1.))
+    ax1.set_xlim(-199., 199.)
+    ax1.set_ylim(-0.1, 1.1)
+    ax1.set_ylabel(r'Normalized Flux')
+    ax1.set_xlabel(r'Relative Velocity (km/s)')
+
+    ax1.plot([-1200., 1300.], [0, 0], ':', color='gray', alpha=0.5)
+    set_fontsize(ax1, asz)
+    ax1.minorticks_on()
+
+    # Legend
+    legend = ax1.legend(loc='lower left', scatterpoints=1, borderpad=0.3,
+                        handletextpad=0.3, fontsize=lsz, numpoints=1)
+
+    # Layout and save
+    print('Writing {:s}'.format(outfil))
+    plt.tight_layout(pad=0.2, h_pad=0.0, w_pad=0.4)
+    plt.subplots_adjust(hspace=0)
+    plt.savefig(outfil)
+
 def set_fontsize(ax,fsz):
     '''
     Generate a Table of columns and so on
@@ -1639,6 +1717,10 @@ def main(flg_fig):
     if (flg_fig % 2**22) >= 2**21:
         j0529()
 
+    # Lya lines
+    if (flg_fig % 2**23) >= 2**22:
+        lya_lines()
+
 
 # Command line execution
 if __name__ == '__main__':
@@ -1657,7 +1739,7 @@ if __name__ == '__main__':
         #flg_fig += 2**9   # IGM transmission
         #flg_fig += 2**10   # IGM transmission
         #flg_fig += 2**11   # WFC3 QSO
-        flg_fig += 2**12   # dXdz
+        #flg_fig += 2**12   # dXdz
         #flg_fig += 2**13   # teff_LL
         #flg_fig += 2**14   # MFP stacked spectrum
         #flg_fig += 2**15   # DLA with NHI
@@ -1667,6 +1749,7 @@ if __name__ == '__main__':
         #flg_fig += 2**19   #
         #flg_fig += 2**20   # Idealized LLS
         #flg_fig += 2**21   # J0529
+        flg_fig += 2**22   # Lya lines
     else:
         flg_fig = sys.argv[1]
 
